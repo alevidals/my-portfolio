@@ -1,17 +1,15 @@
 "use client";
 
+import { login } from "@/app/(auth)/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useState } from "react";
-import { login } from "@/app/(auth)/_actions";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [state, action, pending] = useActionState(login, {
-    email: "",
-  });
+  const [state, action, pending] = useActionState(login, null);
 
   return (
     <div className="min-h-dvh p-6 grid grid-cols-2">
@@ -32,16 +30,23 @@ export default function LoginPage() {
             type="email"
             name="email"
             placeholder="Email"
+            autoComplete="email"
             required
             className="h-14"
+            defaultValue={state?.data?.email}
           />
+          {state?.errors?.email && (
+            <p className="text-red-500 text-sm mt-1">{state?.errors?.email}</p>
+          )}
           <div className="relative mt-6">
             <Input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
               className="h-14 pr-10"
+              defaultValue={state?.data?.password}
             />
             <Button
               type="button"
@@ -58,6 +63,11 @@ export default function LoginPage() {
               )}
             </Button>
           </div>
+          {state?.errors?.password && (
+            <p className="text-red-500 text-sm mt-1">
+              {state?.errors?.password}
+            </p>
+          )}
           <Button
             type="submit"
             className="mt-8 h-14 w-full text-base"
