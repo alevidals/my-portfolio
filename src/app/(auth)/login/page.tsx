@@ -12,21 +12,26 @@ export default function LoginPage() {
   const [state, action, pending] = useActionState(login, null);
 
   return (
-    <div className="min-h-dvh p-6 grid grid-cols-2">
-      <section className="bg-gradient-to-r from-zinc-700 via-zinc-800 to-zinc-900 rounded-2xl" />
-      <section className="p-28 flex flex-col justify-center">
-        <h1 className="text-6xl font-medium">Welcome back! Please login.</h1>
+    <div className="min-h-dvh p-6 grid grid-cols-1 lg:grid-cols-2">
+      <section className="hidden lg:flex bg-gradient-to-r from-zinc-700 via-zinc-800 to-zinc-900 rounded-2xl" />
+      <section className="p-6 md:p-16 flex flex-col justify-center">
+        <h1 className="text-4xl xl:text-5xl font-medium">Welcome back!</h1>
         <p className="text-muted-foreground font-light mt-4 mb-8">
           Don't have an account?{" "}
           <Link
             href="/register"
             className="text-primary underline underline-offset-2"
+            aria-label="Register a new account"
           >
             Register
           </Link>
         </p>
         <form action={action}>
+          <label htmlFor="email" className="sr-only">
+            Email
+          </label>
           <Input
+            id="email"
             type="email"
             name="email"
             placeholder="Email"
@@ -34,12 +39,23 @@ export default function LoginPage() {
             required
             className="h-14"
             defaultValue={state?.data?.email}
+            aria-describedby="email-error"
           />
           {state?.errors?.email && (
-            <p className="text-red-500 text-sm mt-1">{state?.errors?.email}</p>
+            <p
+              id="email-error"
+              className="text-red-500 text-sm mt-1"
+              role="alert"
+            >
+              {state?.errors?.email}
+            </p>
           )}
           <div className="relative mt-6">
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
             <Input
+              id="password"
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
@@ -47,6 +63,7 @@ export default function LoginPage() {
               required
               className="h-14 pr-10"
               defaultValue={state?.data?.password}
+              aria-describedby="password-error"
             />
             <Button
               type="button"
@@ -57,14 +74,20 @@ export default function LoginPage() {
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
-                <EyeOff className="w-4 h-4 text-muted-foreground" />
+                <EyeOff
+                  className="w-4 h-4 text-muted-foreground"
+                  aria-hidden="true"
+                />
               ) : (
-                <Eye className="w-4 h-4 text-muted-foreground" />
+                <Eye
+                  className="w-4 h-4 text-muted-foreground"
+                  aria-hidden="true"
+                />
               )}
             </Button>
           </div>
           {state?.errors?.password && (
-            <p className="text-red-500 text-sm mt-1">
+            <p id="password-error" className="text-red-500 text-sm mt-1">
               {state?.errors?.password}
             </p>
           )}
@@ -72,8 +95,13 @@ export default function LoginPage() {
             type="submit"
             className="mt-8 h-14 w-full text-base"
             disabled={pending}
+            aria-label={pending ? "Logging in, please wait" : "Login"}
           >
-            {pending ? <Loader2 className="animate-spin" /> : "Login"}
+            {pending ? (
+              <Loader2 className="animate-spin" aria-hidden="true" />
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
       </section>
