@@ -15,3 +15,6 @@ export const usersSchema = sqliteTable("users", {
   contactEmail: text("contact_email"),
   created_at: text().default(sql`(CURRENT_TIMESTAMP)`),
 });
+
+export type InsertUser = typeof usersSchema.$inferInsert;
+export type SelectUser = typeof usersSchema.$inferSelect;

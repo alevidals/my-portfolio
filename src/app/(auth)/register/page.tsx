@@ -1,9 +1,10 @@
 "use client";
 
 import { register } from "@/app/(auth)/_actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useState } from "react";
 
@@ -26,6 +27,13 @@ export default function RegisterPage() {
             Login
           </Link>
         </p>
+        {!state?.success && state?.message && (
+          <Alert variant="destructive" className="mb-8">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{state.message}</AlertDescription>
+          </Alert>
+        )}
         <form action={action}>
           <div className="grid grid-cols-2 gap-4">
             <div>

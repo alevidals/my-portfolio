@@ -1,5 +1,7 @@
 "use server";
 
+import { hashPassword, setSession } from "@/lib/auth";
+import { addUser, existsUser } from "@/lib/db/queries/users";
 import { type FormResponse, validateAction } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -94,11 +96,51 @@ export async function register(
   }
 
   const {
-    data: { name, surname, email, username, password },
+    data: { email, username, password },
   } = validate;
 
-  // Perform registration logic here
-  console.log({ name, surname, email, username, password });
+  const existingUser = await existsUser({ email, username });
 
-  return redirect("/");
+  if (existingUser) {
+    if (existingUser.email === email) {
+      return {
+        success: false,
+        errors: {
+          email: "Email already in use",
+        },
+        data: validate.data,
+      };
+    }
+
+    if (existingUser.username === username) {
+      return {
+        success: false,
+        errors: {
+          username: "Username already in use",
+        },
+        data: validate.data,
+      };
+    }
+  }
+
+  const hashedPassword = await hashPassword({ password });
+
+  const createdUser = await addUser({
+    ...validate.data,
+    password: hashedPassword,
+  });
+
+  if (!createdUser) {
+    return {
+      success: false,
+      message: "Failed to create user",
+      data: validate.data,
+    };
+  }
+
+  //  TODO: send a confirmation email (resend)
+
+  await setSession({ userId: createdUser.id });
+
+  redirect("/");
 }

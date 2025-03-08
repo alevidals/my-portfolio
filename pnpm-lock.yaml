@@ -14,6 +14,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: 1.1.2
         version: 1.1.2(@types/react@19.0.10)(react@19.0.0)
+      bcryptjs:
+        specifier: 3.0.2
+        version: 3.0.2
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -23,6 +26,9 @@ importers:
       drizzle-orm:
         specifier: 0.40.0
         version: 0.40.0(@libsql/client@0.14.0)(gel@2.0.0)
+      jose:
+        specifier: 6.0.8
+        version: 6.0.8
       lucide-react:
         specifier: 0.477.0
         version: 0.477.0(react@19.0.0)
@@ -767,6 +773,10 @@ packages:
   '@types/ws@8.5.14':
     resolution: {integrity: sha512-bd/YFLW+URhBzMXurx7lWByOu+xzU9+kb3RboOteXYDfW+tr+JZa99OyNmPINEGB/ahzKrEuc8rcv4gnpJmxTw==}
 
+  bcryptjs@3.0.2:
+    resolution: {integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==}
+    hasBin: true
+
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
@@ -975,6 +985,9 @@ packages:
   jiti@2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
+
+  jose@6.0.8:
+    resolution: {integrity: sha512-EyUPtOKyTYq+iMOszO42eobQllaIjJnwkZ2U93aJzNyPibCy7CEvT9UQnaCVB51IAd49gbNdCew1c0LcLTCB2g==}
 
   js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
@@ -1669,6 +1682,8 @@ snapshots:
     dependencies:
       '@types/node': 20.17.23
 
+  bcryptjs@3.0.2: {}
+
   buffer-from@1.1.2: {}
 
   busboy@1.6.0:
@@ -1832,6 +1847,8 @@ snapshots:
   isexe@3.1.1: {}
 
   jiti@2.4.2: {}
+
+  jose@6.0.8: {}
 
   js-base64@3.7.7: {}
 
