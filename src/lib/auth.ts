@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
@@ -7,6 +7,11 @@ const KEY = new TextEncoder().encode(process.env.AUTH_SECRET);
 
 type HashPasswordParams = {
   password: string;
+};
+
+type ComparePasswordsParams = {
+  password: string;
+  hashedPassword: string;
 };
 
 type SetSessionParams = {
@@ -26,6 +31,13 @@ type SessionData = {
 
 export async function hashPassword({ password }: HashPasswordParams) {
   return hash(password, SALT_ROUNDS);
+}
+
+export async function comparePasswords({
+  password,
+  hashedPassword,
+}: ComparePasswordsParams) {
+  return await compare(password, hashedPassword);
 }
 
 async function signToken({ payload }: SignTokenParams) {

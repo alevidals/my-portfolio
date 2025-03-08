@@ -3,6 +3,8 @@ import { usersSchema, type InsertUser } from "@/lib/db/schema";
 
 type ExistsUserParams = Pick<InsertUser, "email" | "username">;
 
+type ExistsUserWithPasswordParams = Pick<InsertUser, "email">;
+
 export async function existsUser({ email, username }: ExistsUserParams) {
   try {
     const user = await db.query.usersSchema.findFirst({
@@ -12,6 +14,25 @@ export async function existsUser({ email, username }: ExistsUserParams) {
       },
       where: (usersSchema, { eq, or }) =>
         or(eq(usersSchema.email, email), eq(usersSchema.username, username)),
+    });
+
+    return user;
+  } catch {
+    return undefined;
+  }
+}
+
+export async function existsUserWithPassword({
+  email,
+}: ExistsUserWithPasswordParams) {
+  try {
+    const user = await db.query.usersSchema.findFirst({
+      columns: {
+        id: true,
+        email: true,
+        password: true,
+      },
+      where: (usersSchema, { eq }) => eq(usersSchema.email, email),
     });
 
     return user;

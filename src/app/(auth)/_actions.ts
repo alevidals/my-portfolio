@@ -1,7 +1,11 @@
 "use server";
 
-import { hashPassword, setSession } from "@/lib/auth";
-import { addUser, existsUser } from "@/lib/db/queries/users";
+import { comparePasswords, hashPassword, setSession } from "@/lib/auth";
+import {
+  addUser,
+  existsUser,
+  existsUserWithPassword,
+} from "@/lib/db/queries/users";
 import { type FormResponse, validateAction } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -34,10 +38,37 @@ export async function login(
     data: { email, password },
   } = validate;
 
-  // Perform login logic here
-  console.log({ email, password });
+  // check if the user exists
+  const user = await existsUserWithPassword({ email });
 
-  return redirect("/");
+  if (!user) {
+    return {
+      success: false,
+      errors: {
+        email: "User not found",
+      },
+      data: validate.data,
+    };
+  }
+
+  const passwordMatch = await comparePasswords({
+    password,
+    hashedPassword: user.password,
+  });
+
+  if (!passwordMatch) {
+    return {
+      success: false,
+      errors: {
+        password: "Invalid email or password",
+      },
+      data: validate.data,
+    };
+  }
+
+  await setSession({ userId: user.id });
+
+  redirect("/");
 }
 
 const passwordSchema = z
