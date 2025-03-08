@@ -52,7 +52,9 @@ export default function RegisterPage() {
                 required
                 className="h-14"
                 defaultValue={state?.data?.name}
-                aria-describedby="name-error"
+                aria-describedby={
+                  state?.errors?.name ? "name-error" : undefined
+                }
               />
               {state?.errors?.name && (
                 <p
@@ -77,7 +79,9 @@ export default function RegisterPage() {
                 required
                 className="h-14"
                 defaultValue={state?.data?.surname}
-                aria-describedby="surname-error"
+                aria-describedby={
+                  state?.errors?.surname ? "surname-error" : undefined
+                }
               />
               {state?.errors?.surname && (
                 <p
@@ -104,7 +108,9 @@ export default function RegisterPage() {
                 required
                 className="h-14"
                 defaultValue={state?.data?.email}
-                aria-describedby="email-error"
+                aria-describedby={
+                  state?.errors?.email ? "email-error" : undefined
+                }
               />
               {state?.errors?.email && (
                 <p
@@ -121,6 +127,7 @@ export default function RegisterPage() {
                 Username
               </label>
               <Input
+                id="username"
                 type="text"
                 name="username"
                 placeholder="Username"
@@ -128,7 +135,9 @@ export default function RegisterPage() {
                 required
                 className="h-14"
                 defaultValue={state?.data?.username}
-                aria-describedby="username-error"
+                aria-describedby={
+                  state?.errors?.username ? "username-error" : undefined
+                }
               />
               {state?.errors?.username && (
                 <p
@@ -156,7 +165,9 @@ export default function RegisterPage() {
                   required
                   className="h-14 pr-10"
                   defaultValue={state?.data?.password}
-                  aria-describedby="password-error"
+                  aria-describedby={
+                    state?.errors?.password ? "password-error" : undefined
+                  }
                 />
                 <Button
                   type="button"
@@ -203,7 +214,11 @@ export default function RegisterPage() {
                   required
                   className="h-14 pr-10"
                   defaultValue={state?.data?.passwordConfirmation}
-                  aria-describedby="password-confirmation-error"
+                  aria-describedby={
+                    state?.errors?.passwordConfirmation
+                      ? "password-confirmation-error"
+                      : undefined
+                  }
                 />
                 <Button
                   type="button"

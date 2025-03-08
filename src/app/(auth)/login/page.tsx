@@ -39,7 +39,7 @@ export default function LoginPage() {
             required
             className="h-14"
             defaultValue={state?.data?.email}
-            aria-describedby="email-error"
+            aria-describedby={state?.errors?.email ? "email-error" : undefined}
           />
           {state?.errors?.email && (
             <p
@@ -63,7 +63,9 @@ export default function LoginPage() {
               required
               className="h-14 pr-10"
               defaultValue={state?.data?.password}
-              aria-describedby="password-error"
+              aria-describedby={
+                state?.errors?.password ? "password-error" : undefined
+              }
             />
             <Button
               type="button"
