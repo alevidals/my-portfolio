@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useActionState, useState } from "react";
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
   const [showPassword, setShowPassword] = useState(false);
   const [state, action, pending] = useActionState(login, null);
 
@@ -25,6 +28,7 @@ export default function LoginPage() {
         </Link>
       </p>
       <form action={action}>
+        <input type="hidden" name="redirectTo" value={redirectTo ?? ""} />
         <label htmlFor="email" className="sr-only">
           Email
         </label>

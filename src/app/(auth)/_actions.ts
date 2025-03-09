@@ -18,6 +18,7 @@ const loginSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be at least 8 characters",
   }),
+  redirectTo: z.string().optional(),
 });
 
 type Login = z.infer<typeof loginSchema>;
@@ -36,10 +37,9 @@ export async function login(
   }
 
   const {
-    data: { email, password },
+    data: { email, password, redirectTo },
   } = validate;
 
-  // check if the user exists
   const user = await existsUserWithPassword({ email });
 
   if (!user) {
@@ -69,7 +69,7 @@ export async function login(
 
   await setSession({ userId: user.id });
 
-  redirect("/");
+  redirect(redirectTo || "/dashboard");
 }
 
 const passwordSchema = z

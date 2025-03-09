@@ -40,7 +40,7 @@ export async function comparePasswords({
   return await compare(password, hashedPassword);
 }
 
-async function signToken({ payload }: SignTokenParams) {
+export async function signToken({ payload }: SignTokenParams) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
