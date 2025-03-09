@@ -15,7 +15,7 @@ export default function LoginPage() {
     <div className="min-h-dvh p-6 grid grid-cols-1 lg:grid-cols-2">
       <section className="hidden lg:flex bg-gradient-to-r from-zinc-700 via-zinc-800 to-zinc-900 rounded-2xl" />
       <section className="p-6 md:p-16 flex flex-col justify-center">
-        <h1 className="text-4xl xl:text-5xl font-medium">Welcome back!</h1>
+        <h2 className="text-4xl xl:text-5xl font-medium">Welcome back!</h2>
         <p className="text-muted-foreground font-light mt-4 mb-8">
           Don't have an account?{" "}
           <Link

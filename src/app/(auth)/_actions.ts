@@ -7,6 +7,7 @@ import {
   existsUserWithPassword,
 } from "@/lib/db/queries/users";
 import { type FormResponse, validateAction } from "@/lib/utils";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -173,5 +174,10 @@ export async function register(
 
   await setSession({ userId: createdUser.id });
 
+  redirect("/");
+}
+
+export async function signOut() {
+  (await cookies()).delete("session");
   redirect("/");
 }

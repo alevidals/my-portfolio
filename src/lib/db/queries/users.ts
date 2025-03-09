@@ -1,5 +1,7 @@
+import { verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { usersSchema, type InsertUser } from "@/lib/db/schema";
+import { cookies } from "next/headers";
 
 type ExistsUserParams = Pick<InsertUser, "email" | "username">;
 
@@ -51,4 +53,39 @@ export async function addUser(user: InsertUser) {
   } catch {
     return undefined;
   }
+}
+
+export async function getUser() {
+  const sessionCookie = (await cookies()).get("session");
+
+  if (!sessionCookie || !sessionCookie.value) {
+    return null;
+  }
+
+  const sessionData = await verifyToken({ token: sessionCookie.value });
+
+  if (!sessionData || !sessionData.user || !sessionData.user.id) {
+    return null;
+  }
+
+  if (new Date(sessionData.expires) < new Date()) {
+    return null;
+  }
+
+  const user = await db.query.usersSchema.findFirst({
+    columns: {
+      id: true,
+      name: true,
+      surname: true,
+      username: true,
+      email: true,
+    },
+    where: (usersSchema, { eq }) => eq(usersSchema.id, sessionData.user.id),
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  return user;
 }

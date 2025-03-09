@@ -17,9 +17,9 @@ export default function RegisterPage() {
   return (
     <div className="min-h-dvh p-6 grid grid-cols-1 lg:grid-cols-2">
       <section className="p-6 md:p-16 flex flex-col justify-center">
-        <h1 className="text-2xl md:text-4xl xl:text-5xl font-medium">
+        <h2 className="text-2xl md:text-4xl xl:text-5xl font-medium">
           Create an account
-        </h1>
+        </h2>
         <p className="text-muted-foreground font-light mt-4 mb-8">
           Already have an account?{" "}
           <Link

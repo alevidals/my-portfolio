@@ -1,5 +1,5 @@
 import { compare, hash } from "bcryptjs";
-import { SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 const SALT_ROUNDS = 10;
@@ -46,6 +46,14 @@ async function signToken({ payload }: SignTokenParams) {
     .setIssuedAt()
     .setExpirationTime("1 week from now")
     .sign(KEY);
+}
+
+export async function verifyToken({ token }: { token: string }) {
+  const { payload } = await jwtVerify(token, KEY, {
+    algorithms: ["HS256"],
+  });
+
+  return payload as SessionData;
 }
 
 export async function setSession({ userId }: SetSessionParams) {

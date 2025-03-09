@@ -4,9 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
 }
 
 :root {
