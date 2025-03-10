@@ -9,7 +9,10 @@
     "format": "biome format ./src",
     "format:fix": "biome format ./src --fix",
     "lint": "biome lint ./src",
-    "lint:fix": "biome lint ./src --fix"
+    "lint:fix": "biome lint ./src --fix",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@libsql/client": "0.14.0",
