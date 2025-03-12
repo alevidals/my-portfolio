@@ -174,7 +174,7 @@ export async function register(
 
   await setSession({ userId: createdUser.id });
 
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function signOut() {
