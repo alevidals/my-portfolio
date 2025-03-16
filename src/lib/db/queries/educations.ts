@@ -7,6 +7,11 @@ type GetEducationsParams = {
   userId: string;
 };
 
+type UpdateEducationsParams = {
+  userId: string;
+  education: InsertEducation;
+};
+
 type DeleteEducationsParams = {
   id: string;
   userId: string;
@@ -71,6 +76,34 @@ async function belongsEducationToUser({
     return !!education;
   } catch {
     return false;
+  }
+}
+
+export async function updateEducation({
+  userId,
+  education,
+}: UpdateEducationsParams) {
+  try {
+    if (!education.id) {
+      return undefined;
+    }
+
+    const belongsToUser = await belongsEducationToUser({
+      id: education.id,
+      userId,
+    });
+
+    if (!belongsToUser) {
+      return undefined;
+    }
+
+    await db
+      .update(educationsSchema)
+      .set(education)
+      .where(eq(educationsSchema.id, education.id));
+    return education;
+  } catch {
+    return undefined;
   }
 }
 

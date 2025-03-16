@@ -45,6 +45,10 @@ export function Educations({ educations }: Props) {
                 </p>
                 <div className="flex gap-4 mt-2">
                   <DeleteEducationDialog educationId={education.id} />
+                  <AddEducationModal
+                    key={JSON.stringify(education)}
+                    education={education}
+                  />
                 </div>
               </AccordionContent>
             </AccordionItem>
