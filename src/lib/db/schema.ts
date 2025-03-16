@@ -102,3 +102,5 @@ export const projectTechnologiesRelations = relations(
 
 export type InsertUser = typeof usersSchema.$inferInsert;
 export type SelectUser = typeof usersSchema.$inferSelect;
+
+export type InsertEducation = typeof educationsSchema.$inferInsert;
