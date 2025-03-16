@@ -10,9 +10,12 @@ import type { InsertEducation } from "@/lib/db/schema";
 import { validateAction } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 import { z } from "zod";
 
 type BaseEducation = z.infer<typeof baseEducationSchema>;
+
+const cachedGetUser = cache(getUser);
 
 function validateEducationDates(val: BaseEducation, ctx: z.RefinementCtx) {
   if (val.endMonth && !val.endYear) {
@@ -71,7 +74,7 @@ const addEducationSchema = baseEducationSchema.superRefine(
 );
 
 export async function addEducation(_: unknown, formData: FormData) {
-  const user = await getUser();
+  const user = await cachedGetUser();
 
   if (!user) {
     redirect("/login");
@@ -101,7 +104,7 @@ export async function addEducation(_: unknown, formData: FormData) {
     userId: user.id,
   };
 
-  const createdEducation = await addEducationQuery(education);
+  const createdEducation = await addEducationQuery({ education });
 
   if (!createdEducation) {
     return {
@@ -125,7 +128,7 @@ const deleteEducationSchema = z.object({
 });
 
 export async function deleteEducation(_: unknown, formData: FormData) {
-  const user = await getUser();
+  const user = await cachedGetUser();
 
   if (!user) {
     redirect("/login");
@@ -156,7 +159,7 @@ const editEducationSchema = baseEducationSchema
   .superRefine(validateEducationDates);
 
 export async function editEducation(_: unknown, formData: FormData) {
-  const user = await getUser();
+  const user = await cachedGetUser();
 
   if (!user) {
     redirect("/login");

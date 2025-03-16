@@ -1,10 +1,13 @@
 import { db } from "@/lib/db/drizzle";
-import { getUser } from "@/lib/db/queries/users";
 import { educationsSchema, type InsertEducation } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 
 type GetEducationsParams = {
   userId: string;
+};
+
+type AddEducationParams = {
+  education: InsertEducation;
 };
 
 type UpdateEducationsParams = {
@@ -37,14 +40,8 @@ export async function getEducations({ userId }: GetEducationsParams) {
   return educations;
 }
 
-export async function addEducation(education: InsertEducation) {
+export async function addEducation({ education }: AddEducationParams) {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return undefined;
-    }
-
     const [createdEducation] = await db
       .insert(educationsSchema)
       .values(education)

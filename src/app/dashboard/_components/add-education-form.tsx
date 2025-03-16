@@ -52,11 +52,6 @@ export function AddEducationForm({
   );
 
   useEffect(() => {
-    setEndYear("");
-    setEndMonth("");
-  }, [startYear]);
-
-  useEffect(() => {
     if (state?.success) {
       setIsOpen(false);
       setStartMonth("");
@@ -133,7 +128,11 @@ export function AddEducationForm({
               name="startYear"
               required
               defaultValue={startYear}
-              onValueChange={setStartYear}
+              onValueChange={(value) => {
+                setStartYear(value);
+                setEndMonth("");
+                setEndYear("");
+              }}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Start year" />
