@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -20,8 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { addEducation } from "@/app/dashboard/_actions";
+import { Plus } from "lucide-react";
 
 type GetYearsParams = {
   initialYear: number;
@@ -30,36 +30,22 @@ type GetYearsParams = {
 
 export function AddEducationModal() {
   const [state, action, pending] = useActionState(addEducation, null);
+  const [isOpen, setIsOpen] = useState(false);
   const [startMonth, setStartMonth] = useState(state?.data?.startMonth || "");
   const [startYear, setStartYear] = useState(state?.data?.startYear || "");
   const [endMonth, setEndMonth] = useState(state?.data?.endMonth || "");
   const [endYear, setEndYear] = useState(state?.data?.endYear || "");
-  const [endYearKey, setEndYearKey] = useState(+new Date());
-  const [endMonthKey, setEndMonthKey] = useState(+new Date());
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: this effect should only run when startYear changes
-  useEffect(() => {
-    setEndYearKey(+new Date());
-    setEndMonthKey(+new Date());
-    setEndYear("");
-    setEndMonth("");
-  }, [startYear]);
 
   useEffect(() => {
     if (state?.success) {
-      setStartMonth("");
-      setStartYear("");
-      setEndMonth("");
-      setEndYear("");
-      buttonRef.current?.click();
+      setIsOpen(false);
     }
   }, [state]);
 
   return (
-    <Dialog>
-      <DialogTrigger asChild ref={buttonRef}>
-        <Button className="rounded-full">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button className="rounded-full" onClick={() => setIsOpen(true)}>
           <Plus />
           <span>Add education</span>
         </Button>
@@ -68,7 +54,7 @@ export function AddEducationModal() {
         <DialogHeader>
           <DialogTitle>Add education</DialogTitle>
           <DialogDescription>
-            Add a new education to your portfolio.
+            Add a new education to your portfolio
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -113,8 +99,8 @@ export function AddEducationModal() {
                   <Select
                     name="startMonth"
                     required
-                    defaultValue={startMonth}
-                    onValueChange={(value) => setStartMonth(value)}
+                    defaultValue={state?.data?.startMonth}
+                    onValueChange={setStartMonth}
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Start month" />
@@ -133,8 +119,8 @@ export function AddEducationModal() {
                   <Select
                     name="startYear"
                     required
-                    defaultValue={startYear}
-                    onValueChange={(value) => setStartYear(value)}
+                    defaultValue={state?.data?.startYear}
+                    onValueChange={setStartYear}
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Start year" />
@@ -169,10 +155,11 @@ export function AddEducationModal() {
                 <div className="grid gap-1.5">
                   <Label htmlFor="endMonth">End month</Label>
                   <Select
-                    key={endMonthKey}
+                    key={startYear}
                     name="endMonth"
-                    defaultValue={endMonth}
-                    onValueChange={(value) => setEndMonth(value)}
+                    defaultValue={state?.data?.endMonth}
+                    disabled={!startMonth || !startYear}
+                    onValueChange={setEndMonth}
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="End month" />
@@ -189,19 +176,19 @@ export function AddEducationModal() {
                 <div className="grid gap-1.5">
                   <Label htmlFor="endYear">End year</Label>
                   <Select
-                    key={endYearKey}
+                    key={startYear}
                     name="endYear"
-                    defaultValue={endYear}
-                    onValueChange={(value) => setEndYear(value)}
+                    disabled={!startMonth || !startYear}
+                    defaultValue={state?.data?.endYear}
+                    onValueChange={setEndYear}
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="End year" />
                     </SelectTrigger>
                     <SelectContent id="endYear">
                       {getYears({
-                        initialYear: startYear
-                          ? Number.parseInt(startYear)
-                          : 2020,
+                        initialYear:
+                          Number(startYear) || new Date().getFullYear(),
                       }).map((year) => (
                         <SelectItem value={year} key={year}>
                           {year}
@@ -222,10 +209,10 @@ export function AddEducationModal() {
                 </p>
               )}
             </fieldset>
-            <input type="hidden" name="startMonth" value={startMonth} />
             <input type="hidden" name="startYear" value={startYear} />
-            <input type="hidden" name="endMonth" value={endMonth} />
+            <input type="hidden" name="startMonth" value={startMonth} />
             <input type="hidden" name="endYear" value={endYear} />
+            <input type="hidden" name="endMonth" value={endMonth} />
           </form>
         </div>
         <DialogFooter>

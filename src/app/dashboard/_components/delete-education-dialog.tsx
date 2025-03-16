@@ -21,7 +21,7 @@ type Props = {
 };
 
 export function DeleteEducationDialog({ educationId }: Props) {
-  const [state, action, pending] = useActionState(deleteEducation, null);
+  const [_, action, pending] = useActionState(deleteEducation, null);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
