@@ -1,4 +1,5 @@
 import { AddEducationModal } from "@/app/dashboard/_components/add-education-modal";
+import { DeleteEducationDialog } from "@/app/dashboard/_components/delete-education-dialog";
 import {
   Accordion,
   AccordionContent,
@@ -42,6 +43,9 @@ export function Educations({ educations }: Props) {
                     ? formatDate(education.endDate)
                     : "Present"}
                 </p>
+                <div className="flex gap-4 mt-2">
+                  <DeleteEducationDialog educationId={education.id} />
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}

@@ -1,6 +1,9 @@
 "use server";
 
-import { addEducation as addEducationQuery } from "@/lib/db/queries/educations";
+import {
+  addEducation as addEducationQuery,
+  deleteEducation as deleteEducationQuery,
+} from "@/lib/db/queries/educations";
 import { getUser } from "@/lib/db/queries/users";
 import type { InsertEducation } from "@/lib/db/schema";
 import { validateAction } from "@/lib/utils";
@@ -108,4 +111,35 @@ export async function addEducation(_: unknown, formData: FormData) {
     success: true,
     message: "Education created successfully",
   };
+}
+
+const deleteEducationSchema = z.object({
+  id: z.string(),
+});
+
+export async function deleteEducation(_: unknown, formData: FormData) {
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const validate = validateAction({
+    formData,
+    schema: deleteEducationSchema,
+  });
+
+  console.log(validate);
+
+  if (!validate.success) {
+    return validate;
+  }
+
+  const {
+    data: { id },
+  } = validate;
+
+  await deleteEducationQuery({ id, userId: user.id });
+
+  revalidatePath("/dashboard");
 }

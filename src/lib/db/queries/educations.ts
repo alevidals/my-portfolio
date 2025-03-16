@@ -1,15 +1,23 @@
 import { db } from "@/lib/db/drizzle";
 import { getUser } from "@/lib/db/queries/users";
 import { educationsSchema, type InsertEducation } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
-export async function getEducations() {
-  const user = await getUser();
+type GetEducationsParams = {
+  userId: string;
+};
 
-  if (!user) {
-    return [];
-  }
+type DeleteEducationsParams = {
+  id: string;
+  userId: string;
+};
 
+type BelongsEducationToUserParams = {
+  id: string;
+  userId: string;
+};
+
+export async function getEducations({ userId }: GetEducationsParams) {
   const educations = db.query.educationsSchema.findMany({
     columns: {
       id: true,
@@ -18,7 +26,7 @@ export async function getEducations() {
       startDate: true,
       endDate: true,
     },
-    where: eq(educationsSchema.userId, user.id),
+    where: eq(educationsSchema.userId, userId),
   });
 
   return educations;
@@ -40,6 +48,41 @@ export async function addEducation(education: InsertEducation) {
       });
 
     return createdEducation;
+  } catch {
+    return undefined;
+  }
+}
+
+async function belongsEducationToUser({
+  id,
+  userId,
+}: BelongsEducationToUserParams) {
+  try {
+    const education = db.query.educationsSchema.findFirst({
+      columns: {
+        id: true,
+      },
+      where: and(
+        eq(educationsSchema.id, id),
+        eq(educationsSchema.userId, userId),
+      ),
+    });
+
+    return !!education;
+  } catch {
+    return false;
+  }
+}
+
+export async function deleteEducation({ id, userId }: DeleteEducationsParams) {
+  try {
+    const belongsToUser = await belongsEducationToUser({ id, userId });
+
+    if (!belongsToUser) {
+      return undefined;
+    }
+
+    await db.delete(educationsSchema).where(eq(educationsSchema.id, id));
   } catch {
     return undefined;
   }
