@@ -28,7 +28,7 @@ export function AddEducationModal({ education }: Props) {
       <DialogTrigger asChild>
         {education ? (
           <Button size="icon" variant="outline">
-            <Pencil />
+            <Pencil className="text-sky-500" />
           </Button>
         ) : (
           <Button className="rounded-full" onClick={() => setIsOpen(true)}>

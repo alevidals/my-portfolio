@@ -7,6 +7,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { getEducations } from "@/lib/db/queries/educations";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type Props = {
   educations: Awaited<ReturnType<typeof getEducations>>;
@@ -29,33 +38,37 @@ export function Educations({ educations }: Props) {
         <AddEducationModal />
       </header>
       {educations.length > 0 ? (
-        <Accordion type="multiple" className="w-full">
-          {educations.map((education) => (
-            <AccordionItem key={education.id} value={education.id}>
-              <AccordionTrigger className="text-base">
-                {education.degree}
-              </AccordionTrigger>
-              <AccordionContent>
-                <p>{education.institution}</p>
-                <p className="text-muted-foreground">
-                  {formatDate(education.startDate)} -{" "}
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Institution</TableHead>
+              <TableHead>Degree</TableHead>
+              <TableHead>Start date</TableHead>
+              <TableHead>End date</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {educations.map((education) => (
+              <TableRow key={education.id}>
+                <TableCell>{education.institution}</TableCell>
+                <TableCell>{education.degree}</TableCell>
+                <TableCell>{formatDate(education.startDate)}</TableCell>
+                <TableCell>
                   {education.endDate
                     ? formatDate(education.endDate)
                     : "Present"}
-                </p>
-                <div className="flex gap-4 mt-2">
+                </TableCell>
+                <TableCell className="flex gap-2">
+                  <AddEducationModal education={education} />
                   <DeleteEducationDialog educationId={education.id} />
-                  <AddEducationModal
-                    key={JSON.stringify(education)}
-                    education={education}
-                  />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       ) : (
-        <p>No educations found. Add a new education to your portfolio.</p>
+        <p className="text-sm">No educations added yet.</p>
       )}
     </section>
   );
