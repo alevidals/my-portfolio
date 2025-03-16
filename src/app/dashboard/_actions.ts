@@ -129,8 +129,6 @@ export async function deleteEducation(_: unknown, formData: FormData) {
     schema: deleteEducationSchema,
   });
 
-  console.log(validate);
-
   if (!validate.success) {
     return validate;
   }
