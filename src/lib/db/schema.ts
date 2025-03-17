@@ -104,3 +104,5 @@ export type InsertUser = typeof usersSchema.$inferInsert;
 export type SelectUser = typeof usersSchema.$inferSelect;
 
 export type InsertEducation = typeof educationsSchema.$inferInsert;
+
+export type InsertExperience = typeof workExperiencesSchema.$inferInsert;

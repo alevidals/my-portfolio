@@ -1,4 +1,4 @@
-import { addEducation, editEducation } from "@/app/dashboard/_actions";
+import { addExperience, editExperience } from "@/app/dashboard/_actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { getEducations } from "@/lib/db/queries/educations";
+import type { getExperiences } from "@/lib/db/queries/experiences";
 import { getYears } from "@/lib/utils";
 import {
   type Dispatch,
@@ -19,32 +19,32 @@ import {
 } from "react";
 
 type Props = {
-  education?: Awaited<ReturnType<typeof getEducations>>[number];
+  experience?: Awaited<ReturnType<typeof getExperiences>>[number];
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setIsPending: Dispatch<SetStateAction<boolean>>;
 };
 
-export function AddEducationForm({
+export function AddExperienceForm({
   setIsOpen,
   setIsPending,
-  education,
+  experience,
 }: Props) {
   const [state, action, pending] = useActionState(
-    education ? editEducation : addEducation,
+    experience ? editExperience : addExperience,
     null,
   );
 
   const [startMonth, setStartMonth] = useState(
-    state?.data?.startMonth ?? education?.startDate.split("-")[1] ?? "",
+    state?.data?.startMonth ?? experience?.startDate.split("-")[1] ?? "",
   );
   const [startYear, setStartYear] = useState(
-    state?.data?.startYear ?? education?.startDate.split("-")[0] ?? "",
+    state?.data?.startYear ?? experience?.startDate.split("-")[0] ?? "",
   );
   const [endMonth, setEndMonth] = useState(
-    state?.data?.endMonth ?? education?.endDate?.split("-")[1] ?? "",
+    state?.data?.endMonth ?? experience?.endDate?.split("-")[1] ?? "",
   );
   const [endYear, setEndYear] = useState(
-    state?.data?.endYear ?? education?.endDate?.split("-")[0] ?? "",
+    state?.data?.endYear ?? experience?.endDate?.split("-")[0] ?? "",
   );
 
   useEffect(() => {
@@ -64,34 +64,34 @@ export function AddEducationForm({
   return (
     <form id="addEducationForm" action={action} className="grid gap-4">
       <div className="grid gap-1.5">
-        <Label htmlFor="institution">Institution</Label>
+        <Label htmlFor="companyName">Company name</Label>
         <Input
           type="text"
-          id="institution"
-          name="institution"
-          defaultValue={state?.data?.institution || education?.institution}
+          id="companyName"
+          name="companyName"
+          defaultValue={state?.data?.companyName || experience?.companyName}
           required
-          placeholder="Institution"
+          placeholder="Company name"
         />
-        {state?.errors?.institution && (
+        {state?.errors?.companyName && (
           <p className="text-red-500 text-sm mt-1" role="alert">
-            {state?.errors?.institution}
+            {state?.errors?.companyName}
           </p>
         )}
       </div>
       <div className="grid gap-1.5">
-        <Label htmlFor="degree">Degree</Label>
+        <Label htmlFor="degree">Position</Label>
         <Input
           type="text"
-          id="degree"
-          name="degree"
-          defaultValue={state?.data?.degree || education?.degree}
+          id="position"
+          name="position"
+          defaultValue={state?.data?.position || experience?.position}
           required
-          placeholder="Degree"
+          placeholder="Position"
         />
-        {state?.errors?.degree && (
+        {state?.errors?.position && (
           <p className="text-red-500 text-sm mt-1" role="alert">
-            {state?.errors?.degree}
+            {state?.errors?.position}
           </p>
         )}
       </div>
@@ -216,7 +216,7 @@ export function AddEducationForm({
           </p>
         )}
       </fieldset>
-      <input type="hidden" name="id" value={education?.id} />
+      <input type="hidden" name="id" value={experience?.id} />
       <input type="hidden" name="startYear" value={startYear} />
       <input type="hidden" name="startMonth" value={startMonth} />
       <input type="hidden" name="endYear" value={endYear} />

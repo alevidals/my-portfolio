@@ -22,6 +22,11 @@ export type FormResponse<T> = {
   errors?: FormErrors<T>;
 };
 
+type GetYearsParams = {
+  initialYear: number;
+  amount?: number;
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -64,4 +69,16 @@ export function validateAction<S extends z.ZodType>({
     success: true,
     data,
   };
+}
+
+export function getYears({ initialYear, amount }: GetYearsParams) {
+  const actualYear = new Date().getFullYear();
+  const yearsCount =
+    initialYear === actualYear && amount
+      ? amount
+      : actualYear - initialYear + 1;
+
+  return Array.from({ length: yearsCount }, (_, index) =>
+    String(actualYear - index),
+  );
 }

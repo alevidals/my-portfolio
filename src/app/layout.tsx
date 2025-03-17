@@ -24,7 +24,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
-      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
+      <body className={`${spaceGrotesk.variable} font-sans antialiased px-10`}>
         <UserProvider userPromise={userPromise}>
           {children}
           <TailwindIndicator />

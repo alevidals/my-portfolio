@@ -5,8 +5,13 @@ import {
   updateEducation as updateEducationQuery,
   deleteEducation as deleteEducationQuery,
 } from "@/lib/db/queries/educations";
+import {
+  addExperience as addExperienceQuery,
+  updateExperience as updateExperienceQuery,
+  deleteExperience as deleteExperienceQuery,
+} from "@/lib/db/queries/experiences";
 import { getUser } from "@/lib/db/queries/users";
-import type { InsertEducation } from "@/lib/db/schema";
+import type { InsertEducation, InsertExperience } from "@/lib/db/schema";
 import { validateAction } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -15,9 +20,14 @@ import { z } from "zod";
 
 type BaseEducation = z.infer<typeof baseEducationSchema>;
 
+type BaseExperience = z.infer<typeof baseExperienceSchema>;
+
 const cachedGetUser = cache(getUser);
 
-function validateEducationDates(val: BaseEducation, ctx: z.RefinementCtx) {
+function validateDates(
+  val: BaseEducation | BaseExperience,
+  ctx: z.RefinementCtx,
+) {
   if (val.endMonth && !val.endYear) {
     return ctx.addIssue({
       code: z.ZodIssueCode.custom,
@@ -69,9 +79,7 @@ const baseEducationSchema = z.object({
   endYear: z.string().optional(),
 });
 
-const addEducationSchema = baseEducationSchema.superRefine(
-  validateEducationDates,
-);
+const addEducationSchema = baseEducationSchema.superRefine(validateDates);
 
 export async function addEducation(_: unknown, formData: FormData) {
   const user = await cachedGetUser();
@@ -156,7 +164,7 @@ const editEducationSchema = baseEducationSchema
   .extend({
     id: z.string(),
   })
-  .superRefine(validateEducationDates);
+  .superRefine(validateDates);
 
 export async function editEducation(_: unknown, formData: FormData) {
   const user = await cachedGetUser();
@@ -198,7 +206,7 @@ export async function editEducation(_: unknown, formData: FormData) {
   if (!updatedEducation) {
     return {
       success: false,
-      message: "Failed to create education",
+      message: "Failed to update education",
       errors: validate.errors,
       data: validate.data,
     };
@@ -210,4 +218,166 @@ export async function editEducation(_: unknown, formData: FormData) {
     success: true,
     message: "Education updated successfully",
   };
+}
+
+const baseExperienceSchema = z.object({
+  companyName: z.string().min(3, {
+    message: "Company name must be at least 3 characters",
+  }),
+  position: z.string().min(3, {
+    message: "Position must be at least 3 characters",
+  }),
+  startMonth: z.string(),
+  startYear: z.string(),
+  endMonth: z.string().optional(),
+  endYear: z.string().optional(),
+});
+
+const addExperienceSchema = baseExperienceSchema.superRefine(validateDates);
+
+export async function addExperience(_: unknown, formData: FormData) {
+  const user = await cachedGetUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const validate = validateAction({
+    formData,
+    schema: addExperienceSchema,
+  });
+
+  if (!validate.success) {
+    return validate;
+  }
+
+  const {
+    data: { companyName, position, startMonth, startYear, endMonth, endYear },
+  } = validate;
+
+  const experience: InsertExperience = {
+    companyName,
+    position,
+    startDate: `${startYear}-${startMonth}-01`,
+    ...(endMonth &&
+      endYear && {
+        endDate: `${endYear}-${endMonth}-01`,
+      }),
+    userId: user.id,
+  };
+
+  const createdExperience = await addExperienceQuery({ experience });
+
+  if (!createdExperience) {
+    return {
+      success: false,
+      message: "Failed to create experience",
+      errors: validate.errors,
+      data: validate.data,
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+    message: "Experience created successfully",
+  };
+}
+
+const editExperienceSchema = baseExperienceSchema
+  .extend({
+    id: z.string(),
+  })
+  .superRefine(validateDates);
+
+export async function editExperience(_: unknown, formData: FormData) {
+  const user = await cachedGetUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const validate = validateAction({
+    formData,
+    schema: editExperienceSchema,
+  });
+
+  if (!validate.success) {
+    return validate;
+  }
+
+  const {
+    data: {
+      id,
+      companyName,
+      position,
+      startMonth,
+      startYear,
+      endMonth,
+      endYear,
+    },
+  } = validate;
+
+  const experience: InsertExperience = {
+    id,
+    companyName,
+    position,
+    startDate: `${startYear}-${startMonth}-01`,
+    ...(endMonth &&
+      endYear && {
+        endDate: `${endYear}-${endMonth}-01`,
+      }),
+    userId: user.id,
+  };
+
+  const updatedExperience = await updateExperienceQuery({
+    experience,
+    userId: user.id,
+  });
+
+  if (!updatedExperience) {
+    return {
+      success: false,
+      message: "Failed to update experience",
+      errors: validate.errors,
+      data: validate.data,
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+    message: "Experience updated successfully",
+  };
+}
+
+const deleteExperienceSchema = z.object({
+  id: z.string(),
+});
+
+export async function deleteExperience(_: unknown, formData: FormData) {
+  const user = await cachedGetUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const validate = validateAction({
+    formData,
+    schema: deleteExperienceSchema,
+  });
+
+  if (!validate.success) {
+    return validate;
+  }
+
+  const {
+    data: { id },
+  } = validate;
+
+  await deleteExperienceQuery({ id, userId: user.id });
+
+  revalidatePath("/dashboard");
 }

@@ -1,16 +1,9 @@
 import { AddEducationModal } from "@/app/dashboard/_components/add-education-modal";
 import { DeleteEducationDialog } from "@/app/dashboard/_components/delete-education-dialog";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import type { getEducations } from "@/lib/db/queries/educations";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -45,7 +38,7 @@ export function Educations({ educations }: Props) {
               <TableHead>Degree</TableHead>
               <TableHead>Start date</TableHead>
               <TableHead>End date</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead className="text-end">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -59,7 +52,7 @@ export function Educations({ educations }: Props) {
                     ? formatDate(education.endDate)
                     : "Present"}
                 </TableCell>
-                <TableCell className="flex gap-2">
+                <TableCell className="flex gap-2 justify-end">
                   <AddEducationModal education={education} />
                   <DeleteEducationDialog educationId={education.id} />
                 </TableCell>
