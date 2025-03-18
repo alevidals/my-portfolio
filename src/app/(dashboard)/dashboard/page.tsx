@@ -1,5 +1,6 @@
 import { Educations } from "@/app/(dashboard)/dashboard/_components/educations";
 import { Experiences } from "@/app/(dashboard)/dashboard/_components/experiences";
+import { ProfileInformation } from "@/app/(dashboard)/dashboard/_components/profile-information";
 import { getEducations } from "@/lib/db/queries/educations";
 import { getExperiences } from "@/lib/db/queries/experiences";
 import { getUser } from "@/lib/db/queries/users";
@@ -23,6 +24,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="container mx-auto mt-6 grid gap-10">
+      <ProfileInformation />
       <Educations educations={educations} />
       <Experiences experiences={experiences} />
     </main>

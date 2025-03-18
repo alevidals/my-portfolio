@@ -8,3 +8,4 @@
 - [ ] Add a sitemap.xml
 - [ ] Add a 404 page
 - [ ] Add form to add/edit/delete socials
+- [ ] Validate socials links (github should be a github link, etc.)

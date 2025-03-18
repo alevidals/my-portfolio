@@ -79,6 +79,10 @@ export async function getUser() {
       surname: true,
       username: true,
       email: true,
+      biography: true,
+      githubUrl: true,
+      linkedinUrl: true,
+      contactEmail: true,
     },
     where: (usersSchema, { eq }) => eq(usersSchema.id, sessionData.user.id),
   });
