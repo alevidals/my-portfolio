@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteExperience } from "@/app/dashboard/_actions";
+import { deleteExperience } from "@/app/(dashboard)/dashboard/_actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,7 +26,7 @@ export function DeleteExperienceDialog({ experienceId }: Props) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="icon" type="submit">
-          <Trash className="text-destructive-foreground" />
+          <Trash />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

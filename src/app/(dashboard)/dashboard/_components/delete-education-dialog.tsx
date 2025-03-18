@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteEducation } from "@/app/dashboard/_actions";
+import { deleteEducation } from "@/app/(dashboard)/dashboard/_actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,7 +26,7 @@ export function DeleteEducationDialog({ educationId }: Props) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="icon" type="submit">
-          <Trash className="text-destructive-foreground" />
+          <Trash />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

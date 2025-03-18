@@ -1,4 +1,7 @@
-import { addExperience, editExperience } from "@/app/dashboard/_actions";
+import {
+  addExperience,
+  editExperience,
+} from "@/app/(dashboard)/dashboard/_actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -205,6 +208,9 @@ export function AddExperienceForm({
             </Select>
           </div>
         </div>
+        <p className="text-xs text-muted-foreground mt-2">
+          If you are currently working here, leave the end date empty.
+        </p>
         {state?.errors?.endYear && (
           <p className="text-red-500 text-sm mt-1" role="alert">
             {state?.errors?.endYear}

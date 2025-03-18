@@ -1,5 +1,5 @@
-import { AddEducationModal } from "@/app/dashboard/_components/add-education-modal";
-import { DeleteEducationDialog } from "@/app/dashboard/_components/delete-education-dialog";
+import { AddEducationModal } from "@/app/(dashboard)/dashboard/_components/add-education-modal";
+import { DeleteEducationDialog } from "@/app/(dashboard)/dashboard/_components/delete-education-dialog";
 import type { getEducations } from "@/lib/db/queries/educations";
 import {
   Table,
