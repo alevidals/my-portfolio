@@ -20,11 +20,11 @@ function LinkButton({ href, label }: LinkButtonProps) {
   return (
     <Button
       variant="link"
-      className={cn("text-base", {
-        underline: pathname.startsWith(href),
+      className={cn("text-base hover:underline-offset-8", {
+        "underline underline-offset-8": pathname.startsWith(href),
       })}
     >
-      <Link href={href}>{label}</Link>
+      <Link href={href}>/{label.toLowerCase()}</Link>
     </Button>
   );
 }
