@@ -10,8 +10,12 @@ import {
   updateExperience as updateExperienceQuery,
   deleteExperience as deleteExperienceQuery,
 } from "@/lib/db/queries/experiences";
-import { getUser } from "@/lib/db/queries/users";
-import type { InsertEducation, InsertExperience } from "@/lib/db/schema";
+import { getUser, updateUser } from "@/lib/db/queries/users";
+import type {
+  InsertEducation,
+  InsertExperience,
+  InsertUser,
+} from "@/lib/db/schema";
 import { validateAction } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -380,4 +384,84 @@ export async function deleteExperience(_: unknown, formData: FormData) {
   await deleteExperienceQuery({ id, userId: user.id });
 
   revalidatePath("/dashboard");
+}
+
+const editProfileInformationSchema = z.object({
+  biography: z
+    .string()
+    .max(1000, {
+      message: "Biography must be at most 1000 characters",
+    })
+    .optional(),
+  githubUrl: z
+    .string()
+    .regex(/^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9\-_]+\/?/, {
+      message: "Invalid GitHub URL",
+    })
+    .optional(),
+  linkedinUrl: z
+    .string()
+    .regex(/^(http(s?):\/\/)?(www\.)?linkedin\.com\/in\/[A-Za-z0-9\-_]+\/?/, {
+      message: "Invalid LinkedIn URL",
+    }),
+  contactEmail: z
+    .string()
+    .email({
+      message: "Invalid email",
+    })
+    .optional(),
+});
+
+export async function editProfileInformation(_: unknown, formData: FormData) {
+  const user = await cachedGetUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const validate = validateAction({
+    formData,
+    schema: editProfileInformationSchema,
+  });
+
+  console.log(validate);
+
+  if (!validate.success) {
+    return validate;
+  }
+
+  const {
+    data: { biography, githubUrl, linkedinUrl, contactEmail },
+  } = validate;
+
+  const newUser: Pick<
+    InsertUser,
+    "biography" | "githubUrl" | "linkedinUrl" | "contactEmail"
+  > = {
+    biography,
+    githubUrl,
+    linkedinUrl,
+    contactEmail,
+  };
+
+  const updatedUser = await updateUser({
+    userId: user.id,
+    user: newUser,
+  });
+
+  if (!updatedUser) {
+    return {
+      success: false,
+      message: "Failed to update profile information",
+      errors: validate.errors,
+      data: validate.data,
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+    message: "Profile information updated successfully",
+  };
 }

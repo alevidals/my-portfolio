@@ -1,11 +1,22 @@
 import { verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { usersSchema, type InsertUser } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 
 type ExistsUserParams = Pick<InsertUser, "email" | "username">;
 
 type ExistsUserWithPasswordParams = Pick<InsertUser, "email">;
+
+type UpdateUser = Pick<
+  InsertUser,
+  "biography" | "githubUrl" | "linkedinUrl" | "contactEmail"
+>;
+
+type UpdateUserParams = {
+  userId: string;
+  user: UpdateUser;
+};
 
 export async function existsUser({ email, username }: ExistsUserParams) {
   try {
@@ -92,4 +103,20 @@ export async function getUser() {
   }
 
   return user;
+}
+
+export async function updateUser({ userId, user }: UpdateUserParams) {
+  try {
+    const updatedUser = await db
+      .update(usersSchema)
+      .set(user)
+      .where(eq(usersSchema.id, userId))
+      .returning({
+        id: usersSchema.id,
+      });
+
+    return updatedUser;
+  } catch {
+    return undefined;
+  }
 }
