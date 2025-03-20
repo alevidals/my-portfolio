@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="py-6">
-      <Header />
+      {/*<Header />*/}
       {children}
     </div>
   );

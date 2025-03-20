@@ -7,6 +7,7 @@
 - [ ] Add a robots.txt
 - [ ] Add a sitemap.xml
 - [ ] Add a 404 page
-- [ ] Add form to add/edit/delete socials
+- [x] Add form to add/edit/delete socials
 - [ ] Validate socials links (github should be a github link, etc.)
 - [ ] Check on update and delete that the user is the owner of the data
+- [ ] Order experiences and educations by date on dashboard and portfolio

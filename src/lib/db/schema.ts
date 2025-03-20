@@ -16,13 +16,6 @@ export const usersSchema = sqliteTable("users", {
   created_at: text().default(sql`(CURRENT_TIMESTAMP)`),
 });
 
-export const usersRelations = relations(usersSchema, ({ many }) => ({
-  educations: many(educationsSchema),
-  projects: many(projectsSchema),
-  workExperiences: many(workExperiencesSchema),
-  languages: many(languagesSchema),
-}));
-
 export const educationsSchema = sqliteTable("educations", {
   id: text("id").$defaultFn(uuidv7).primaryKey(),
   userId: text("user_id")
@@ -44,10 +37,6 @@ export const projectsSchema = sqliteTable("projects", {
   deployedUrl: text("deployed_url"),
   repositoryUrl: text("repository_url"),
 });
-
-export const projectsRelations = relations(projectsSchema, ({ many }) => ({
-  technologies: many(projectTechnologiesSchema),
-}));
 
 export const workExperiencesSchema = sqliteTable("work_experiences", {
   id: text("id").$defaultFn(uuidv7).primaryKey(),
@@ -90,15 +79,65 @@ export const projectTechnologiesSchema = sqliteTable(
   (table) => [primaryKey({ columns: [table.projectId, table.technologyId] })],
 );
 
+export const educationsRelations = relations(educationsSchema, ({ one }) => ({
+  user: one(usersSchema, {
+    fields: [educationsSchema.userId],
+    references: [usersSchema.id],
+  }),
+}));
+
+export const usersRelations = relations(usersSchema, ({ many }) => ({
+  educations: many(educationsSchema),
+  projects: many(projectsSchema),
+  workExperiences: many(workExperiencesSchema),
+  languages: many(languagesSchema),
+}));
+
+export const projectsRelations = relations(projectsSchema, ({ one, many }) => ({
+  user: one(usersSchema, {
+    fields: [projectsSchema.userId],
+    references: [usersSchema.id],
+  }),
+  projectTechnologies: many(projectTechnologiesSchema),
+}));
+
+export const workExperiencesRelations = relations(
+  workExperiencesSchema,
+  ({ one }) => ({
+    user: one(usersSchema, {
+      fields: [workExperiencesSchema.userId],
+      references: [usersSchema.id],
+    }),
+  }),
+);
+
+export const technologiesRelations = relations(
+  technologiesSchema,
+  ({ many }) => ({
+    projectTechnologies: many(projectTechnologiesSchema),
+  }),
+);
+
 export const projectTechnologiesRelations = relations(
   projectTechnologiesSchema,
   ({ one }) => ({
+    project: one(projectsSchema, {
+      fields: [projectTechnologiesSchema.projectId],
+      references: [projectsSchema.id],
+    }),
     technology: one(technologiesSchema, {
       fields: [projectTechnologiesSchema.technologyId],
       references: [technologiesSchema.id],
     }),
   }),
 );
+
+export const languagesRelations = relations(languagesSchema, ({ one }) => ({
+  user: one(usersSchema, {
+    fields: [languagesSchema.userId],
+    references: [usersSchema.id],
+  }),
+}));
 
 export type InsertUser = typeof usersSchema.$inferInsert;
 export type SelectUser = typeof usersSchema.$inferSelect;

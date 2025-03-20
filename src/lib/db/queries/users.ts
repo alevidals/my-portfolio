@@ -1,6 +1,10 @@
 import { verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
-import { usersSchema, type InsertUser } from "@/lib/db/schema";
+import {
+  educationsSchema,
+  usersSchema,
+  type InsertUser,
+} from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 
@@ -16,6 +20,10 @@ type UpdateUser = Pick<
 type UpdateUserParams = {
   userId: string;
   user: UpdateUser;
+};
+
+type GetPortfolioInfoParams = {
+  username: string;
 };
 
 export async function existsUser({ email, username }: ExistsUserParams) {
@@ -116,6 +124,52 @@ export async function updateUser({ userId, user }: UpdateUserParams) {
       });
 
     return updatedUser;
+  } catch {
+    return undefined;
+  }
+}
+
+export async function getPortfolioInfo({ username }: GetPortfolioInfoParams) {
+  try {
+    const portfolioInformation = await db.query.usersSchema
+      .findFirst({
+        columns: {
+          name: true,
+          surname: true,
+          username: true,
+          biography: true,
+          githubUrl: true,
+          linkedinUrl: true,
+          contactEmail: true,
+        },
+        with: {
+          educations: {
+            columns: {
+              id: true,
+              institution: true,
+              degree: true,
+              startDate: true,
+              endDate: true,
+            },
+          },
+          workExperiences: {
+            columns: {
+              id: true,
+              companyName: true,
+              position: true,
+              startDate: true,
+              endDate: true,
+            },
+          },
+        },
+        where: (usersSchema, { eq }) => eq(usersSchema.username, username),
+      })
+      .catch((er) => {
+        console.log("AQUI");
+        console.log(er);
+      });
+
+    return portfolioInformation;
   } catch {
     return undefined;
   }

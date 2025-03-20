@@ -9,19 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatDate } from "@/lib/utils";
 
 type Props = {
   educations: Awaited<ReturnType<typeof getEducations>>;
 };
-
-function formatDate(date: string) {
-  const formatter = new Intl.DateTimeFormat("en", {
-    month: "long",
-    year: "numeric",
-  });
-
-  return formatter.format(new Date(date));
-}
 
 export function Educations({ educations }: Props) {
   return (
@@ -46,10 +38,12 @@ export function Educations({ educations }: Props) {
               <TableRow key={education.id}>
                 <TableCell>{education.institution}</TableCell>
                 <TableCell>{education.degree}</TableCell>
-                <TableCell>{formatDate(education.startDate)}</TableCell>
+                <TableCell>
+                  {formatDate({ date: education.startDate })}
+                </TableCell>
                 <TableCell>
                   {education.endDate
-                    ? formatDate(education.endDate)
+                    ? formatDate({ date: education.endDate })
                     : "Present"}
                 </TableCell>
                 <TableCell className="flex gap-2 justify-end">

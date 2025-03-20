@@ -11,6 +11,10 @@ type ValidateActionParams<S extends z.ZodType> = {
   schema: S;
 };
 
+type FormatDateParams = {
+  date: string;
+};
+
 type FormErrors<T> = {
   [K in keyof T]?: string;
 };
@@ -81,4 +85,13 @@ export function getYears({ initialYear, amount }: GetYearsParams) {
   return Array.from({ length: yearsCount }, (_, index) =>
     String(actualYear - index),
   );
+}
+
+export function formatDate({ date }: FormatDateParams) {
+  const formatter = new Intl.DateTimeFormat("en", {
+    month: "long",
+    year: "numeric",
+  });
+
+  return formatter.format(new Date(date));
 }

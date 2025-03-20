@@ -9,19 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { getExperiences } from "@/lib/db/queries/experiences";
+import { formatDate } from "@/lib/utils";
 
 type Props = {
   experiences: Awaited<ReturnType<typeof getExperiences>>;
 };
-
-function formatDate(date: string) {
-  const formatter = new Intl.DateTimeFormat("en", {
-    month: "long",
-    year: "numeric",
-  });
-
-  return formatter.format(new Date(date));
-}
 
 export function Experiences({ experiences }: Props) {
   return (
@@ -46,10 +38,12 @@ export function Experiences({ experiences }: Props) {
               <TableRow key={experience.id}>
                 <TableCell>{experience.companyName}</TableCell>
                 <TableCell>{experience.position}</TableCell>
-                <TableCell>{formatDate(experience.startDate)}</TableCell>
+                <TableCell>
+                  {formatDate({ date: experience.startDate })}
+                </TableCell>
                 <TableCell>
                   {experience.endDate
-                    ? formatDate(experience.endDate)
+                    ? formatDate({ date: experience.endDate })
                     : "Present"}
                 </TableCell>
                 <TableCell className="flex gap-2 justify-end">
