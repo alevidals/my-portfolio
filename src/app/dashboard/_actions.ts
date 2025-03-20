@@ -424,8 +424,6 @@ export async function editProfileInformation(_: unknown, formData: FormData) {
     schema: editProfileInformationSchema,
   });
 
-  console.log(validate);
-
   if (!validate.success) {
     return validate;
   }

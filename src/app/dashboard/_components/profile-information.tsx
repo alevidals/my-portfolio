@@ -1,6 +1,6 @@
 "use client";
 
-import { editProfileInformation } from "@/app/(dashboard)/dashboard/_actions";
+import { editProfileInformation } from "@/app/dashboard/_actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

@@ -131,43 +131,38 @@ export async function updateUser({ userId, user }: UpdateUserParams) {
 
 export async function getPortfolioInfo({ username }: GetPortfolioInfoParams) {
   try {
-    const portfolioInformation = await db.query.usersSchema
-      .findFirst({
-        columns: {
-          name: true,
-          surname: true,
-          username: true,
-          biography: true,
-          githubUrl: true,
-          linkedinUrl: true,
-          contactEmail: true,
-        },
-        with: {
-          educations: {
-            columns: {
-              id: true,
-              institution: true,
-              degree: true,
-              startDate: true,
-              endDate: true,
-            },
-          },
-          workExperiences: {
-            columns: {
-              id: true,
-              companyName: true,
-              position: true,
-              startDate: true,
-              endDate: true,
-            },
+    const portfolioInformation = await db.query.usersSchema.findFirst({
+      columns: {
+        name: true,
+        surname: true,
+        username: true,
+        biography: true,
+        githubUrl: true,
+        linkedinUrl: true,
+        contactEmail: true,
+      },
+      with: {
+        educations: {
+          columns: {
+            id: true,
+            institution: true,
+            degree: true,
+            startDate: true,
+            endDate: true,
           },
         },
-        where: (usersSchema, { eq }) => eq(usersSchema.username, username),
-      })
-      .catch((er) => {
-        console.log("AQUI");
-        console.log(er);
-      });
+        workExperiences: {
+          columns: {
+            id: true,
+            companyName: true,
+            position: true,
+            startDate: true,
+            endDate: true,
+          },
+        },
+      },
+      where: (usersSchema, { eq }) => eq(usersSchema.username, username),
+    });
 
     return portfolioInformation;
   } catch {

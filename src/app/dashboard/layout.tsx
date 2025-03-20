@@ -1,4 +1,4 @@
-import { Header } from "@/app/(dashboard)/_components/header";
+import { Header } from "@/app/dashboard/_components/header";
 
 export default function DashboardLayout({
   children,
@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="py-6">
-      {/*<Header />*/}
+      <Header />
       {children}
     </div>
   );

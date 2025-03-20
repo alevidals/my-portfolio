@@ -24,7 +24,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
-      <body className={`${geistMono.variable} font-sans antialiased px-10`}>
+      <body
+        className={`${geistMono.variable} font-sans antialiased px-10 selection:bg-neutral-700`}
+      >
         <UserProvider userPromise={userPromise}>
           {children}
           <TailwindIndicator />

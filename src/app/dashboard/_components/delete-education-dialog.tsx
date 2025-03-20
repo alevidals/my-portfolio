@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteExperience } from "@/app/(dashboard)/dashboard/_actions";
+import { deleteEducation } from "@/app/dashboard/_actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,11 +17,11 @@ import { Trash } from "lucide-react";
 import { useActionState } from "react";
 
 type Props = {
-  experienceId: string;
+  educationId: string;
 };
 
-export function DeleteExperienceDialog({ experienceId }: Props) {
-  const [_, action, pending] = useActionState(deleteExperience, null);
+export function DeleteEducationDialog({ educationId }: Props) {
+  const [_, action, pending] = useActionState(deleteEducation, null);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -34,7 +34,7 @@ export function DeleteExperienceDialog({ experienceId }: Props) {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete the
-            experience from your portfolio.
+            education from your portfolio.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -42,7 +42,7 @@ export function DeleteExperienceDialog({ experienceId }: Props) {
           <form action={action}>
             <AlertDialogAction type="submit" disabled={pending}>
               <span>{pending ? "Deleting..." : "Delete"}</span>
-              <input type="hidden" name="id" value={experienceId} />
+              <input type="hidden" name="id" value={educationId} />
             </AlertDialogAction>
           </form>
         </AlertDialogFooter>

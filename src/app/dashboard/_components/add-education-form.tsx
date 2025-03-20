@@ -1,7 +1,4 @@
-import {
-  addEducation,
-  editEducation,
-} from "@/app/(dashboard)/dashboard/_actions";
+import { addEducation, editEducation } from "@/app/dashboard/_actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {

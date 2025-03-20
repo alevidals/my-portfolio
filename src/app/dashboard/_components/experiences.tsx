@@ -1,5 +1,5 @@
-import { AddExperienceModal } from "@/app/(dashboard)/dashboard/_components/add-experience-modal";
-import { DeleteExperienceDialog } from "@/app/(dashboard)/dashboard/_components/delete-experience-dialog";
+import { AddExperienceModal } from "@/app/dashboard/_components/add-experience-modal";
+import { DeleteExperienceDialog } from "@/app/dashboard/_components/delete-experience-dialog";
 import {
   Table,
   TableBody,

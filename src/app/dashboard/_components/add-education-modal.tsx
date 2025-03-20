@@ -12,26 +12,26 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Pencil, Plus } from "lucide-react";
-import { AddExperienceForm } from "@/app/(dashboard)/dashboard/_components/add-experience-form";
-import type { getExperiences } from "@/lib/db/queries/experiences";
+import type { getEducations } from "@/lib/db/queries/educations";
+import { AddEducationForm } from "@/app/dashboard/_components/add-education-form";
 
 type Props = {
-  experience?: Awaited<ReturnType<typeof getExperiences>>[number];
+  education?: Awaited<ReturnType<typeof getEducations>>[number];
 };
 
-export function AddExperienceModal({ experience }: Props) {
+export function AddEducationModal({ education }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        {experience ? (
+        {education ? (
           <Button size="icon" variant="outline">
             <Pencil />
           </Button>
         ) : (
-          <Button variant="outline" size="icon" onClick={() => setIsOpen(true)}>
+          <Button size="icon" variant="outline" onClick={() => setIsOpen(true)}>
             <Plus />
           </Button>
         )}
@@ -39,17 +39,17 @@ export function AddExperienceModal({ experience }: Props) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            {experience ? "Edit experience" : "Add experience"}
+            {education ? "Edit education" : "Add education"}
           </DialogTitle>
           <DialogDescription>
-            {experience
-              ? "Update the details of your experience"
-              : "Add a new experience to your portfolio"}
+            {education
+              ? "Update the details of your education"
+              : "Add a new education to your portfolio"}
           </DialogDescription>
         </DialogHeader>
         <div>
-          <AddExperienceForm
-            experience={experience}
+          <AddEducationForm
+            education={education}
             setIsPending={setIsPending}
             setIsOpen={setIsOpen}
           />

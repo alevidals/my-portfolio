@@ -15,7 +15,7 @@ export default async function ViewPage({ params }: Props) {
   }
 
   return (
-    <main className="container max-w-4xl  mx-auto mt-6 grid gap-10">
+    <main className="mt-6 grid gap-10">
       <p className="text-base">{portfolioInformation?.biography}</p>
       <section>
         <header>
