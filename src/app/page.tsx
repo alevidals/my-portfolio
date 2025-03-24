@@ -3,6 +3,7 @@
 import { signOut } from "@/app/(auth)/_actions";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/providers/user-provider";
+import { ArrowRight, LogOut } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
 
@@ -22,9 +23,20 @@ export default function Home() {
         {user ? (
           <>
             <p className="text-xl mt-4">Welcome, {user.username}!</p>
-            <form action={handleSignOut} className="mt-4">
-              <Button>Sign out</Button>
-            </form>
+            <div className="flex gap-4 mt-4">
+              <Button asChild variant="link">
+                <Link href="/dashboard">
+                  <span>Dashboard</span>
+                  <ArrowRight />
+                </Link>
+              </Button>
+              <form action={handleSignOut}>
+                <Button variant="link">
+                  <span>Sign Out</span>
+                  <LogOut />
+                </Button>
+              </form>
+            </div>
           </>
         ) : (
           <div className="flex gap-4 mt-4">
