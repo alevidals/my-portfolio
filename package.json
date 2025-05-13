@@ -13,6 +13,7 @@
 		"check": "biome check --write ./src --no-errors-on-unmatched --files-ignore-unknown=true --colors=off"
 	},
 	"dependencies": {
+		"@clerk/nextjs": "^6.19.2",
 		"next": "15.3.2",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
