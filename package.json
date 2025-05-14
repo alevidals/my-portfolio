@@ -14,9 +14,16 @@
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.19.2",
+		"@clerk/themes": "2.2.44",
+		"@radix-ui/react-slot": "^1.2.2",
+		"@tabler/icons-react": "3.31.0",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.510.0",
 		"next": "15.3.2",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"tailwind-merge": "^3.3.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -26,6 +33,7 @@
 		"@types/react-dom": "^19",
 		"lefthook": "1.11.12",
 		"tailwindcss": "^4",
+		"tw-animate-css": "^1.2.9",
 		"typescript": "^5"
 	}
 }
