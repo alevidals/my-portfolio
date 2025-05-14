@@ -1,39 +1,47 @@
 {
-	"name": "my-portfolio",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
-		"lint": "biome lint ./src",
-		"lint:fix": "biome lint ./src --fix",
-		"format": "biome format ./src",
-		"format:fix": "biome format ./src --fix",
-		"check": "biome check --write ./src --no-errors-on-unmatched --files-ignore-unknown=true --colors=off"
-	},
-	"dependencies": {
-		"@clerk/nextjs": "^6.19.2",
-		"@clerk/themes": "2.2.44",
-		"@radix-ui/react-slot": "^1.2.2",
-		"@tabler/icons-react": "3.31.0",
-		"class-variance-authority": "^0.7.1",
-		"clsx": "^2.1.1",
-		"lucide-react": "^0.510.0",
-		"next": "15.3.2",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"tailwind-merge": "^3.3.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"lefthook": "1.11.12",
-		"tailwindcss": "^4",
-		"tw-animate-css": "^1.2.9",
-		"typescript": "^5"
-	}
+  "name": "my-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint ./src --fix",
+    "format": "biome format ./src",
+    "format:fix": "biome format ./src --fix",
+    "check": "biome check --write ./src --no-errors-on-unmatched --files-ignore-unknown=true --colors=off",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.19.2",
+    "@clerk/themes": "2.2.44",
+    "@libsql/client": "0.15.6",
+    "@radix-ui/react-slot": "^1.2.2",
+    "@tabler/icons-react": "3.31.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "0.43.1",
+    "lucide-react": "^0.510.0",
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.3.0",
+    "zod": "3.24.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "0.31.1",
+    "lefthook": "1.11.12",
+    "tailwindcss": "^4",
+    "tw-animate-css": "^1.2.9",
+    "typescript": "^5",
+    "uuid": "11.1.0"
+  }
 }
