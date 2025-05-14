@@ -1,12 +1,8 @@
+import { HeaderLink } from "@/app/_components/header-link";
 import { Button } from "@/components/ui/button";
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { IconBrandGithub, IconFileCv, IconLogout } from "@tabler/icons-react";
+import { IconBrandGithub, IconFileCv } from "@tabler/icons-react";
 import Link from "next/link";
 
 export async function Header() {
@@ -31,14 +27,9 @@ export async function Header() {
         <div className="flex items-center gap-10">
           <SignedIn>
             <nav className="font-bold">
-              <Link href="/dashboard">/dashboard</Link>
+              <HeaderLink href="/dashboard" label="/dashboard" />
             </nav>
-            <SignOutButton>
-              <Button variant="outline">
-                <span>Sign out</span>
-                <IconLogout className="ml-1 size-5" />
-              </Button>
-            </SignOutButton>
+            <UserButton />
           </SignedIn>
         </div>
       )}
