@@ -12,8 +12,6 @@ type Props = {
 export function HeaderLink({ href, label }: Props) {
   const pathname = usePathname();
 
-  console.log(pathname, href);
-
   const isActive = pathname === href;
 
   return (
@@ -21,6 +19,7 @@ export function HeaderLink({ href, label }: Props) {
       href={href}
       className={cn("hover:underline-offset-4 transition-all", {
         "underline underline-offset-8": isActive,
+        "hover:underline hover:underline-offset-8": !isActive,
       })}
     >
       {label}

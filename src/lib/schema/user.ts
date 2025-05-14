@@ -1,0 +1,7 @@
+import { z } from "zod";
+
+export const insertUserProfileSchema = z.object({
+  biography: z.string().optional(),
+  linkedInUrl: z.string().url("Invalid LinkedIn URL").or(z.literal("")),
+  githubUrl: z.string().url("Invalid GitHub URL").or(z.literal("")),
+});
