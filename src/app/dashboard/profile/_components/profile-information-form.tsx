@@ -1,10 +1,8 @@
 "use client";
 
 import { insertUserProfile } from "@/app/dashboard/profile/_actions";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { FormItem } from "@/components/form-item";
+import { LoadingButton } from "@/components/loading-button";
 import type { insertUserProfile as insertUserProfileQuery } from "@/lib/queries/user";
 import {
   IconBrandGithub,
@@ -12,6 +10,7 @@ import {
   IconTypography,
 } from "@tabler/icons-react";
 import { useActionState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   userProfile?: Awaited<ReturnType<typeof insertUserProfileQuery>>;
@@ -19,62 +18,71 @@ type Props = {
 
 export function ProfileInformationForm({ userProfile }: Props) {
   const [state, formAction, isPending] = useActionState(
-    insertUserProfile,
+    async (_: unknown, formData: FormData) => {
+      const response = await insertUserProfile(_, formData);
+
+      if (response.success) {
+        toast.success(response.message);
+      } else {
+        toast.error(response.error);
+      }
+
+      return response;
+    },
     null,
   );
 
   return (
     <form className="grid gap-4" action={formAction}>
-      <div className="grid gap-3">
-        <Label htmlFor="biography">
-          <IconTypography size={22} />
-          <span>Biography</span>
-        </Label>
-        <Textarea
-          id="biography"
-          name="biography"
-          defaultValue={state?.biography ?? userProfile?.biography ?? ""}
-        />
-        {!state?.success && state?.errors?.biography && (
-          <p className="text-red-500 text-sm">{state.errors.biography}</p>
-        )}
-      </div>
+      <FormItem
+        id="biography"
+        name="biography"
+        itemType="textarea"
+        labelChildren={
+          <>
+            <IconTypography size={22} />
+            <span>Biography</span>
+          </>
+        }
+        defaultValue={state?.biography ?? userProfile?.biography ?? ""}
+        placeholder="Tell us about yourself"
+        error={state?.errors?.biography ?? ""}
+      />
 
-      <div className="grid gap-3">
-        <Label htmlFor="linkedInUrl">
-          <IconBrandLinkedin size={22} />
-          <span>LinkedIn URL</span>
-        </Label>
-        <Input
-          id="linkedInUrl"
-          name="linkedInUrl"
-          type="url"
-          defaultValue={userProfile?.linkedInUrl ?? ""}
-          placeholder="https://www.linkedin.com/in/your-profile"
-        />
-        {!state?.success && state?.errors?.linkedInUrl && (
-          <p className="text-red-500 text-sm">{state.errors.linkedInUrl}</p>
-        )}
-      </div>
+      <FormItem
+        id="linkedInUrl"
+        name="linkedInUrl"
+        itemType="input"
+        type="url"
+        labelChildren={
+          <>
+            <IconBrandLinkedin size={22} />
+            <span>LinkedIn URL</span>
+          </>
+        }
+        defaultValue={state?.linkedInUrl ?? userProfile?.linkedInUrl ?? ""}
+        placeholder="https://www.linkedin.com/in/your-profile"
+        error={state?.errors?.linkedInUrl ?? ""}
+      />
 
-      <div className="grid gap-3">
-        <Label htmlFor="githubUrl">
-          <IconBrandGithub size={22} />
-          <span>GitHub URL</span>
-        </Label>
-        <Input
-          id="githubUrl"
-          name="githubUrl"
-          type="url"
-          defaultValue={userProfile?.githubUrl ?? ""}
-          placeholder="https://www.github.com/your-profile"
-        />
-        {!state?.success && state?.errors?.githubUrl && (
-          <p className="text-red-500 text-sm">{state.errors.githubUrl}</p>
-        )}
-      </div>
+      <FormItem
+        id="githubUrl"
+        name="githubUrl"
+        itemType="input"
+        type="url"
+        labelChildren={
+          <>
+            <IconBrandGithub size={22} />
+            <span>GitHub URL</span>
+          </>
+        }
+        defaultValue={state?.githubUrl ?? userProfile?.githubUrl ?? ""}
+        placeholder="https://www.github.com/your-profile"
+        error={state?.errors?.githubUrl ?? ""}
+      />
 
-      <Button type="submit">Save</Button>
+      <LoadingButton isLoading={isPending}>Save</LoadingButton>
+      {/*<Button type="submit">Save</Button>*/}
     </form>
   );
 }

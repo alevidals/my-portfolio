@@ -16,5 +16,9 @@ export const projects = sqliteTable("projects", {
   description: text("description"),
   deploymentUrl: text("deployment_url"),
   repositoryUrl: text("repository_url"),
+  technologies: text("technologies", { mode: "json" })
+    .notNull()
+    .$type<string[]>()
+    .default(sql`(json_array())`),
   createdAt: text("created_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
 });

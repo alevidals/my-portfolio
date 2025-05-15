@@ -1,4 +1,6 @@
 import { db } from "@/lib/db/drizzle";
+import { projects } from "@/lib/db/schema";
+import type { InsertProject } from "@/lib/types/projects";
 import { auth } from "@clerk/nextjs/server";
 
 export async function getUserProjects() {
@@ -11,4 +13,18 @@ export async function getUserProjects() {
   });
 
   return userProjects;
+}
+
+type InsertProjectParams = {
+  project: InsertProject;
+};
+
+export async function insertProject({ project }: InsertProjectParams) {
+  const insertedProject = await db
+    .insert(projects)
+    .values(project)
+    .returning()
+    .get();
+
+  return insertedProject;
 }

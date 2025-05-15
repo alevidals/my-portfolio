@@ -1,5 +1,7 @@
 "use client";
 
+import { AddProjectDialog } from "@/app/dashboard/projects/_components/add-project-dialog";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -31,18 +33,22 @@ export function ProjectsTable({ projects }: Props) {
 
   return (
     <>
-      <Input
-        placeholder="Filter projects..."
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        className="mb-4 h-12 dark:bg-transparent w-96"
-      />
+      <div className="flex items-center justify-between mb-4">
+        <Input
+          placeholder="Filter projects..."
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="h-10 dark:bg-transparent w-96"
+        />
+        <AddProjectDialog />
+      </div>
       <div className="border rounded-md">
         <Table>
           <TableHeader className="mx-3">
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Description</TableHead>
+              <TableHead>Technologies</TableHead>
               <TableHead>Deployment URL</TableHead>
               <TableHead>Repository URL</TableHead>
               <TableHead className="w-14" />
@@ -57,6 +63,16 @@ export function ProjectsTable({ projects }: Props) {
                   </TableCell>
                   <TableCell className="px-3 w-[400px] whitespace-normal">
                     {project.description}
+                  </TableCell>
+                  <TableCell className="max-w-[350px] overflow-x-auto grid-cols-1 space-x-1">
+                    {project.technologies.map((technology) => (
+                      <Badge
+                        key={`${project.name}-${technology}`}
+                        variant="outline"
+                      >
+                        {technology}
+                      </Badge>
+                    ))}
                   </TableCell>
                   <TableCell className="px-3">
                     {project.deploymentUrl && (
@@ -92,9 +108,11 @@ export function ProjectsTable({ projects }: Props) {
                 </TableRow>
               ))
             ) : (
-              <TableCell colSpan={5} className="h-24 text-center">
-                No projects found
-              </TableCell>
+              <TableRow>
+                <TableCell colSpan={5} className="h-24 text-center">
+                  No projects found
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

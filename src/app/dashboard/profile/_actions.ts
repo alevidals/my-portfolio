@@ -15,9 +15,7 @@ export async function insertUserProfile(
 
   if (!userId) return redirectToSignIn();
 
-  const data = Object.fromEntries(
-    formData.entries(),
-  ) as InsertUserProfileSchema;
+  const data = Object.fromEntries(formData.entries());
 
   const result = insertUserProfileSchema.safeParse(data);
 
