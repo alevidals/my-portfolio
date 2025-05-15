@@ -1,6 +1,7 @@
 "use client";
 
 import { AddProjectDialog } from "@/app/dashboard/projects/_components/add-project-dialog";
+import { ImportProjectsDialog } from "@/app/dashboard/projects/_components/import-projects-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { getUserProjects } from "@/lib/queries/projects";
-import { IconDots } from "@tabler/icons-react";
+import { IconBrandGithub, IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
 
 export function ProjectsTable({ projects }: Props) {
   const [filter, setFilter] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const filteredProjects = projects.filter((project) => {
     const lowerCaseFilter = filter.toLowerCase();
@@ -40,7 +42,13 @@ export function ProjectsTable({ projects }: Props) {
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-96"
         />
-        <AddProjectDialog />
+        <div className="flex items-center gap-2">
+          <Button onClick={() => setIsOpen(true)}>
+            <IconBrandGithub />
+            <span>Import from Github</span>
+          </Button>
+          <AddProjectDialog />
+        </div>
       </div>
       <div className="border rounded-md">
         <Table>
@@ -117,6 +125,7 @@ export function ProjectsTable({ projects }: Props) {
           </TableBody>
         </Table>
       </div>
+      {isOpen && <ImportProjectsDialog setIsOpen={setIsOpen} />}
     </>
   );
 }

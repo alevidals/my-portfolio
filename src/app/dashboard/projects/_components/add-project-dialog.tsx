@@ -96,8 +96,8 @@ export function AddProjectDialog() {
               labelChildren="Techonologies"
               helperText="Comma separated list of techonologies"
               placeholder="JavaScript,TypeScript,etc."
-              defaultValue={state?.techonologies ?? ""}
-              error={state?.errors?.techonologies ?? ""}
+              defaultValue={state?.technologies ?? ""}
+              error={state?.errors?.technologies ?? ""}
             />
             <FormItem
               id="deploymentUrl"
