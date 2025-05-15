@@ -32,6 +32,10 @@ export async function Header() {
                 href="/dashboard/profile"
                 label="/dashboard/profile"
               />
+              <HeaderLink
+                href="/dashboard/projects"
+                label="/dashboard/projects"
+              />
             </nav>
             <UserButton />
           </SignedIn>
