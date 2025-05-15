@@ -41,7 +41,7 @@ export async function getRepositories() {
 
       return {
         ...repository,
-        languages: Object.keys(languages),
+        technologies: Object.keys(languages),
       };
     },
   );

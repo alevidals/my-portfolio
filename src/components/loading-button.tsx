@@ -1,20 +1,28 @@
 import { Button, type Props as ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { IconLoader2 } from "@tabler/icons-react";
+import type { ReactNode } from "react";
 
 type Props = ButtonProps & {
   isLoading: boolean;
+  icon?: ReactNode;
 };
 
-export function LoadingButton({ isLoading, children, ...rest }: Props) {
+export function LoadingButton({ isLoading, icon, children, ...rest }: Props) {
   return (
     <Button
       {...rest}
       disabled={isLoading}
       className={cn("relative", rest.className)}
     >
-      <span className={`${isLoading ? "invisible" : "visible"}`}>
-        {children}
+      <span
+        className={cn("flex items-center gap-2", {
+          invisible: isLoading,
+          visible: !isLoading,
+        })}
+      >
+        <span>{children}</span>
+        {icon && icon}
       </span>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">

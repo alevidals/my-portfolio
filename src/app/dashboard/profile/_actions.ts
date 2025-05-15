@@ -28,7 +28,7 @@ export async function insertUserProfile(
         linkedInUrl: result.error.formErrors.fieldErrors.linkedInUrl?.[0],
         githubUrl: result.error.formErrors.fieldErrors.githubUrl?.[0],
       },
-      ...data,
+      data,
     };
   }
 
@@ -43,7 +43,7 @@ export async function insertUserProfile(
     return {
       success: false,
       error: "Failed to update profile",
-      ...result.data,
+      data: result.data,
     };
   }
 

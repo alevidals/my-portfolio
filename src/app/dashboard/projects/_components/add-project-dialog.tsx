@@ -76,7 +76,7 @@ export function AddProjectDialog() {
               required
               labelChildren="Project Name"
               placeholder="Project Name"
-              defaultValue={state?.name ?? ""}
+              defaultValue={state?.data?.name ?? ""}
               error={state?.errors?.name ?? ""}
             />
             <FormItem
@@ -85,7 +85,7 @@ export function AddProjectDialog() {
               itemType="textarea"
               labelChildren="Description"
               placeholder="Project Description"
-              defaultValue={state?.description ?? ""}
+              defaultValue={state?.data?.description ?? ""}
               error={state?.errors?.description ?? ""}
             />
             <FormItem
@@ -96,7 +96,7 @@ export function AddProjectDialog() {
               labelChildren="Techonologies"
               helperText="Comma separated list of techonologies"
               placeholder="JavaScript,TypeScript,etc."
-              defaultValue={state?.technologies ?? ""}
+              defaultValue={state?.data?.technologies ?? ""}
               error={state?.errors?.technologies ?? ""}
             />
             <FormItem
@@ -106,7 +106,7 @@ export function AddProjectDialog() {
               type="url"
               labelChildren="Deployment URL"
               placeholder="https://your-project.com"
-              defaultValue={state?.deploymentUrl ?? ""}
+              defaultValue={state?.data?.deploymentUrl ?? ""}
               error={state?.errors?.deploymentUrl ?? ""}
             />
             <FormItem
@@ -116,7 +116,7 @@ export function AddProjectDialog() {
               type="url"
               labelChildren="Repository URL"
               placeholder="https://wwww.github.com/your-project"
-              defaultValue={state?.repositoryUrl ?? ""}
+              defaultValue={state?.data?.repositoryUrl ?? ""}
               error={state?.errors?.repositoryUrl ?? ""}
             />
           </form>

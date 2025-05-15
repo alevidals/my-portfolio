@@ -38,7 +38,7 @@ const repository = z.object({
   repositoryUrl: z.string(),
   deploymentUrl: z.string().nullable(),
   stars: z.number(),
-  languages: z.array(z.string()).optional(),
+  technologies: z.array(z.string()).optional(),
   username: z.string(),
 });
 

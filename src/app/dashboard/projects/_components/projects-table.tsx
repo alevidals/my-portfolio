@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { getUserProjects } from "@/lib/queries/projects";
-import { IconBrandGithub, IconDots } from "@tabler/icons-react";
+import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
@@ -23,7 +23,6 @@ type Props = {
 
 export function ProjectsTable({ projects }: Props) {
   const [filter, setFilter] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
 
   const filteredProjects = projects.filter((project) => {
     const lowerCaseFilter = filter.toLowerCase();
@@ -43,10 +42,7 @@ export function ProjectsTable({ projects }: Props) {
           className="h-10 dark:bg-transparent w-96"
         />
         <div className="flex items-center gap-2">
-          <Button onClick={() => setIsOpen(true)}>
-            <IconBrandGithub />
-            <span>Import from Github</span>
-          </Button>
+          <ImportProjectsDialog />
           <AddProjectDialog />
         </div>
       </div>
@@ -125,7 +121,6 @@ export function ProjectsTable({ projects }: Props) {
           </TableBody>
         </Table>
       </div>
-      {isOpen && <ImportProjectsDialog setIsOpen={setIsOpen} />}
     </>
   );
 }

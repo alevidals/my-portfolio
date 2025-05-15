@@ -1,4 +1,6 @@
-export type ActionResponse<T> = Partial<T> & {
+export type ActionResponse<T> = {
+  data?: Partial<T>;
+} & {
   success: boolean;
   message?: string;
   error?: string;

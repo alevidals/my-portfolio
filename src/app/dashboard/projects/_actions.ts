@@ -1,9 +1,15 @@
 "use server";
 
 import { insertProject as insertProjectQuery } from "@/lib/queries/projects";
-import { insertProjectSchema } from "@/lib/schema/projects";
+import {
+  importProjectsSchema,
+  insertProjectSchema,
+} from "@/lib/schema/projects";
 import type { ActionResponse } from "@/lib/types/action";
-import type { InsertProjectSchema } from "@/lib/types/projects";
+import type {
+  ImportProjectsSchema,
+  InsertProjectSchema,
+} from "@/lib/types/projects";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
@@ -30,7 +36,7 @@ export async function insertProject(
         deploymentUrl: result.error.formErrors.fieldErrors.deploymentUrl?.[0],
         repositoryUrl: result.error.formErrors.fieldErrors.repositoryUrl?.[0],
       },
-      ...data,
+      data,
     };
   }
 
@@ -58,7 +64,7 @@ export async function insertProject(
     return {
       success: false,
       error: "Failed to create project",
-      ...result.data,
+      data: result.data,
     };
   }
 
@@ -67,5 +73,48 @@ export async function insertProject(
   return {
     success: true,
     message: "Project created successfully",
+  };
+}
+
+export async function importProjects(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<ImportProjectsSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = JSON.parse(formData.get("repositories") as string);
+
+  const result = importProjectsSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data: result.data,
+    };
+  }
+
+  await Promise.all(
+    result.data.map((project) =>
+      insertProjectQuery({
+        project: {
+          userId,
+          name: project.name,
+          description: project.description,
+          deploymentUrl: project.deploymentUrl,
+          repositoryUrl: project.repositoryUrl,
+          technologies: project.technologies,
+        },
+      }),
+    ),
+  );
+
+  revalidatePath("/dashboard/projects");
+
+  return {
+    success: true,
+    message: "Projects imported successfully",
   };
 }

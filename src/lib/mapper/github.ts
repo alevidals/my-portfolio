@@ -18,7 +18,7 @@ export function mapRepositories({
     repositoryUrl: repo.html_url,
     deploymentUrl: repo.homepage,
     stars: repo.stargazers_count,
-    languages: repo.languages || [],
+    technologies: repo.languages || [],
     username: repo.owner.login,
   }));
 }

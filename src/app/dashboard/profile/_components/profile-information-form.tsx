@@ -44,7 +44,7 @@ export function ProfileInformationForm({ userProfile }: Props) {
             <span>Biography</span>
           </>
         }
-        defaultValue={state?.biography ?? userProfile?.biography ?? ""}
+        defaultValue={state?.data?.biography ?? userProfile?.biography ?? ""}
         placeholder="Tell us about yourself"
         error={state?.errors?.biography ?? ""}
       />
@@ -60,7 +60,9 @@ export function ProfileInformationForm({ userProfile }: Props) {
             <span>LinkedIn URL</span>
           </>
         }
-        defaultValue={state?.linkedInUrl ?? userProfile?.linkedInUrl ?? ""}
+        defaultValue={
+          state?.data?.linkedInUrl ?? userProfile?.linkedInUrl ?? ""
+        }
         placeholder="https://www.linkedin.com/in/your-profile"
         error={state?.errors?.linkedInUrl ?? ""}
       />
@@ -76,7 +78,7 @@ export function ProfileInformationForm({ userProfile }: Props) {
             <span>GitHub URL</span>
           </>
         }
-        defaultValue={state?.githubUrl ?? userProfile?.githubUrl ?? ""}
+        defaultValue={state?.data?.githubUrl ?? userProfile?.githubUrl ?? ""}
         placeholder="https://www.github.com/your-profile"
         error={state?.errors?.githubUrl ?? ""}
       />
