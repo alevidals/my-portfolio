@@ -37,7 +37,10 @@ export function FormItem({
 }: Props) {
   return (
     <div className="grid gap-3">
-      <Label htmlFor={id}>{labelChildren}</Label>
+      <Label htmlFor={id}>
+        {labelChildren}
+        {required && <span className="text-red-500 align-super">*</span>}
+      </Label>
       {itemType === "input" ? (
         <Input
           id={id}

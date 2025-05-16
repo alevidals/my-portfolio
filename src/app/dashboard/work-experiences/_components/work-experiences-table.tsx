@@ -1,6 +1,8 @@
 "use client";
 
+import { AddWorkExperienceDialog } from "@/app/dashboard/work-experiences/_components/add-work-experience-dialog";
 import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
+import { formatDate } from "@/app/dashboard/work-experiences/_lib/utils";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -36,7 +38,7 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-96"
         />
-        <div className="flex items-center gap-2">here</div>
+        <AddWorkExperienceDialog />
       </div>
       <div className="border rounded-md">
         <Table>
@@ -61,15 +63,20 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
                     {workExperience.position}
                   </TableCell>
                   <TableCell className="px-3 w-[400px] whitespace-normal">
-                    {workExperience.description}
+                    {workExperience.description || "-"}
                   </TableCell>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
-                    {workExperience.startDate.month}{" "}
-                    {workExperience.startDate.year}
+                    {formatDate({
+                      month: workExperience.startDate.month,
+                      year: workExperience.startDate.year,
+                    })}
                   </TableCell>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
                     {workExperience.endDate
-                      ? `${workExperience.endDate.month} ${workExperience.endDate.year}`
+                      ? formatDate({
+                          month: workExperience.endDate.month,
+                          year: workExperience.endDate.year,
+                        })
                       : "Present"}
                   </TableCell>
                   <TableCell>actions</TableCell>
