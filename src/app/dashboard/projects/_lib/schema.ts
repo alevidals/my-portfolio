@@ -24,6 +24,10 @@ export const deleteProjectSchema = z.object({
   projectId: z.string().uuid("Invalid project ID"),
 });
 
+export const updateProjectSchema = insertProjectSchema.extend({
+  id: z.string().uuid("Invalid project ID"),
+});
+
 // -- ACTIONS --
 
 // -- FETCH --

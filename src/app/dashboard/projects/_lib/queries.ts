@@ -3,6 +3,7 @@ import { mapRepositories } from "@/app/dashboard/projects/_lib/mapper";
 import type {
   InsertProject,
   Repository,
+  UpdateProject,
 } from "@/app/dashboard/projects/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { projects } from "@/lib/db/schema";
@@ -155,4 +156,32 @@ export async function deleteProject({ projectId }: DeleteProjectParams) {
     .get();
 
   return deletedProject;
+}
+
+type UpdateProjectParams = {
+  project: UpdateProject;
+};
+
+export async function updateProject({ project }: UpdateProjectParams) {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const belongsToUser = await belongsProjectToUser({
+    projectId: project.id,
+    userId,
+  });
+
+  if (!belongsToUser) {
+    return;
+  }
+
+  const updatedProject = await db
+    .update(projects)
+    .set(project)
+    .where(eq(projects.id, project.id))
+    .returning()
+    .get();
+
+  return updatedProject;
 }

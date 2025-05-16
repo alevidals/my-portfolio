@@ -105,10 +105,7 @@ export function ProjectsTable({ projects }: Props) {
                     )}
                   </TableCell>
                   <TableCell>
-                    <ProjectActionsDropdown
-                      projectId={project.id}
-                      projectName={project.name}
-                    />
+                    <ProjectActionsDropdown project={project} />
                   </TableCell>
                 </TableRow>
               ))

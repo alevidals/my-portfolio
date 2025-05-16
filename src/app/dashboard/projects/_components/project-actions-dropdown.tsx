@@ -1,4 +1,6 @@
+import { AddProjectDialog } from "@/app/dashboard/projects/_components/add-project-dialog";
 import { DeleteProjectAlertDialog } from "@/app/dashboard/projects/_components/delete-project-alert-dialog";
+import type { getUserProjects } from "@/app/dashboard/projects/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,12 +14,12 @@ import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
-  projectId: string;
-  projectName: string;
+  project: Awaited<ReturnType<typeof getUserProjects>>[number];
 };
 
-export function ProjectActionsDropdown({ projectId, projectName }: Props) {
+export function ProjectActionsDropdown({ project }: Props) {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   return (
     <>
@@ -30,7 +32,7 @@ export function ProjectActionsDropdown({ projectId, projectName }: Props) {
         <DropdownMenuContent className="bg-neutral-950">
           <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsOpenDelete(true)}>
+          <DropdownMenuItem onClick={() => setIsOpenEdit(true)}>
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsOpenDelete(true)}>
@@ -41,8 +43,13 @@ export function ProjectActionsDropdown({ projectId, projectName }: Props) {
       <DeleteProjectAlertDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        projectName={projectName}
-        projectId={projectId}
+        projectName={project.name}
+        projectId={project.id}
+      />
+      <AddProjectDialog
+        project={project}
+        externalIsOpen={isOpenEdit}
+        externalSetIsOpen={setIsOpenEdit}
       />
     </>
   );

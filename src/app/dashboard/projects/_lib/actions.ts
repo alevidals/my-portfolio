@@ -3,17 +3,21 @@
 import {
   deleteProject as deleteProjectQuery,
   insertProject as insertProjectQuery,
+  updateProject as updateProjectQuery,
 } from "@/app/dashboard/projects/_lib/queries";
 import {
   deleteProjectSchema,
   importProjectsSchema,
   insertProjectSchema,
+  updateProjectSchema,
 } from "@/app/dashboard/projects/_lib/schema";
 import type {
   DeleteProjectSchema,
   ImportProjectsSchema,
   InsertProject,
   InsertProjectSchema,
+  UpdateProject,
+  UpdateProjectSchema,
 } from "@/app/dashboard/projects/_lib/types";
 import type { ActionResponse } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
@@ -152,6 +156,67 @@ export async function deleteProject(
   });
 
   if (!deletedProject) {
+    return {
+      success: false,
+      error: "Failed to delete project",
+      data,
+    };
+  }
+
+  revalidatePath("/dashboard/projects");
+
+  return {
+    success: true,
+    message: "Project deleted successfully",
+  };
+}
+
+export async function updateProject(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<UpdateProjectSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(formData.entries()) as UpdateProjectSchema;
+
+  const result = updateProjectSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const project = result.data;
+
+  const splittedTechnologies = Array.from(
+    new Set(
+      result.data.technologies
+        ?.split(",")
+        .map((technology) => technology.trim())
+        .filter((technology) => technology !== ""),
+    ),
+  );
+
+  const projectToUpdate: UpdateProject = {
+    id: project.id,
+    userId,
+    name: project.name,
+    description: project.description,
+    deploymentUrl: project.deploymentUrl,
+    repositoryUrl: project.repositoryUrl,
+    technologies: splittedTechnologies,
+  };
+
+  const updatedProject = await updateProjectQuery({
+    project: projectToUpdate,
+  });
+
+  if (!updatedProject) {
     return {
       success: false,
       error: "Failed to delete project",
