@@ -1,11 +1,16 @@
 "use server";
 
-import { insertProject as insertProjectQuery } from "@/app/dashboard/projects/_lib/queries";
 import {
+  deleteProject as deleteProjectQuery,
+  insertProject as insertProjectQuery,
+} from "@/app/dashboard/projects/_lib/queries";
+import {
+  deleteProjectSchema,
   importProjectsSchema,
   insertProjectSchema,
 } from "@/app/dashboard/projects/_lib/schema";
 import type {
+  DeleteProjectSchema,
   ImportProjectsSchema,
   InsertProject,
   InsertProjectSchema,
@@ -117,5 +122,47 @@ export async function importProjects(
   return {
     success: true,
     message: "Projects imported successfully",
+  };
+}
+
+export async function deleteProject(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<DeleteProjectSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(formData.entries()) as DeleteProjectSchema;
+
+  const result = deleteProjectSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const { projectId } = result.data;
+
+  const deletedProject = await deleteProjectQuery({
+    projectId,
+  });
+
+  if (!deletedProject) {
+    return {
+      success: false,
+      error: "Failed to delete project",
+      data,
+    };
+  }
+
+  revalidatePath("/dashboard/projects");
+
+  return {
+    success: true,
+    message: "Project deleted successfully",
   };
 }

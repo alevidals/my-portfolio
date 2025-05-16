@@ -2,6 +2,7 @@
 
 import { AddProjectDialog } from "@/app/dashboard/projects/_components/add-project-dialog";
 import { ImportProjectsDialog } from "@/app/dashboard/projects/_components/import-projects-dialog";
+import { ProjectActionsDropdown } from "@/app/dashboard/projects/_components/project-actions-dropdown";
 import type { getUserProjects } from "@/app/dashboard/projects/_lib/queries";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
@@ -105,9 +105,10 @@ export function ProjectsTable({ projects }: Props) {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon">
-                      <IconDots />
-                    </Button>
+                    <ProjectActionsDropdown
+                      projectId={project.id}
+                      projectName={project.name}
+                    />
                   </TableCell>
                 </TableRow>
               ))

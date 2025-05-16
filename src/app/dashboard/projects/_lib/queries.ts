@@ -7,6 +7,7 @@ import type {
 import { db } from "@/lib/db/drizzle";
 import { projects } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 
 export async function getRepositories() {
   const repositories: Repository[] = [];
@@ -110,4 +111,48 @@ export async function insertProject({ project }: InsertProjectParams) {
     .get();
 
   return insertedProject;
+}
+
+type BelongsProjectToUserParams = {
+  projectId: string;
+  userId: string;
+};
+
+export async function belongsProjectToUser({
+  projectId,
+  userId,
+}: BelongsProjectToUserParams) {
+  const project = await db.query.projects.findFirst({
+    where: (projects, { eq, and }) =>
+      and(eq(projects.id, projectId), eq(projects.userId, userId)),
+  });
+
+  return !!project;
+}
+
+type DeleteProjectParams = {
+  projectId: string;
+};
+
+export async function deleteProject({ projectId }: DeleteProjectParams) {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const belongsToUser = await belongsProjectToUser({
+    projectId,
+    userId,
+  });
+
+  if (!belongsToUser) {
+    return;
+  }
+
+  const deletedProject = await db
+    .delete(projects)
+    .where(eq(projects.id, projectId))
+    .returning()
+    .get();
+
+  return deletedProject;
 }

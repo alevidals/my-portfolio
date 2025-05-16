@@ -1,4 +1,5 @@
 import type {
+  deleteProjectSchema,
   getRepositoriesResponseSchema,
   getRepositoryLanguagesResponseSchema,
   importProjectsSchema,
@@ -23,6 +24,8 @@ export type InsertProject = typeof projects.$inferInsert;
 export type InsertProjectSchema = z.infer<typeof insertProjectSchema>;
 
 export type ImportProjectsSchema = z.infer<typeof importProjectsSchema>;
+
+export type DeleteProjectSchema = z.infer<typeof deleteProjectSchema>;
 
 export type GetRespositoriesResponse = z.infer<
   typeof getRepositoriesResponseSchema
