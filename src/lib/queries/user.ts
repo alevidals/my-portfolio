@@ -1,6 +1,6 @@
 import { db } from "@/lib/db/drizzle";
 import { userProfiles } from "@/lib/db/schema";
-import type { InsertUserProfile } from "@/lib/types/user";
+import type { InsertUserProfile } from "@/lib/types/users";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 

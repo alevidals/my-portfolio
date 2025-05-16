@@ -1,9 +1,9 @@
 "use server";
 
 import { insertUserProfile as insertUserProfileQuery } from "@/lib/queries/user";
-import { insertUserProfileSchema } from "@/lib/schema/user";
-import type { ActionResponse } from "@/lib/types/action";
-import type { InsertUserProfileSchema } from "@/lib/types/user";
+import { insertUserProfileSchema } from "@/lib/schema/users";
+import type { ActionResponse } from "@/lib/types/actions";
+import type { InsertUserProfileSchema } from "@/lib/types/users";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 

@@ -5,7 +5,7 @@ import {
   importProjectsSchema,
   insertProjectSchema,
 } from "@/lib/schema/projects";
-import type { ActionResponse } from "@/lib/types/action";
+import type { ActionResponse } from "@/lib/types/actions";
 import type {
   ImportProjectsSchema,
   InsertProjectSchema,
