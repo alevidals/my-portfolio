@@ -8,6 +8,13 @@
       "when": 1747315967543,
       "tag": "0000_serious_eternity",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1747427070041,
+      "tag": "0001_solid_photon",
+      "breakpoints": true
     }
   ]
 }

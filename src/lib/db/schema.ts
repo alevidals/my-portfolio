@@ -22,3 +22,18 @@ export const projects = sqliteTable("projects", {
     .default(sql`(json_array())`),
   createdAt: text("created_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
 });
+
+export const workExperiences = sqliteTable("work_experiences", {
+  id: text("id").$defaultFn(uuidv7).primaryKey(),
+  userId: text("user_id").notNull(),
+  companyName: text("company_name").notNull(),
+  position: text("position").notNull(),
+  startDate: text("start_date", { mode: "json" })
+    .$type<{ month: string; year: number }>()
+    .notNull(),
+  endDate: text("end_date", { mode: "json" }).$type<{
+    month: string;
+    year: number;
+  }>(),
+  description: text("description"),
+});
