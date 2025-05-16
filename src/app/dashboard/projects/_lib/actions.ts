@@ -1,15 +1,16 @@
 "use server";
 
-import { insertProject as insertProjectQuery } from "@/lib/queries/projects";
+import { insertProject as insertProjectQuery } from "@/app/dashboard/projects/_lib/queries";
 import {
   importProjectsSchema,
   insertProjectSchema,
-} from "@/lib/schema/projects";
-import type { ActionResponse } from "@/lib/types/actions";
+} from "@/app/dashboard/projects/_lib/schema";
 import type {
   ImportProjectsSchema,
+  InsertProject,
   InsertProjectSchema,
-} from "@/lib/types/projects";
+} from "@/app/dashboard/projects/_lib/types";
+import type { ActionResponse } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
@@ -49,16 +50,16 @@ export async function insertProject(
     ),
   );
 
-  const project = await insertProjectQuery({
-    project: {
-      userId,
-      name: result.data.name,
-      description: result.data.description,
-      deploymentUrl: result.data.deploymentUrl,
-      repositoryUrl: result.data.repositoryUrl,
-      technologies: splittedTechnologies,
-    },
-  });
+  const projectToInsert: InsertProject = {
+    userId,
+    name: result.data.name,
+    description: result.data.description,
+    deploymentUrl: result.data.deploymentUrl,
+    repositoryUrl: result.data.repositoryUrl,
+    technologies: splittedTechnologies,
+  };
+
+  const project = await insertProjectQuery({ project: projectToInsert });
 
   if (!project) {
     return {

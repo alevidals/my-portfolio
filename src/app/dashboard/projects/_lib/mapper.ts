@@ -2,7 +2,7 @@ import type {
   GetRepositoryLanguagesResponse,
   GetRespositoriesResponse,
   Repository,
-} from "@/lib/schema/github";
+} from "@/app/dashboard/projects/_lib/types";
 
 type MapRepositoriesParams = {
   repositories: GetRespositoriesResponse;

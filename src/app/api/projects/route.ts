@@ -1,4 +1,4 @@
-import { getRepositories } from "@/lib/queries/github";
+import { getRepositories } from "@/app/dashboard/projects/_lib/queries";
 
 export async function GET() {
   const repositories = await getRepositories();

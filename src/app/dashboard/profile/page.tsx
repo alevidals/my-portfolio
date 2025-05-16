@@ -1,5 +1,5 @@
 import { ProfileInformationForm } from "@/app/dashboard/profile/_components/profile-information-form";
-import { getUserProfile } from "@/lib/queries/user";
+import { getUserProfile } from "@/app/dashboard/profile/_lib/queries";
 
 export default async function DashboardProfilePage() {
   const userProfile = await getUserProfile();

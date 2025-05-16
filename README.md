@@ -10,3 +10,4 @@
 - [ ] Add translations
 - [ ] Add dark/white mode?
 - [ ] Add testing if got time
+- [ ] Check TODOS

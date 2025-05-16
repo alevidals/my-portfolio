@@ -1,5 +1,5 @@
+import type { insertUserProfileSchema } from "@/app/dashboard/profile/_lib/schema";
 import type { userProfiles } from "@/lib/db/schema";
-import type { insertUserProfileSchema } from "@/lib/schema/user";
 import type { z } from "zod";
 
 export type InsertUserProfile = typeof userProfiles.$inferInsert;

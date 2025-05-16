@@ -1,6 +1,6 @@
+import type { InsertUserProfile } from "@/app/dashboard/profile/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { userProfiles } from "@/lib/db/schema";
-import type { InsertUserProfile } from "@/lib/types/users";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
@@ -28,25 +28,17 @@ export async function existsUserProfile({ userId }: ExistsUserProfileParams) {
   return !!userProfile;
 }
 
-type InsertUserProfileParams = InsertUserProfile;
+type InsertUserProfileParams = {
+  user: InsertUserProfile;
+};
 
-export async function insertUserProfile({
-  userId,
-  biography,
-  githubUrl,
-  linkedInUrl,
-}: InsertUserProfileParams) {
-  const exists = await existsUserProfile({ userId });
+export async function insertUserProfile({ user }: InsertUserProfileParams) {
+  const exists = await existsUserProfile({ userId: user.userId });
 
   if (!exists) {
     const userProfile = await db
       .insert(userProfiles)
-      .values({
-        userId,
-        biography,
-        githubUrl,
-        linkedInUrl,
-      })
+      .values(user)
       .returning()
       .get();
 
@@ -55,12 +47,8 @@ export async function insertUserProfile({
 
   const userProfile = await db
     .update(userProfiles)
-    .set({
-      biography,
-      githubUrl,
-      linkedInUrl,
-    })
-    .where(eq(userProfiles.userId, userId))
+    .set(user)
+    .where(eq(userProfiles.userId, user.userId))
     .returning()
     .get();
 

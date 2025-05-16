@@ -1,8 +1,8 @@
-import { importProjects } from "@/app/dashboard/projects/_actions";
+import { ImportProjectsFrom } from "@/app/dashboard/projects/_components/import-projects-from";
+import { importProjects } from "@/app/dashboard/projects/_lib/actions";
+import type { getRepositories } from "@/app/dashboard/projects/_lib/queries";
 import { LoadingButton } from "@/components/loading-button";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -14,21 +14,21 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { getRepositories } from "@/lib/queries/github";
-import {
-  IconBrandGithub,
-  IconExternalLink,
-  IconLoader2,
-  IconX,
-} from "@tabler/icons-react";
+import { IconBrandGithub, IconLoader2, IconX } from "@tabler/icons-react";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
-type ToggleRepositoryParams = {
-  repositoryId: number;
-  checked: boolean;
-};
+// TODO: use better-fetch
+async function fetchRepositories() {
+  const response = await fetch("/api/projects");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch projects. Please try again later.");
+  }
+
+  return response.json() as ReturnType<typeof getRepositories>;
+}
 
 export function ImportProjectsDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,7 @@ export function ImportProjectsDialog() {
   const [selectedRepositories, setSelectedRepositories] = useState<number[]>(
     [],
   );
-  const [state, formAction, isPending] = useActionState(
+  const [_, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
       const response = await importProjects(_, formData);
 
@@ -56,20 +56,24 @@ export function ImportProjectsDialog() {
     null,
   );
 
-  const { data, error, isLoading } = useSWR(
-    isOpen ? "/api/projects" : null,
-    async () => {
-      const response = await fetch("/api/projects");
-      if (!response.ok) {
-        throw new Error("Failed to fetch projects");
-      }
-      return response.json() as ReturnType<typeof getRepositories>;
-    },
-  );
+  const {
+    data,
+    error,
+    isLoading: isLoadingFetch,
+    isValidating: isValidatingFetch,
+  } = useSWR(isOpen ? "/api/projects" : null, fetchRepositories, {
+    shouldRetryOnError: false,
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+  });
 
   const filteredRepositories = data?.filter((repository) =>
     repository.name.toLowerCase().includes(filter.toLowerCase()),
   );
+
+  const isLoading = isLoadingFetch || isValidatingFetch;
+  const shouldShowError = error && !isLoading;
+  const shouldShowData = filteredRepositories && !isLoading && !shouldShowError;
 
   function handleAction(_: FormData) {
     const repositories = data?.filter((repository) =>
@@ -80,16 +84,6 @@ export function ImportProjectsDialog() {
     newFormData.append("repositories", JSON.stringify(repositories));
 
     formAction(newFormData);
-  }
-
-  function toggleRepository({ checked, repositoryId }: ToggleRepositoryParams) {
-    if (checked) {
-      setSelectedRepositories((prev) => [...prev, repositoryId]);
-    } else {
-      setSelectedRepositories((prev) =>
-        prev.filter((id) => id !== repositoryId),
-      );
-    }
   }
 
   return (
@@ -118,13 +112,21 @@ export function ImportProjectsDialog() {
             Choose repositories to import from your Github account.
           </DialogDescription>
         </DialogHeader>
+
         <div className="h-full overflow-hidden flex flex-col px-6 py-3">
           {isLoading && (
             <div className="flex items-center justify-center h-full">
               <IconLoader2 className="animate-spin" />
             </div>
           )}
-          {filteredRepositories && !isLoading && (
+
+          {shouldShowError && (
+            <p className="h-full text-red-500">
+              {error.message ?? "Failed to fetch projects"}
+            </p>
+          )}
+
+          {shouldShowData && (
             <>
               <Input
                 className="h-10 mb-4 dark:bg-transparent"
@@ -136,49 +138,12 @@ export function ImportProjectsDialog() {
                 <p className="h-full">No results found.</p>
               ) : (
                 <ScrollArea className="h-full overflow-hidden">
-                  <form action={handleAction} id="import-projects">
-                    {filteredRepositories.map((repository) => (
-                      <label
-                        key={repository.id}
-                        htmlFor={String(repository.id)}
-                        className="py-4 border-b last:not-first:border-b-0 hover:bg-neutral-900 flex gap-4"
-                      >
-                        <Checkbox
-                          id={String(repository.id)}
-                          name="repositories"
-                          checked={selectedRepositories.includes(repository.id)}
-                          onCheckedChange={(checked) =>
-                            toggleRepository({
-                              repositoryId: repository.id,
-                              checked: Boolean(checked),
-                            })
-                          }
-                          value={String(repository.id)}
-                        />
-                        <div className="flex-1">
-                          <h3 className="font-bold mb-1">{repository.name}</h3>
-                          <p className="text-sm text-neutral-200">
-                            {repository.description}
-                          </p>
-                          <div className="space-x-1 space-y-1 mt-2 overflow-x-auto">
-                            {repository.technologies.map((technology) => (
-                              <Badge variant="outline" key={technology}>
-                                {technology}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        <a
-                          href={repository.repositoryUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="self-start"
-                        >
-                          <IconExternalLink className="text-sky-400 hover:text-gray-200" />
-                        </a>
-                      </label>
-                    ))}
-                  </form>
+                  <ImportProjectsFrom
+                    filteredRepositories={filteredRepositories}
+                    selectedRepositories={selectedRepositories}
+                    setSelectedRepositories={setSelectedRepositories}
+                    handleAction={handleAction}
+                  />
                 </ScrollArea>
               )}
 

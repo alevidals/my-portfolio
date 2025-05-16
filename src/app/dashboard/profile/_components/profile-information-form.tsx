@@ -1,9 +1,9 @@
 "use client";
 
-import { insertUserProfile } from "@/app/dashboard/profile/_actions";
+import { insertUserProfile } from "@/app/dashboard/profile/_lib/actions";
+import type { insertUserProfile as insertUserProfileQuery } from "@/app/dashboard/profile/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
-import type { insertUserProfile as insertUserProfileQuery } from "@/lib/queries/user";
 import {
   IconBrandGithub,
   IconBrandLinkedin,

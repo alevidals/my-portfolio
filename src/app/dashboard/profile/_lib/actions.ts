@@ -1,9 +1,12 @@
 "use server";
 
-import { insertUserProfile as insertUserProfileQuery } from "@/lib/queries/user";
-import { insertUserProfileSchema } from "@/lib/schema/users";
-import type { ActionResponse } from "@/lib/types/actions";
-import type { InsertUserProfileSchema } from "@/lib/types/users";
+import { insertUserProfile as insertUserProfileQuery } from "@/app/dashboard/profile/_lib/queries";
+import { insertUserProfileSchema } from "@/app/dashboard/profile/_lib/schema";
+import type {
+  InsertUserProfile,
+  InsertUserProfileSchema,
+} from "@/app/dashboard/profile/_lib/types";
+import type { ActionResponse } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
@@ -32,12 +35,14 @@ export async function insertUserProfile(
     };
   }
 
-  const userProfile = await insertUserProfileQuery({
+  const userToInsert: InsertUserProfile = {
     userId,
     biography: result.data.biography,
     githubUrl: result.data.githubUrl,
     linkedInUrl: result.data.linkedInUrl,
-  });
+  };
+
+  const userProfile = await insertUserProfileQuery({ user: userToInsert });
 
   if (!userProfile) {
     return {

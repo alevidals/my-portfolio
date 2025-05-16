@@ -1,4 +1,4 @@
-import { insertProject } from "@/app/dashboard/projects/_actions";
+import { insertProject } from "@/app/dashboard/projects/_lib/actions";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
 import { Button } from "@/components/ui/button";

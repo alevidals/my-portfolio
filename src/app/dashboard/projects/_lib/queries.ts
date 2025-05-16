@@ -1,6 +1,12 @@
-import { $fetch } from "@/lib/fetch";
-import { mapRepositories } from "@/lib/mapper/github";
-import type { Repository } from "@/lib/schema/github";
+import { githubFetch } from "@/app/dashboard/projects/_lib/githubFetch";
+import { mapRepositories } from "@/app/dashboard/projects/_lib/mapper";
+import type {
+  InsertProject,
+  Repository,
+} from "@/app/dashboard/projects/_lib/types";
+import { db } from "@/lib/db/drizzle";
+import { projects } from "@/lib/db/schema";
+import { auth } from "@clerk/nextjs/server";
 
 export async function getRepositories() {
   const repositories: Repository[] = [];
@@ -9,7 +15,7 @@ export async function getRepositories() {
   let page = 1;
 
   while (hasMore) {
-    const { data, error } = await $fetch("@get/user/repos", {
+    const { data, error } = await githubFetch("@get/user/repos", {
       query: {
         type: "public",
         page: 1,
@@ -62,7 +68,7 @@ export async function getRepositoryLanguages({
   user,
   repository,
 }: GetRepositoryLanguagesParams) {
-  const { data, error } = await $fetch(
+  const { data, error } = await githubFetch(
     "@get/repos/:user/:repository/languages",
     {
       params: {
@@ -78,4 +84,30 @@ export async function getRepositoryLanguages({
   }
 
   return data;
+}
+
+export async function getUserProjects() {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const userProjects = await db.query.projects.findMany({
+    where: (projects, { eq }) => eq(projects.userId, userId),
+  });
+
+  return userProjects;
+}
+
+type InsertProjectParams = {
+  project: InsertProject;
+};
+
+export async function insertProject({ project }: InsertProjectParams) {
+  const insertedProject = await db
+    .insert(projects)
+    .values(project)
+    .returning()
+    .get();
+
+  return insertedProject;
 }

@@ -1,5 +1,5 @@
 import { ProjectsTable } from "@/app/dashboard/projects/_components/projects-table";
-import { getUserProjects } from "@/lib/queries/projects";
+import { getUserProjects } from "@/app/dashboard/projects/_lib/queries";
 
 export default async function DashboardProjectsPage() {
   const projects = await getUserProjects();
