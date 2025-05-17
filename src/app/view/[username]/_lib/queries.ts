@@ -31,12 +31,14 @@ type GetUserIdBySlugParams = {
 };
 
 async function getUserIdBySlug({ slug }: GetUserIdBySlugParams) {
-  const portfolioUrl = await db.query.portfolioUrls.findFirst({
-    columns: { userId: true },
-    where: (portfolioUrls, { eq }) => eq(portfolioUrls.slug, slug),
+  const userProfile = await db.query.userProfiles.findFirst({
+    columns: {
+      userId: true,
+    },
+    where: (userProfiles, { eq }) => eq(userProfiles.slug, slug),
   });
 
-  return portfolioUrl?.userId;
+  return userProfile?.userId;
 }
 
 type GetUserDataParams = {

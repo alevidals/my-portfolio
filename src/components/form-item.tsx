@@ -1,12 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 type Props = {
   id: string;
   name: string;
   labelChildren: ReactNode;
+  inputClassName?: string;
   placeholder?: string;
   defaultValue?: string;
   helperText?: string;
@@ -29,6 +31,7 @@ export function FormItem({
   itemType,
   type,
   labelChildren,
+  inputClassName,
   placeholder,
   defaultValue,
   helperText,
@@ -46,7 +49,7 @@ export function FormItem({
           id={id}
           name={name}
           type={type}
-          className="h-10"
+          className={cn("h-10", inputClassName)}
           required={required}
           defaultValue={defaultValue}
           placeholder={placeholder}
@@ -55,7 +58,7 @@ export function FormItem({
         <Textarea
           id={id}
           name={name}
-          className="h-10"
+          className={cn("h-10", inputClassName)}
           required={required}
           defaultValue={defaultValue}
           placeholder={placeholder}

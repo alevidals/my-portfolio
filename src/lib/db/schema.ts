@@ -4,6 +4,7 @@ import { v7 as uuidv7 } from "uuid";
 
 export const userProfiles = sqliteTable("user_profiles", {
   userId: text("user_id").primaryKey(),
+  slug: text("slug").notNull().unique(),
   biography: text("biography"),
   linkedInUrl: text("linkedin_url"),
   githubUrl: text("github_url"),
@@ -52,10 +53,4 @@ export const educations = sqliteTable("educations", {
     year: string;
   }>(),
   description: text("description"),
-});
-
-export const portfolioUrls = sqliteTable("portfolio_urls", {
-  id: text("id").$defaultFn(uuidv7).primaryKey(),
-  userId: text("user_id").notNull().unique(),
-  slug: text("slug").notNull().unique(),
 });

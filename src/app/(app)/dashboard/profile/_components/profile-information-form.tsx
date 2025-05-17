@@ -8,6 +8,7 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
+  IconLink,
   IconTypography,
 } from "@tabler/icons-react";
 import { useActionState } from "react";
@@ -35,6 +36,22 @@ export function ProfileInformationForm({ userProfile }: Props) {
 
   return (
     <form className="grid gap-4" action={formAction}>
+      <FormItem
+        id="slug"
+        name="slug"
+        itemType="input"
+        required
+        labelChildren={
+          <>
+            <IconLink size={22} />
+            <span>slug</span>
+          </>
+        }
+        type="text"
+        defaultValue={state?.data?.slug ?? userProfile?.slug ?? ""}
+        placeholder="your-slug"
+        error={state?.errors?.slug ?? ""}
+      />
       <FormItem
         id="biography"
         name="biography"
