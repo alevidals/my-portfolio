@@ -4,7 +4,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import type { ReactNode } from "react";
 
 type Props = ButtonProps & {
-  isLoading: boolean;
+  isLoading?: boolean;
   icon?: ReactNode;
 };
 
