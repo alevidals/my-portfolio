@@ -29,11 +29,11 @@ export const workExperiences = sqliteTable("work_experiences", {
   companyName: text("company_name").notNull(),
   position: text("position").notNull(),
   startDate: text("start_date", { mode: "json" })
-    .$type<{ month: string; year: number }>()
+    .$type<{ month: string; year: string }>()
     .notNull(),
   endDate: text("end_date", { mode: "json" }).$type<{
     month: string;
-    year: number;
+    year: string;
   }>(),
   description: text("description"),
 });

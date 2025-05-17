@@ -1,4 +1,7 @@
-import { insertWorkExperience } from "@/app/dashboard/work-experiences/_lib/actions";
+import {
+  insertWorkExperience,
+  updateWorkExperience,
+} from "@/app/dashboard/work-experiences/_lib/actions";
 import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
 import {
   getMonths,
@@ -39,7 +42,11 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
       formData.set("endMonth", endMonth);
       formData.set("endYear", endYear);
 
-      const response = await insertWorkExperience(_, formData);
+      const action = workExperience
+        ? updateWorkExperience
+        : insertWorkExperience;
+
+      const response = await action(_, formData);
 
       if (response.success) {
         setIsOpen(false);
@@ -54,10 +61,18 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
     null,
   );
 
-  const [startMonth, setStartMonth] = useState(state?.data?.startMonth ?? "");
-  const [startYear, setStartYear] = useState(state?.data?.startYear ?? "");
-  const [endMonth, setEndMonth] = useState(state?.data?.endMonth ?? "");
-  const [endYear, setEndYear] = useState(state?.data?.endYear ?? "");
+  const [startMonth, setStartMonth] = useState(
+    state?.data?.startMonth ?? workExperience?.startDate.month ?? "",
+  );
+  const [startYear, setStartYear] = useState(
+    state?.data?.startYear ?? workExperience?.startDate.year ?? "",
+  );
+  const [endMonth, setEndMonth] = useState(
+    state?.data?.endMonth ?? workExperience?.endDate?.month ?? "",
+  );
+  const [endYear, setEndYear] = useState(
+    state?.data?.endYear ?? workExperience?.endDate?.year ?? "",
+  );
 
   return (
     <form action={formAction} className="grid gap-4" id="work-experience-form">
@@ -69,7 +84,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         required
         labelChildren="Company Name"
         placeholder="Company Name"
-        defaultValue={state?.data?.companyName}
+        defaultValue={state?.data?.companyName ?? workExperience?.companyName}
         error={state?.errors?.companyName}
       />
       <FormItem
@@ -80,7 +95,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         required
         labelChildren="Position"
         placeholder="Position"
-        defaultValue={state?.data?.position}
+        defaultValue={state?.data?.position ?? workExperience?.position}
         error={state?.errors?.position}
       />
       <FormItem
@@ -89,9 +104,12 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         itemType="textarea"
         labelChildren="Description"
         placeholder="Description"
-        defaultValue={state?.data?.description}
+        defaultValue={
+          state?.data?.description ?? workExperience?.description ?? ""
+        }
         error={state?.errors?.description}
       />
+      <p>{state?.data?.description ?? workExperience?.description}</p>
       <div className="grid gap-3">
         <Label htmlFor="startMonth">Start Month</Label>
         <Select
@@ -203,6 +221,9 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
           <p className="text-red-500 text-sm">{state.errors.endYear}</p>
         )}
       </div>
+      {workExperience && (
+        <input type="hidden" name="id" value={workExperience.id} />
+      )}
       <LoadingButton
         className="justify-self-end"
         isLoading={isPending}

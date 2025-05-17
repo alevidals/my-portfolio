@@ -3,15 +3,19 @@
 import {
   deleteWorkExperience as deleteWorkExperienceQuery,
   insertWorkExperience as insertWorkExperienceQuery,
+  updateWorkExperience as updateWorkExperienceQuery,
 } from "@/app/dashboard/work-experiences/_lib/queries";
 import {
   deleteWorkExperienceSchema,
   insertWorkExperienceSchema,
+  updateWorkExperienceSchema,
 } from "@/app/dashboard/work-experiences/_lib/schema";
 import type {
   DeleteWorkExperienceSchema,
   InsertWorkExperience,
   InsertWorkExperienceSchema,
+  UpdateWorkExperience,
+  UpdateWorkExperienceSchema,
 } from "@/app/dashboard/work-experiences/_lib/types";
 import type { ActionResponse } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
@@ -55,13 +59,13 @@ export async function insertWorkExperience(
     description: result.data.description,
     startDate: {
       month: result.data.startMonth,
-      year: Number(result.data.startYear),
+      year: result.data.startYear,
     },
     ...(result.data.endMonth &&
       result.data.endYear && {
         endDate: {
           month: result.data.endMonth,
-          year: Number(result.data.endYear),
+          year: result.data.endYear,
         },
       }),
   };
@@ -127,5 +131,66 @@ export async function deleteWorkExperience(
   return {
     success: true,
     message: "Work experience deleted successfully",
+  };
+}
+
+export async function updateWorkExperience(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<UpdateWorkExperienceSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(
+    formData.entries(),
+  ) as UpdateWorkExperienceSchema;
+
+  const result = updateWorkExperienceSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const workExperience: UpdateWorkExperience = {
+    id: result.data.id,
+    userId,
+    companyName: result.data.companyName,
+    position: result.data.position,
+    description: result.data.description,
+    startDate: {
+      month: result.data.startMonth,
+      year: result.data.startYear,
+    },
+    ...(result.data.endMonth &&
+      result.data.endYear && {
+        endDate: {
+          month: result.data.endMonth,
+          year: result.data.endYear,
+        },
+      }),
+  };
+
+  const updatedWorkExperience = await updateWorkExperienceQuery({
+    workExperience,
+  });
+
+  if (!updatedWorkExperience) {
+    return {
+      success: false,
+      error: "Failed to update work experience",
+      data: result.data,
+    };
+  }
+
+  revalidatePath("/dashboard/work-experiences");
+
+  return {
+    success: true,
+    message: "Work experience updated successfully",
   };
 }

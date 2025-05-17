@@ -36,6 +36,13 @@ export function AddWorkExperienceDialog({
     ? [externalIsOpen, externalSetIsOpen]
     : useState(false);
 
+  const title = workExperience
+    ? "Edit Work Experience"
+    : "Add New Work Experience";
+  const description = workExperience
+    ? "Edit your work experience details here."
+    : "Add your work experience details here.";
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       {!workExperience && (
@@ -49,7 +56,7 @@ export function AddWorkExperienceDialog({
       <DialogContent className="p-0 [&>button]:hidden gap-0">
         <DialogHeader className="border-b px-6 py-3">
           <DialogTitle className="flex items-center justify-between">
-            <span>Add New Work Experience</span>
+            <span>{title}</span>
             <DialogClose asChild>
               <Button
                 size="icon"
@@ -60,9 +67,7 @@ export function AddWorkExperienceDialog({
               </Button>
             </DialogClose>
           </DialogTitle>
-          <DialogDescription>
-            Add your work experience details here.
-          </DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="px-6 py-3">
           <AddWorkExperienceForm

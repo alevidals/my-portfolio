@@ -1,3 +1,4 @@
+import { AddWorkExperienceDialog } from "@/app/dashboard/work-experiences/_components/add-work-experience-dialog";
 import { DeleteWorkExperienceAlertDialog } from "@/app/dashboard/work-experiences/_components/delete-work-experience-alert-dialog";
 import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,11 @@ export function WorkExperienceActionsDropdown({ workExperience }: Props) {
         setIsOpen={setIsOpenDelete}
         workExperienceId={workExperience.id}
         companyName={workExperience.companyName}
+      />
+      <AddWorkExperienceDialog
+        workExperience={workExperience}
+        externalIsOpen={isOpenEdit}
+        externalSetIsOpen={setIsOpenEdit}
       />
     </>
   );

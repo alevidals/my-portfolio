@@ -1,4 +1,7 @@
-import type { InsertWorkExperience } from "@/app/dashboard/work-experiences/_lib/types";
+import type {
+  InsertWorkExperience,
+  UpdateWorkExperience,
+} from "@/app/dashboard/work-experiences/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { workExperiences } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
@@ -85,4 +88,34 @@ export async function deleteWorkExperience({
     .get();
 
   return deletedWorkExperience;
+}
+
+type UpdateWorkExperienceParams = {
+  workExperience: UpdateWorkExperience;
+};
+
+export async function updateWorkExperience({
+  workExperience,
+}: UpdateWorkExperienceParams) {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const belongsToUser = await belongsWorkExperienceToUser({
+    workExperienceId: workExperience.id,
+    userId,
+  });
+
+  if (!belongsToUser) {
+    return;
+  }
+
+  const updatedWorkExperience = await db
+    .update(workExperiences)
+    .set(workExperience)
+    .where(eq(workExperiences.id, workExperience.id))
+    .returning()
+    .get();
+
+  return updatedWorkExperience;
 }

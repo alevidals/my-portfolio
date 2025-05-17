@@ -19,39 +19,39 @@ export function getMonths() {
   return [
     {
       label: "January",
-      value: "01",
+      value: "1",
     },
     {
       label: "February",
-      value: "02",
+      value: "2",
     },
     {
       label: "March",
-      value: "03",
+      value: "3",
     },
     {
       label: "April",
-      value: "04",
+      value: "4",
     },
     {
       label: "May",
-      value: "05",
+      value: "5",
     },
     {
       label: "June",
-      value: "06",
+      value: "6",
     },
     {
       label: "July",
-      value: "07",
+      value: "7",
     },
     {
       label: "August",
-      value: "08",
+      value: "8",
     },
     {
       label: "September",
-      value: "09",
+      value: "9",
     },
     {
       label: "October",
