@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/utils";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
+  IconBrandX,
   IconExternalLink,
   IconMail,
 } from "@tabler/icons-react";
@@ -20,9 +21,10 @@ type LinksProps = {
   email?: string;
   githubUrl?: string | null;
   linkedInUrl?: string | null;
+  xUrl?: string | null;
 };
 
-function Links({ email, githubUrl, linkedInUrl }: LinksProps) {
+function Links({ email, githubUrl, linkedInUrl, xUrl }: LinksProps) {
   return (
     <div className="flex gap-4">
       {email && (
@@ -55,6 +57,16 @@ function Links({ email, githubUrl, linkedInUrl }: LinksProps) {
           <IconBrandLinkedin size={26} />
         </a>
       )}
+      {xUrl && (
+        <a
+          href={xUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-neutral-300 transition-colors"
+        >
+          <IconBrandX size={26} />
+        </a>
+      )}
     </div>
   );
 }
@@ -68,8 +80,6 @@ export default async function ViewPage({ params }: Props) {
     });
 
   const fullName = `${userData.firstName} ${userData.lastName}`;
-
-  console.log(profile);
 
   return (
     <div className="w-5/6 md:w-full max-w-xl mx-auto py-32">
@@ -87,6 +97,7 @@ export default async function ViewPage({ params }: Props) {
             email={userData.email}
             githubUrl={profile?.githubUrl}
             linkedInUrl={profile?.linkedInUrl}
+            xUrl={profile?.xUrl}
           />
         </nav>
       </header>
@@ -107,7 +118,7 @@ export default async function ViewPage({ params }: Props) {
                   <p className="text-base">
                     {experience.companyName} - {experience.position}
                   </p>
-                  <p>
+                  <p className="text-sm">
                     {formatDate({
                       monthFormat: "2-digit",
                       month: experience.startDate.month,
@@ -123,7 +134,7 @@ export default async function ViewPage({ params }: Props) {
                       : "Present"}
                   </p>
                   {experience.description && (
-                    <p className="text-sm">{experience.description}</p>
+                    <p className="text-sm mt-1">{experience.description}</p>
                   )}
                 </li>
               ))}
@@ -140,7 +151,7 @@ export default async function ViewPage({ params }: Props) {
                   <p className="text-base">
                     {education.institution} - {education.degree}
                   </p>
-                  <p>
+                  <p className="text-sm">
                     {formatDate({
                       monthFormat: "2-digit",
                       month: education.startDate.month,
@@ -156,7 +167,7 @@ export default async function ViewPage({ params }: Props) {
                       : "Present"}
                   </p>
                   {education.description && (
-                    <p className="text-sm">{education.description}</p>
+                    <p className="text-sm mt-1">{education.description}</p>
                   )}
                 </li>
               ))}

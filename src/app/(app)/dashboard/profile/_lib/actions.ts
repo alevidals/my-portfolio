@@ -30,6 +30,7 @@ export async function insertUserProfile(
         biography: result.error.formErrors.fieldErrors.biography?.[0],
         linkedInUrl: result.error.formErrors.fieldErrors.linkedInUrl?.[0],
         githubUrl: result.error.formErrors.fieldErrors.githubUrl?.[0],
+        xUrl: result.error.formErrors.fieldErrors.xUrl?.[0],
       },
       data,
     };
@@ -40,6 +41,7 @@ export async function insertUserProfile(
     biography: result.data.biography,
     githubUrl: result.data.githubUrl,
     linkedInUrl: result.data.linkedInUrl,
+    xUrl: result.data.xUrl,
   };
 
   const userProfile = await insertUserProfileQuery({ user: userToInsert });

@@ -7,6 +7,7 @@ import { LoadingButton } from "@/components/loading-button";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
+  IconBrandX,
   IconTypography,
 } from "@tabler/icons-react";
 import { useActionState } from "react";
@@ -48,7 +49,6 @@ export function ProfileInformationForm({ userProfile }: Props) {
         placeholder="Tell us about yourself"
         error={state?.errors?.biography ?? ""}
       />
-
       <FormItem
         id="linkedInUrl"
         name="linkedInUrl"
@@ -66,7 +66,6 @@ export function ProfileInformationForm({ userProfile }: Props) {
         placeholder="https://www.linkedin.com/in/your-profile"
         error={state?.errors?.linkedInUrl ?? ""}
       />
-
       <FormItem
         id="githubUrl"
         name="githubUrl"
@@ -82,7 +81,21 @@ export function ProfileInformationForm({ userProfile }: Props) {
         placeholder="https://www.github.com/your-profile"
         error={state?.errors?.githubUrl ?? ""}
       />
-
+      <FormItem
+        id="xUrl"
+        name="xUrl"
+        itemType="input"
+        type="url"
+        labelChildren={
+          <>
+            <IconBrandX size={22} />
+            <span>X URL</span>
+          </>
+        }
+        defaultValue={state?.data?.xUrl ?? userProfile?.xUrl ?? ""}
+        placeholder="https://www.x.com/your-profile"
+        error={state?.errors?.xUrl ?? ""}
+      />
       <LoadingButton isLoading={isPending}>Save</LoadingButton>
       {/*<Button type="submit">Save</Button>*/}
     </form>

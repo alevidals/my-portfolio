@@ -43,6 +43,13 @@
       "when": 1747501419066,
       "tag": "0005_fair_jocasta",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1747506516402,
+      "tag": "0006_huge_snowbird",
+      "breakpoints": true
     }
   ]
 }

@@ -1,21 +1,18 @@
 import { db } from "@/lib/db/drizzle";
-import { educations, workExperiences } from "@/lib/db/schema";
-import { eq, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 
 type GetUserEducationsParams = {
   userId: string;
 };
 
 export async function getUserEducations({ userId }: GetUserEducationsParams) {
-  const userEducations = await db
-    .select()
-    .from(educations)
-    .where(eq(educations.userId, userId))
-    .orderBy(
-      sql`json_extract(${educations.startDate}, '$.year') DESC`,
-      sql`json_extract(${educations.startDate}, '$.month') DESC`,
-    )
-    .all();
+  const userEducations = await db.query.educations.findMany({
+    where: (educations, { eq }) => eq(educations.userId, userId),
+    orderBy: (educations, { desc }) => [
+      desc(sql`json_extract(${educations.startDate}, '$.year')`),
+      desc(sql`json_extract(${educations.startDate}, '$.month')`),
+    ],
+  });
 
   return userEducations;
 }
@@ -39,15 +36,13 @@ type GetUserWorkExperiencesParams = {
 export async function getUserWorkExperiences({
   userId,
 }: GetUserWorkExperiencesParams) {
-  const userWorkExperiences = await db
-    .select()
-    .from(workExperiences)
-    .where(eq(workExperiences.userId, userId))
-    .orderBy(
-      sql`json_extract(${workExperiences.startDate}, '$.year') DESC`,
-      sql`json_extract(${workExperiences.startDate}, '$.month') DESC`,
-    )
-    .all();
+  const userWorkExperiences = await db.query.workExperiences.findMany({
+    where: (workExperiences, { eq }) => eq(workExperiences.userId, userId),
+    orderBy: (workExperiences, { desc }) => [
+      desc(sql`json_extract(${workExperiences.startDate}, '$.year')`),
+      desc(sql`json_extract(${workExperiences.startDate}, '$.month')`),
+    ],
+  });
 
   return userWorkExperiences;
 }

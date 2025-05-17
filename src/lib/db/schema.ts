@@ -7,6 +7,7 @@ export const userProfiles = sqliteTable("user_profiles", {
   biography: text("biography"),
   linkedInUrl: text("linkedin_url"),
   githubUrl: text("github_url"),
+  xUrl: text("x_url"),
 });
 
 export const projects = sqliteTable("projects", {

@@ -8,4 +8,5 @@ export const insertUserProfileSchema = z.object({
     .or(z.literal(""))
     .optional(),
   githubUrl: z.string().url("Invalid GitHub URL").or(z.literal("")).optional(),
+  xUrl: z.string().url("Invalid X URL").or(z.literal("")).optional(),
 });
