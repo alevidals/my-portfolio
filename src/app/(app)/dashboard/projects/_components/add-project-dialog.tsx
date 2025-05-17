@@ -45,7 +45,7 @@ export function AddProjectDialog({
         <DialogTrigger asChild>
           <Button onClick={() => setIsOpen(true)}>
             <IconPlus />
-            <span>Add New Project</span>
+            <span className="hidden md:flex">Add New Project</span>
           </Button>
         </DialogTrigger>
       )}

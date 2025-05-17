@@ -6,6 +6,7 @@ import { ProjectActionsDropdown } from "@/app/(app)//dashboard/projects/_compone
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -15,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { getUserProjects } from "@/lib/queries";
+import { IconExternalLink } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
@@ -34,91 +36,86 @@ export function ProjectsTable({ projects }: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 gap-4">
         <Input
           placeholder="Filter projects..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="h-10 dark:bg-transparent w-96"
+          className="h-10 dark:bg-transparent w-full md:w-96"
         />
         <div className="flex items-center gap-2">
-          <ImportProjectsDialog />
+          <ImportProjectsDialog className="hidden md:flex" />
           <AddProjectDialog />
         </div>
       </div>
-      <div className="border rounded-md">
-        <Table>
-          <TableHeader className="mx-3">
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Technologies</TableHead>
-              <TableHead>Deployment URL</TableHead>
-              <TableHead>Repository URL</TableHead>
-              <TableHead className="w-14" />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((project) => (
-                <TableRow key={project.id}>
-                  <TableCell className="px-3 max-w-40 whitespace-normal">
-                    {project.name}
-                  </TableCell>
-                  <TableCell className="px-3 w-[400px] whitespace-normal">
-                    {project.description}
-                  </TableCell>
-                  <TableCell className="max-w-[350px] overflow-x-auto grid-cols-1 space-x-1">
-                    {project.technologies.map((technology) => (
-                      <Badge
-                        key={`${project.name}-${technology}`}
-                        variant="outline"
-                      >
-                        {technology}
-                      </Badge>
-                    ))}
-                  </TableCell>
-                  <TableCell className="px-3">
-                    {project.deploymentUrl && (
-                      <Button variant="link" className="px-0 text-sky-400">
-                        <a
-                          href={project.deploymentUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {project.deploymentUrl}
-                        </a>
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell className="px-3">
-                    {project.repositoryUrl && (
-                      <Button variant="link" className="px-0 text-sky-400">
-                        <a
-                          href={project.repositoryUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {project.repositoryUrl}
-                        </a>
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <ProjectActionsDropdown project={project} />
+      <ImportProjectsDialog className="flex md:hidden w-full mb-4" />
+      <ScrollArea className="w-full">
+        <div className="border rounded-md">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Technologies</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredProjects.length > 0 ? (
+                filteredProjects.map((project) => (
+                  <TableRow key={project.id}>
+                    <TableCell className="whitespace-normal">
+                      {project.name}
+                    </TableCell>
+                    <TableCell className="whitespace-normal min-w-[400px] w-[400px]">
+                      {project.description}
+                    </TableCell>
+                    <TableCell className="max-w-[200px] overflow-x-auto grid-cols-1 space-x-1">
+                      <ScrollArea className="w-full py-4">
+                        {project.technologies.map((technology) => (
+                          <Badge
+                            key={`${project.name}-${technology}`}
+                            variant="outline"
+                          >
+                            {technology}
+                          </Badge>
+                        ))}
+                        <ScrollBar orientation="horizontal" />
+                      </ScrollArea>
+                    </TableCell>
+                    <TableCell className="whitespace-normal">
+                      {project.deploymentUrl && (
+                        <Button variant="link" className="px-0">
+                          <a
+                            className="flex items-center gap-2"
+                            href={project.deploymentUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {project.deploymentUrl}
+                            <IconExternalLink size={16} />
+                          </a>
+                        </Button>
+                      )}
+                    </TableCell>
+
+                    <TableCell>
+                      <ProjectActionsDropdown project={project} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center">
+                    No projects found
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={5} className="h-24 text-center">
-                  No projects found
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </>
   );
 }

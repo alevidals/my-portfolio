@@ -12,9 +12,9 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="container mx-auto">
       <Header />
-      {children}
-    </>
+      <main className="pt-24">{children}</main>
+    </div>
   );
 }

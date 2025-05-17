@@ -45,7 +45,7 @@ export function AddEducationDialog({
         <DialogTrigger asChild>
           <Button onClick={() => setIsOpen(true)}>
             <IconPlus />
-            <span>Add New Education</span>
+            <span className="hidden md:flex">Add New Education</span>
           </Button>
         </DialogTrigger>
       )}

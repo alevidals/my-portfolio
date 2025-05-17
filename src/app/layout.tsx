@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
@@ -27,9 +28,10 @@ export default function RootLayout({
       }}
     >
       <html lang="en" className="dark">
-        <body className={`${geistMono.variable} font-sans antialiased`}>
+        <body className={`${geistMono.variable} font-sans antialiased mx-4`}>
           {children}
           <Toaster />
+          <TailwindIndicator />
         </body>
       </html>
     </ClerkProvider>

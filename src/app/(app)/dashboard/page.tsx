@@ -2,21 +2,39 @@ import { CopySlugToClipboard } from "@/app/(app)/dashboard/_components/copy-slug
 import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { IconExternalLink, IconInfoCircle } from "@tabler/icons-react";
+import {
+  IconBook,
+  IconBox,
+  IconBriefcase2,
+  IconExternalLink,
+  IconInfoCircle,
+  IconUser,
+} from "@tabler/icons-react";
 import Link from "next/link";
+
+const DASHBOARD_LINKS = [
+  { href: "/dashboard/profile", label: "Profile", icon: <IconUser /> },
+  {
+    href: "/dashboard/work-experiences",
+    label: "Work Experiences",
+    icon: <IconBriefcase2 />,
+  },
+  { href: "/dashboard/educations", label: "Educations", icon: <IconBook /> },
+  { href: "/dashboard/projects", label: "Projects", icon: <IconBox /> },
+];
 
 export default async function DashboardPage() {
   const slug = await getProfileSlug();
 
   return (
-    <main className="container mx-auto mt-4">
+    <>
       <h1 className="text-3xl mb-4">Dashboard</h1>
       {slug ? (
         <div className="flex items-center gap-4">
           <CopySlugToClipboard slug={slug} />
           <Button variant="outline" asChild>
             <Link
-              href={`/${slug}`}
+              href={`/view/${slug}`}
               className="flex items-center gap-2"
               target="_blank"
             >
@@ -44,30 +62,22 @@ export default async function DashboardPage() {
           </AlertDescription>
         </Alert>
       )}
-      <ul className="mt-4">
-        <li>
-          <Button variant="link" className="p-0 text-base">
-            <Link href="/dashboard/profile">Go to Profile</Link>
-          </Button>
-        </li>
-        <li>
-          <Button variant="link" className="p-0 text-base">
-            <Link href="/dashboard/work-experiences">
-              Go to Work Experiences
-            </Link>
-          </Button>
-        </li>
-        <li>
-          <Button variant="link" className="p-0 text-base">
-            <Link href="/dashboard/educations">Go to Educations</Link>
-          </Button>
-        </li>
-        <li>
-          <Button variant="link" className="p-0 text-base">
-            <Link href="/dashboard/projects">Go to Projects</Link>
-          </Button>
-        </li>
-      </ul>
-    </main>
+      <p className="mt-4 text-base">
+        You can manage your portfolio from here. Click on the links below to
+        navigate to different sections of your portfolio.
+      </p>
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        {DASHBOARD_LINKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="border h-32 flex items-center justify-center rounded-lg gap-4 hover:underline hover:underline-offset-8"
+          >
+            {link.icon}
+            {link.label}
+          </Link>
+        ))}
+      </section>
+    </>
   );
 }

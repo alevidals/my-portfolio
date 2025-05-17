@@ -35,7 +35,7 @@ export function ProfileInformationForm({ userProfile }: Props) {
   );
 
   return (
-    <form className="grid gap-4" action={formAction}>
+    <form className="grid gap-4 max-w-xl" action={formAction}>
       <FormItem
         id="slug"
         name="slug"
@@ -113,8 +113,9 @@ export function ProfileInformationForm({ userProfile }: Props) {
         placeholder="https://www.x.com/your-profile"
         error={state?.errors?.xUrl ?? ""}
       />
-      <LoadingButton isLoading={isPending}>Save</LoadingButton>
-      {/*<Button type="submit">Save</Button>*/}
+      <LoadingButton isLoading={isPending} className="mt-4 md:w-fit">
+        Save
+      </LoadingButton>
     </form>
   );
 }

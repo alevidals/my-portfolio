@@ -1,15 +1,18 @@
-import { HeaderLink } from "@/app/_components/header-link";
+import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
+import { DesktopNav } from "@/app/_components/desktop-nav";
+import { MobileNav } from "@/app/_components/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { IconBrandGithub, IconFileCv } from "@tabler/icons-react";
 import Link from "next/link";
 
 export async function Header() {
   const { userId } = await auth();
+  const slug = await getProfileSlug();
 
   return (
-    <header className="container mx-auto h-20 flex items-center justify-between">
+    <header className="container mx-auto h-20 flex items-center justify-between fixed top-0 bg-background">
       <Link href="/" className="font-bold text-xl flex items-center gap-2">
         <span>MyPortfolio</span>
         <IconFileCv />
@@ -18,36 +21,18 @@ export async function Header() {
         <SignedOut>
           <SignInButton mode="modal">
             <Button>
-              <span>Sign in with Github</span>
+              <span>
+                Sign in <span className="hidden md:inline">with Github</span>
+              </span>
               <IconBrandGithub className="ml-1 size-5" />
             </Button>
           </SignInButton>
         </SignedOut>
       ) : (
-        <div className="flex items-center gap-10">
-          <SignedIn>
-            <nav className="flex gap-4 font-bold text-xs">
-              <HeaderLink href="/dashboard" label="/dashboard" />
-              <HeaderLink
-                href="/dashboard/profile"
-                label="/dashboard/profile"
-              />
-              <HeaderLink
-                href="/dashboard/projects"
-                label="/dashboard/projects"
-              />
-              <HeaderLink
-                href="/dashboard/work-experiences"
-                label="/dashboard/work-experiences"
-              />
-              <HeaderLink
-                href="/dashboard/educations"
-                label="/dashboard/educations"
-              />
-            </nav>
-            <UserButton />
-          </SignedIn>
-        </div>
+        <SignedIn>
+          <DesktopNav slug={slug} />
+          <MobileNav slug={slug} />
+        </SignedIn>
       )}
     </header>
   );

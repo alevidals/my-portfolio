@@ -19,6 +19,10 @@ import { useActionState, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
+type Props = {
+  className?: string;
+};
+
 // TODO: use better-fetch
 async function fetchRepositories() {
   const response = await fetch("/api/projects");
@@ -30,7 +34,7 @@ async function fetchRepositories() {
   return response.json() as ReturnType<typeof getRepositories>;
 }
 
-export function ImportProjectsDialog() {
+export function ImportProjectsDialog({ className }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<string>("");
   const [selectedRepositories, setSelectedRepositories] = useState<number[]>(
@@ -89,7 +93,7 @@ export function ImportProjectsDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)}>
+        <Button onClick={() => setIsOpen(true)} className={className}>
           <IconBrandGithub />
           <span>Import from Github</span>
         </Button>

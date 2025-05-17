@@ -2,9 +2,9 @@ import { db } from "@/lib/db/drizzle";
 import { auth } from "@clerk/nextjs/server";
 
 export async function getProfileSlug() {
-  const { userId, redirectToSignIn } = await auth();
+  const { userId } = await auth();
 
-  if (!userId) return redirectToSignIn();
+  if (!userId) return;
 
   const userProfile = await db.query.userProfiles.findFirst({
     where: (userProfiles, { eq }) => eq(userProfiles.userId, userId),

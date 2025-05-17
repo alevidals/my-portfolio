@@ -49,7 +49,7 @@ export function AddWorkExperienceDialog({
         <DialogTrigger asChild>
           <Button onClick={() => setIsOpen(true)}>
             <IconPlus />
-            <span>Add New Work Experience</span>
+            <span className="hidden md:flex">Add New Work Experience</span>
           </Button>
         </DialogTrigger>
       )}
@@ -67,7 +67,9 @@ export function AddWorkExperienceDialog({
               </Button>
             </DialogClose>
           </DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogDescription className="text-left">
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <div className="px-6 py-3">
           <AddWorkExperienceForm

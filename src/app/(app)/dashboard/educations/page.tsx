@@ -10,9 +10,9 @@ export default async function DashboardWorkExperiencesPage() {
   const educations = await getUserEducations({ userId });
 
   return (
-    <main className="container mx-auto mt-4">
-      <h1 className="font-medium text-2xl mb-4">Educations</h1>
+    <>
+      <h1 className="font-medium text-3xl mb-4">Educations</h1>
       <EducationsTable educations={educations} />
-    </main>
+    </>
   );
 }
