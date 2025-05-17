@@ -16,4 +16,8 @@ const baseEducationSchema = z.object({
 export const insertEducationSchema =
   baseEducationSchema.superRefine(validateDates);
 
+export const deleteEducationSchema = z.object({
+  educationId: z.string().uuid("Invalid education ID"),
+});
+
 // -- ACTIONS --

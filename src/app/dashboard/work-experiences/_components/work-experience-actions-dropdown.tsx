@@ -36,7 +36,7 @@ export function WorkExperienceActionsDropdown({ workExperience }: Props) {
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsOpenDelete(true)}>
-            Eliminar
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,6 +1,6 @@
-import { AddProjectDialog } from "@/app/dashboard/projects/_components/add-project-dialog";
-import { DeleteProjectAlertDialog } from "@/app/dashboard/projects/_components/delete-project-alert-dialog";
-import type { getUserProjects } from "@/app/dashboard/projects/_lib/queries";
+import { AddEducationDialog } from "@/app/dashboard/educations/_components/add-education-dialog";
+import { DeleteEducationAlertDialog } from "@/app/dashboard/educations/_components/delete-education-alert-dialog";
+import type { getUserEducations } from "@/app/dashboard/educations/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,10 +14,10 @@ import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
-  project: Awaited<ReturnType<typeof getUserProjects>>[number];
+  education: Awaited<ReturnType<typeof getUserEducations>>[number];
 };
 
-export function ProjectActionsDropdown({ project }: Props) {
+export function EducationActionsDropdown({ education }: Props) {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
@@ -40,14 +40,15 @@ export function ProjectActionsDropdown({ project }: Props) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteProjectAlertDialog
+      <DeleteEducationAlertDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        projectName={project.name}
-        projectId={project.id}
+        educationId={education.id}
+        institution={education.institution}
+        degree={education.degree}
       />
-      <AddProjectDialog
-        project={project}
+      <AddEducationDialog
+        education={education}
         externalIsOpen={isOpenEdit}
         externalSetIsOpen={setIsOpenEdit}
       />

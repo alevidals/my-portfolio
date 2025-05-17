@@ -1,8 +1,15 @@
 "use server";
 
-import { insertEducation as insertEducationQuery } from "@/app/dashboard/educations/_lib/queries";
-import { insertEducationSchema } from "@/app/dashboard/educations/_lib/schema";
+import {
+  deleteEducation as deleteEducationQuery,
+  insertEducation as insertEducationQuery,
+} from "@/app/dashboard/educations/_lib/queries";
+import {
+  deleteEducationSchema,
+  insertEducationSchema,
+} from "@/app/dashboard/educations/_lib/schema";
 import type {
+  DeleteEducationSchema,
   InsertEducation,
   InsertEducationSchema,
 } from "@/app/dashboard/educations/_lib/types";
@@ -74,5 +81,47 @@ export async function insertEducation(
   return {
     success: true,
     message: "Education created successfully",
+  };
+}
+
+export async function deleteEducation(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<DeleteEducationSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(formData.entries()) as DeleteEducationSchema;
+
+  const result = deleteEducationSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const { educationId } = result.data;
+
+  const deletedEducation = await deleteEducationQuery({
+    educationId,
+  });
+
+  if (!deleteEducation) {
+    return {
+      success: false,
+      error: "Failed to delete education.",
+      data,
+    };
+  }
+
+  revalidatePath("/dashboard/educations");
+
+  return {
+    success: true,
+    message: "Education deleted successfully.",
   };
 }

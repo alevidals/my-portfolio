@@ -35,3 +35,47 @@ export async function insertEducation({ education }: InsertEducationParams) {
 
   return newEducation;
 }
+
+type BelongsEducationToUserParams = {
+  educationId: string;
+  userId: string;
+};
+
+export async function belongsEducationToUser({
+  educationId,
+  userId,
+}: BelongsEducationToUserParams) {
+  const education = await db.query.educations.findFirst({
+    where: (education, { eq, and }) =>
+      and(eq(education.id, educationId), eq(education.userId, userId)),
+  });
+
+  return !!education;
+}
+
+type DeleteEducationParams = {
+  educationId: string;
+};
+
+export async function deleteEducation({ educationId }: DeleteEducationParams) {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const belongsToUser = await belongsEducationToUser({
+    educationId,
+    userId,
+  });
+
+  if (!belongsToUser) {
+    return;
+  }
+
+  const deletedEducation = await db
+    .delete(educations)
+    .where(eq(educations.id, educationId))
+    .returning()
+    .get();
+
+  return deletedEducation;
+}
