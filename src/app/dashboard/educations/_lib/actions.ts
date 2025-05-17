@@ -3,15 +3,19 @@
 import {
   deleteEducation as deleteEducationQuery,
   insertEducation as insertEducationQuery,
+  updateEducation as updateEducationQuery,
 } from "@/app/dashboard/educations/_lib/queries";
 import {
   deleteEducationSchema,
   insertEducationSchema,
+  updateEducationSchema,
 } from "@/app/dashboard/educations/_lib/schema";
 import type {
   DeleteEducationSchema,
   InsertEducation,
   InsertEducationSchema,
+  UpdateEducation,
+  UpdateEducationSchema,
 } from "@/app/dashboard/educations/_lib/types";
 import type { ActionResponse } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
@@ -110,7 +114,7 @@ export async function deleteEducation(
     educationId,
   });
 
-  if (!deleteEducation) {
+  if (!deletedEducation) {
     return {
       success: false,
       error: "Failed to delete education.",
@@ -123,5 +127,64 @@ export async function deleteEducation(
   return {
     success: true,
     message: "Education deleted successfully.",
+  };
+}
+
+export async function updateEducation(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<UpdateEducationSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(formData.entries()) as UpdateEducationSchema;
+
+  const result = updateEducationSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const newEducation: UpdateEducation = {
+    id: result.data.id,
+    userId,
+    institution: result.data.institution,
+    degree: result.data.degree,
+    description: result.data.description,
+    startDate: {
+      month: result.data.startMonth,
+      year: result.data.startYear,
+    },
+    ...(result.data.endMonth &&
+      result.data.endYear && {
+        endDate: {
+          month: result.data.endMonth,
+          year: result.data.endYear,
+        },
+      }),
+  };
+
+  const updatedEducation = await updateEducationQuery({
+    education: newEducation,
+  });
+
+  if (!updatedEducation) {
+    return {
+      success: false,
+      error: "Failed to update education",
+      data: result.data,
+    };
+  }
+
+  revalidatePath("/dashboard/educations");
+
+  return {
+    success: true,
+    message: "Education updated successfully.",
   };
 }

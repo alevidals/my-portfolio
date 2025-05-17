@@ -20,4 +20,10 @@ export const deleteEducationSchema = z.object({
   educationId: z.string().uuid("Invalid education ID"),
 });
 
+export const updateEducationSchema = baseEducationSchema
+  .extend({
+    id: z.string().uuid("Invalid education ID"),
+  })
+  .superRefine(validateDates);
+
 // -- ACTIONS --

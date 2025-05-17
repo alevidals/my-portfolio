@@ -202,7 +202,7 @@ export async function updateProject(
     ),
   );
 
-  const projectToUpdate: UpdateProject = {
+  const newProject: UpdateProject = {
     id: project.id,
     userId,
     name: project.name,
@@ -213,7 +213,7 @@ export async function updateProject(
   };
 
   const updatedProject = await updateProjectQuery({
-    project: projectToUpdate,
+    project: newProject,
   });
 
   if (!updatedProject) {

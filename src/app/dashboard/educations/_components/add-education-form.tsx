@@ -1,4 +1,7 @@
-import { insertEducation } from "@/app/dashboard/educations/_lib/actions";
+import {
+  insertEducation,
+  updateEducation,
+} from "@/app/dashboard/educations/_lib/actions";
 import type { getUserEducations } from "@/app/dashboard/educations/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
@@ -36,7 +39,7 @@ export function AddEducationForm({ education, setIsOpen }: Props) {
       formData.set("endMonth", endMonth);
       formData.set("endYear", endYear);
 
-      const action = education ? insertEducation : insertEducation;
+      const action = education ? updateEducation : insertEducation;
 
       const response = await action(_, formData);
 

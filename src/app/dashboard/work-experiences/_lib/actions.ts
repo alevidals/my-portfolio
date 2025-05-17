@@ -156,7 +156,7 @@ export async function updateWorkExperience(
     };
   }
 
-  const workExperience: UpdateWorkExperience = {
+  const newWorkExperience: UpdateWorkExperience = {
     id: result.data.id,
     userId,
     companyName: result.data.companyName,
@@ -176,7 +176,7 @@ export async function updateWorkExperience(
   };
 
   const updatedWorkExperience = await updateWorkExperienceQuery({
-    workExperience,
+    workExperience: newWorkExperience,
   });
 
   if (!updatedWorkExperience) {

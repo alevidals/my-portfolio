@@ -1,4 +1,7 @@
-import type { InsertEducation } from "@/app/dashboard/educations/_lib/types";
+import type {
+  InsertEducation,
+  UpdateEducation,
+} from "@/app/dashboard/educations/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { educations } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
@@ -78,4 +81,32 @@ export async function deleteEducation({ educationId }: DeleteEducationParams) {
     .get();
 
   return deletedEducation;
+}
+
+type UpdateEducationParams = {
+  education: UpdateEducation;
+};
+
+export async function updateEducation({ education }: UpdateEducationParams) {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const belongsToUser = await belongsEducationToUser({
+    educationId: education.id,
+    userId,
+  });
+
+  if (!belongsToUser) {
+    return;
+  }
+
+  const updatedEducation = await db
+    .update(educations)
+    .set(education)
+    .where(eq(educations.id, education.id))
+    .returning()
+    .get();
+
+  return updatedEducation;
 }
