@@ -1,3 +1,4 @@
+import type { InsertEducation } from "@/app/dashboard/educations/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { educations } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
@@ -19,4 +20,18 @@ export async function getUserEducations() {
     .all();
 
   return userEducations;
+}
+
+type InsertEducationParams = {
+  education: InsertEducation;
+};
+
+export async function insertEducation({ education }: InsertEducationParams) {
+  const newEducation = await db
+    .insert(educations)
+    .values(education)
+    .returning()
+    .get();
+
+  return newEducation;
 }

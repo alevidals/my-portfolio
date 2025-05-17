@@ -1,8 +1,5 @@
-import {
-  insertWorkExperience,
-  updateWorkExperience,
-} from "@/app/dashboard/work-experiences/_lib/actions";
-import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
+import { insertEducation } from "@/app/dashboard/educations/_lib/actions";
+import type { getUserEducations } from "@/app/dashboard/educations/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
 import { Label } from "@/components/ui/label";
@@ -23,13 +20,13 @@ import {
 import { toast } from "sonner";
 
 type Props = {
-  workExperience?: Awaited<ReturnType<typeof getUserWorkExperiences>>[number];
+  education?: Awaited<ReturnType<typeof getUserEducations>>[number];
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const MONTHS = getMonths();
 
-export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
+export function AddEducationForm({ education, setIsOpen }: Props) {
   const [state, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
       // due to shadcn select have bugs with uncontrolled components we need to
@@ -39,9 +36,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
       formData.set("endMonth", endMonth);
       formData.set("endYear", endYear);
 
-      const action = workExperience
-        ? updateWorkExperience
-        : insertWorkExperience;
+      const action = education ? insertEducation : insertEducation;
 
       const response = await action(_, formData);
 
@@ -59,45 +54,43 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
   );
 
   const [startMonth, setStartMonth] = useState(
-    state?.data?.startMonth ?? workExperience?.startDate.month ?? "",
+    state?.data?.startMonth ?? education?.startDate.month ?? "",
   );
   const [startYear, setStartYear] = useState(
-    state?.data?.startYear ?? workExperience?.startDate.year ?? "",
+    state?.data?.startYear ?? education?.startDate.year ?? "",
   );
   const [endMonth, setEndMonth] = useState(
-    state?.data?.endMonth ?? workExperience?.endDate?.month ?? "",
+    state?.data?.endMonth ?? education?.endDate?.month ?? "",
   );
   const [endYear, setEndYear] = useState(
-    state?.data?.endYear ?? workExperience?.endDate?.year ?? "",
+    state?.data?.endYear ?? education?.endDate?.year ?? "",
   );
 
-  const buttonText = workExperience
-    ? "Edit Work Experience"
-    : "Add Work Experience";
+  const buttonText = education ? "Edit Education" : "Add Education";
 
   return (
     <form action={formAction} className="grid gap-4" id="work-experience-form">
       <FormItem
-        id="companyName"
-        name="companyName"
+        id="institution"
+        name="institution"
         itemType="input"
         type="text"
         required
-        labelChildren="Company Name"
-        placeholder="Company Name"
-        defaultValue={state?.data?.companyName ?? workExperience?.companyName}
-        error={state?.errors?.companyName}
+        labelChildren="Institution"
+        placeholder="Institution"
+        defaultValue={state?.data?.institution ?? education?.institution}
+        error={state?.errors?.institution}
       />
       <FormItem
-        id="position"
-        name="position"
+        id="degree"
+        name="degree"
         itemType="input"
         type="text"
         required
-        labelChildren="Position"
-        placeholder="Position"
-        defaultValue={state?.data?.position ?? workExperience?.position}
-        error={state?.errors?.position}
+        labelChildren="Degree"
+        placeholder="Degree"
+        defaultValue={state?.data?.degree ?? education?.degree}
+        error={state?.errors?.degree}
       />
       <FormItem
         id="description"
@@ -105,12 +98,10 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         itemType="textarea"
         labelChildren="Description"
         placeholder="Description"
-        defaultValue={
-          state?.data?.description ?? workExperience?.description ?? ""
-        }
+        defaultValue={state?.data?.description ?? education?.description ?? ""}
         error={state?.errors?.description}
       />
-      <p>{state?.data?.description ?? workExperience?.description}</p>
+      <p>{state?.data?.description ?? education?.description}</p>
       <div className="grid gap-3">
         <Label htmlFor="startMonth">Start Month</Label>
         <Select
@@ -222,9 +213,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
           <p className="text-red-500 text-sm">{state.errors.endYear}</p>
         )}
       </div>
-      {workExperience && (
-        <input type="hidden" name="id" value={workExperience.id} />
-      )}
+      {education && <input type="hidden" name="id" value={education.id} />}
       <LoadingButton
         className="justify-self-end"
         isLoading={isPending}

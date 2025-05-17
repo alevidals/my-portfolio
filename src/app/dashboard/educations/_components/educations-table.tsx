@@ -1,5 +1,6 @@
 "use client";
 
+import { AddEducationDialog } from "@/app/dashboard/educations/_components/add-education-dialog";
 import type { getUserEducations } from "@/app/dashboard/educations/_lib/queries";
 import { Input } from "@/components/ui/input";
 import {
@@ -37,7 +38,7 @@ export function EducationsTable({ educations }: Props) {
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-96"
         />
-        <p>add</p>
+        <AddEducationDialog />
       </div>
       <div className="border rounded-md">
         <Table>
