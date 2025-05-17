@@ -60,13 +60,15 @@ export function AddWorkExperienceDialog({
     ? [externalIsOpen, externalSetIsOpen]
     : useState(false);
 
-  const [startMonth, setStartMonth] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [endMonth, setEndMonth] = useState("");
-  const [endYear, setEndYear] = useState("");
-
   const [state, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
+      // due to shadcn select has bugs with uncontrolled components we need to
+      // set the values
+      formData.set("startMonth", startMonth);
+      formData.set("startYear", startYear);
+      formData.set("endMonth", endMonth);
+      formData.set("endYear", endYear);
+
       const response = await insertWorkExperience(_, formData);
 
       if (response.success) {
@@ -81,6 +83,11 @@ export function AddWorkExperienceDialog({
     },
     null,
   );
+
+  const [startMonth, setStartMonth] = useState(state?.data?.startMonth ?? "");
+  const [startYear, setStartYear] = useState(state?.data?.startYear ?? "");
+  const [endMonth, setEndMonth] = useState(state?.data?.endMonth ?? "");
+  const [endYear, setEndYear] = useState(state?.data?.endYear ?? "");
 
   useEffect(() => {
     if (!isOpen) {
@@ -133,6 +140,8 @@ export function AddWorkExperienceDialog({
               required
               labelChildren="Company Name"
               placeholder="Company Name"
+              defaultValue={state?.data?.companyName}
+              error={state?.errors?.companyName}
             />
             <FormItem
               id="position"
@@ -142,6 +151,8 @@ export function AddWorkExperienceDialog({
               required
               labelChildren="Position"
               placeholder="Position"
+              defaultValue={state?.data?.position}
+              error={state?.errors?.position}
             />
             <FormItem
               id="description"
@@ -149,6 +160,8 @@ export function AddWorkExperienceDialog({
               itemType="textarea"
               labelChildren="Description"
               placeholder="Description"
+              defaultValue={state?.data?.description}
+              error={state?.errors?.description}
             />
             <div className="grid gap-3">
               <Label htmlFor="startMonth">Start Month</Label>
@@ -160,10 +173,10 @@ export function AddWorkExperienceDialog({
                   setEndMonth("");
                 }}
               >
-                <SelectTrigger className="w-full !h-10" id="startMonth">
+                <SelectTrigger className="w-full !h-10">
                   <SelectValue placeholder="Start Month" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent id="startMonth">
                   {MONTHS.map((month) => (
                     <SelectItem key={month.value} value={month.value}>
                       {month.label}
@@ -171,6 +184,11 @@ export function AddWorkExperienceDialog({
                   ))}
                 </SelectContent>
               </Select>
+              {state?.errors?.startMonth && (
+                <p className="text-red-500 text-sm">
+                  {state.errors.startMonth}
+                </p>
+              )}
             </div>
             <div className="grid gap-3">
               <Label htmlFor="startYear">Start Year</Label>
@@ -183,10 +201,10 @@ export function AddWorkExperienceDialog({
                   setEndYear("");
                 }}
               >
-                <SelectTrigger className="w-full !h-10" id="startYear">
+                <SelectTrigger className="w-full !h-10">
                   <SelectValue placeholder="Start Year" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent id="startYear">
                   {getYears({
                     initialYear: new Date().getFullYear(),
                     amount: 50,
@@ -197,24 +215,26 @@ export function AddWorkExperienceDialog({
                   ))}
                 </SelectContent>
               </Select>
+              {state?.errors?.startYear && (
+                <p className="text-red-500 text-sm">{state.errors.startYear}</p>
+              )}
             </div>
             <div className="grid gap-3">
               <Label htmlFor="endMonth">End Month</Label>
               <Select
-                // needed because there is a bug with uncontrolled shadcn select
-                name={endMonth && "endMonth"}
                 value={endMonth}
                 onValueChange={setEndMonth}
                 disabled={!startMonth || !startYear}
               >
-                <SelectTrigger className="w-full !h-10" id="endMonth">
+                <SelectTrigger className="w-full !h-10">
                   <SelectValue placeholder="End Month" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent id="endMonth">
                   {MONTHS.filter((month) => {
                     if (startYear === endYear) {
                       return month.value >= startMonth;
                     }
+
                     return true;
                   }).map((month) => (
                     <SelectItem key={month.value} value={month.value}>
@@ -223,12 +243,13 @@ export function AddWorkExperienceDialog({
                   ))}
                 </SelectContent>
               </Select>
+              {state?.errors?.endMonth && (
+                <p className="text-red-500 text-sm">{state.errors.endMonth}</p>
+              )}
             </div>
             <div className="grid gap-3">
               <Label htmlFor="endYear">End Year</Label>
               <Select
-                // needed because there is a bug with uncrontrolled shadcn select
-                name={endYear && "endYear"}
                 value={endYear}
                 onValueChange={(value) => {
                   setEndYear(value);
@@ -238,10 +259,10 @@ export function AddWorkExperienceDialog({
                 }}
                 disabled={!startMonth || !startYear}
               >
-                <SelectTrigger className="w-full !h-10" id="endYear">
+                <SelectTrigger className="w-full !h-10">
                   <SelectValue placeholder="End Year" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent id="endYear">
                   {getYears({
                     initialYear: Number(startYear) || new Date().getFullYear(),
                   }).map((year) => (
@@ -251,6 +272,9 @@ export function AddWorkExperienceDialog({
                   ))}
                 </SelectContent>
               </Select>
+              {state?.errors?.endYear && (
+                <p className="text-red-500 text-sm">{state.errors.endYear}</p>
+              )}
             </div>
           </form>
         </div>
