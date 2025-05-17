@@ -37,3 +37,18 @@ export const workExperiences = sqliteTable("work_experiences", {
   }>(),
   description: text("description"),
 });
+
+export const educations = sqliteTable("educations", {
+  id: text("id").$defaultFn(uuidv7).primaryKey(),
+  userId: text("user_id").notNull(),
+  institution: text("institution").notNull(),
+  degree: text("degree").notNull(),
+  startDate: text("start_date", { mode: "json" })
+    .$type<{ month: string; year: string }>()
+    .notNull(),
+  endDate: text("end_date", { mode: "json" }).$type<{
+    month: string;
+    year: string;
+  }>(),
+  description: text("description"),
+});

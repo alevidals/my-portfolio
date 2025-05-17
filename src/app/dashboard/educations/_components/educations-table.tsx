@@ -1,8 +1,6 @@
 "use client";
 
-import { AddWorkExperienceDialog } from "@/app/dashboard/work-experiences/_components/add-work-experience-dialog";
-import { WorkExperienceActionsDropdown } from "@/app/dashboard/work-experiences/_components/work-experience-actions-dropdown";
-import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
+import type { getUserEducations } from "@/app/dashboard/educations/_lib/queries";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -16,17 +14,17 @@ import { formatDate } from "@/lib/utils";
 import { useState } from "react";
 
 type Props = {
-  workExperiences: Awaited<ReturnType<typeof getUserWorkExperiences>>;
+  educations: Awaited<ReturnType<typeof getUserEducations>>;
 };
 
-export function WorkExperiencesTable({ workExperiences }: Props) {
+export function EducationsTable({ educations }: Props) {
   const [filter, setFilter] = useState("");
 
-  const filteredWorkExperiences = workExperiences.filter((workExperience) => {
+  const filteredEducations = educations.filter((educations) => {
     const lowerCaseFilter = filter.toLowerCase();
     return (
-      workExperience.companyName.toLowerCase().includes(lowerCaseFilter) ||
-      workExperience.position.toLowerCase().includes(lowerCaseFilter)
+      educations.institution.toLowerCase().includes(lowerCaseFilter) ||
+      educations.degree.toLowerCase().includes(lowerCaseFilter)
     );
   });
 
@@ -34,19 +32,19 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
     <>
       <div className="flex items-center justify-between mb-4">
         <Input
-          placeholder="Filter work experiences..."
+          placeholder="Filter educations..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-96"
         />
-        <AddWorkExperienceDialog />
+        <p>add</p>
       </div>
       <div className="border rounded-md">
         <Table>
           <TableHeader className="mx-3">
             <TableRow>
-              <TableHead>Company Name</TableHead>
-              <TableHead>Position</TableHead>
+              <TableHead>Institution</TableHead>
+              <TableHead>Degree</TableHead>
               <TableHead>Description</TableHead>
               <TableHead>Start Date</TableHead>
               <TableHead>End Date</TableHead>
@@ -54,43 +52,39 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredWorkExperiences.length > 0 ? (
-              filteredWorkExperiences.map((workExperience) => (
-                <TableRow key={workExperience.id}>
+            {filteredEducations.length > 0 ? (
+              filteredEducations.map((education) => (
+                <TableRow key={education.id}>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
-                    {workExperience.companyName}
+                    {education.institution}
                   </TableCell>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
-                    {workExperience.position}
+                    {education.degree}
                   </TableCell>
                   <TableCell className="px-3 w-[400px] whitespace-normal">
-                    {workExperience.description || "-"}
+                    {education.description || "-"}
                   </TableCell>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
                     {formatDate({
-                      month: workExperience.startDate.month,
-                      year: workExperience.startDate.year,
+                      month: education.startDate.month,
+                      year: education.startDate.year,
                     })}
                   </TableCell>
                   <TableCell className="px-3 max-w-40 whitespace-normal">
-                    {workExperience.endDate
+                    {education.endDate
                       ? formatDate({
-                          month: workExperience.endDate.month,
-                          year: workExperience.endDate.year,
+                          month: education.endDate.month,
+                          year: education.endDate.year,
                         })
                       : "Present"}
                   </TableCell>
-                  <TableCell>
-                    <WorkExperienceActionsDropdown
-                      workExperience={workExperience}
-                    />
-                  </TableCell>
+                  <TableCell>actions</TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
                 <TableCell colSpan={5} className="h-24 text-center">
-                  No work experiences found.
+                  No educations found.
                 </TableCell>
               </TableRow>
             )}
