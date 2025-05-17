@@ -51,4 +51,8 @@ export const insertWorkExperienceSchema = z
     }
   });
 
+export const deleteWorkExperienceSchema = z.object({
+  workExperienceId: z.string().uuid("Invalid work experience ID"),
+});
+
 // -- ACTIONS --

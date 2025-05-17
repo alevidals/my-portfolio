@@ -1,4 +1,4 @@
-import { githubFetch } from "@/app/dashboard/projects/_lib/githubFetch";
+import { githubFetch } from "@/app/dashboard/projects/_lib/github-fetch";
 import { mapRepositories } from "@/app/dashboard/projects/_lib/mapper";
 import type {
   InsertProject,

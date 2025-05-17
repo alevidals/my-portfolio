@@ -1,8 +1,15 @@
 "use server";
 
-import { insertWorkExperience as insertWorkExperienceQuery } from "@/app/dashboard/work-experiences/_lib/queries";
-import { insertWorkExperienceSchema } from "@/app/dashboard/work-experiences/_lib/schema";
+import {
+  deleteWorkExperience as deleteWorkExperienceQuery,
+  insertWorkExperience as insertWorkExperienceQuery,
+} from "@/app/dashboard/work-experiences/_lib/queries";
+import {
+  deleteWorkExperienceSchema,
+  insertWorkExperienceSchema,
+} from "@/app/dashboard/work-experiences/_lib/schema";
 import type {
+  DeleteWorkExperienceSchema,
   InsertWorkExperience,
   InsertWorkExperienceSchema,
 } from "@/app/dashboard/work-experiences/_lib/types";
@@ -76,5 +83,49 @@ export async function insertWorkExperience(
   return {
     success: true,
     message: "Work experience created successfully",
+  };
+}
+
+export async function deleteWorkExperience(
+  _: unknown,
+  formData: FormData,
+): Promise<ActionResponse<DeleteWorkExperienceSchema>> {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
+  const data = Object.fromEntries(
+    formData.entries(),
+  ) as DeleteWorkExperienceSchema;
+
+  const result = deleteWorkExperienceSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Invalid input",
+      data,
+    };
+  }
+
+  const { workExperienceId } = result.data;
+
+  const deletedWorkExperience = await deleteWorkExperienceQuery({
+    workExperienceId,
+  });
+
+  if (!deletedWorkExperience) {
+    return {
+      success: false,
+      error: "Failed to delete work experience",
+      data,
+    };
+  }
+
+  revalidatePath("/dashboard/work-experiences");
+
+  return {
+    success: true,
+    message: "Work experience deleted successfully",
   };
 }

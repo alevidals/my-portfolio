@@ -26,7 +26,7 @@ export async function Header() {
       ) : (
         <div className="flex items-center gap-10">
           <SignedIn>
-            <nav className="flex gap-4 font-bold">
+            <nav className="flex gap-4 font-bold text-xs">
               <HeaderLink href="/dashboard" label="/dashboard" />
               <HeaderLink
                 href="/dashboard/profile"
@@ -35,6 +35,10 @@ export async function Header() {
               <HeaderLink
                 href="/dashboard/projects"
                 label="/dashboard/projects"
+              />
+              <HeaderLink
+                href="/dashboard/work-experiences"
+                label="/dashboard/work-experiences"
               />
             </nav>
             <UserButton />

@@ -1,6 +1,7 @@
 "use client";
 
 import { AddWorkExperienceDialog } from "@/app/dashboard/work-experiences/_components/add-work-experience-dialog";
+import { WorkExperienceActionsDropdown } from "@/app/dashboard/work-experiences/_components/work-experience-actions-dropdown";
 import type { getUserWorkExperiences } from "@/app/dashboard/work-experiences/_lib/queries";
 import { formatDate } from "@/app/dashboard/work-experiences/_lib/utils";
 import { Input } from "@/components/ui/input";
@@ -79,7 +80,11 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
                         })
                       : "Present"}
                   </TableCell>
-                  <TableCell>actions</TableCell>
+                  <TableCell>
+                    <WorkExperienceActionsDropdown
+                      workExperience={workExperience}
+                    />
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
