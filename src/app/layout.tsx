@@ -28,7 +28,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en" className="dark">
-        <body className={`${geistMono.variable} font-sans antialiased mx-4`}>
+        <body className={`${geistMono.variable} font-sans antialiased`}>
           {children}
           <Toaster />
           <TailwindIndicator />

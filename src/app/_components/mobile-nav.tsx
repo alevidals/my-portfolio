@@ -1,18 +1,22 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { UserButton } from "@clerk/nextjs";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { IconMenu } from "@tabler/icons-react";
 import Link from "next/link";
+import { useState } from "react";
 
 type Props = {
   slug?: string;
 };
 
 export function MobileNav({ slug }: Props) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
           <IconMenu className="size-6" />
@@ -24,17 +28,16 @@ export function MobileNav({ slug }: Props) {
           This modal shows the mobile navigation links.
         </DialogDescription>
         <div className="p-6 flex flex-col gap-4">
-          <Link href="/dashboard">/dashboard</Link>
-          <Link href={`/view/${slug}`}>/portfolio</Link>
-          <UserButton
-            appearance={{
-              elements: {
-                userButtonPopoverCard: {
-                  pointerEvents: "initial",
-                },
-              },
-            }}
-          />
+          <Link href="/dashboard" onClick={() => setOpen(false)}>
+            /dashboard
+          </Link>
+          <Link
+            href={`/view/${slug}`}
+            target="_blank"
+            onClick={() => setOpen(false)}
+          >
+            /portfolio
+          </Link>
         </div>
       </DrawerContent>
     </Drawer>

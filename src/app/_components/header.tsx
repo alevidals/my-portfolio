@@ -2,7 +2,7 @@ import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
 import { DesktopNav } from "@/app/_components/desktop-nav";
 import { MobileNav } from "@/app/_components/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { IconBrandGithub, IconFileCv } from "@tabler/icons-react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export async function Header() {
   const slug = await getProfileSlug();
 
   return (
-    <header className="container mx-auto h-20 flex items-center justify-between fixed top-0 bg-background">
+    <header className="container mx-auto h-20 flex items-center justify-between fixed top-0 bg-transparent px-4">
       <Link href="/" className="font-bold text-xl flex items-center gap-2">
         <span>MyPortfolio</span>
         <IconFileCv />
@@ -30,8 +30,11 @@ export async function Header() {
         </SignedOut>
       ) : (
         <SignedIn>
-          <DesktopNav slug={slug} />
-          <MobileNav slug={slug} />
+          <div className="flex items-center gap-4 md:gap-10 flex-row-reverse md:flex-row">
+            <DesktopNav slug={slug} />
+            <MobileNav slug={slug} />
+            <UserButton />
+          </div>
         </SignedIn>
       )}
     </header>

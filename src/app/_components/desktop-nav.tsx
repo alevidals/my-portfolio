@@ -1,5 +1,4 @@
 import { HeaderLink } from "@/app/_components/header-link";
-import { UserButton } from "@clerk/nextjs";
 
 type Props = {
   slug?: string;
@@ -7,7 +6,7 @@ type Props = {
 
 export async function DesktopNav({ slug }: Props) {
   return (
-    <div className="hidden md:flex items-center gap-10">
+    <div className="hidden md:flex">
       <nav className="flex gap-4 font-bold">
         <HeaderLink href="/dashboard" label="/dashboard" />
         {slug && (
@@ -18,7 +17,6 @@ export async function DesktopNav({ slug }: Props) {
           />
         )}
       </nav>
-      <UserButton />
     </div>
   );
 }

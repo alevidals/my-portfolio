@@ -14,7 +14,7 @@ export default function AppLayout({
   return (
     <div className="container mx-auto">
       <Header />
-      <main className="pt-24">{children}</main>
+      <main className="px-4">{children}</main>
     </div>
   );
 }
