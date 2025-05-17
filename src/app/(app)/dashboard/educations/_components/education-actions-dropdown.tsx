@@ -1,6 +1,5 @@
 import { AddEducationDialog } from "@/app/(app)//dashboard/educations/_components/add-education-dialog";
 import { DeleteEducationAlertDialog } from "@/app/(app)//dashboard/educations/_components/delete-education-alert-dialog";
-import type { getUserEducations } from "@/app/(app)//dashboard/educations/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { getUserEducations } from "@/lib/queries";
 import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 

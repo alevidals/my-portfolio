@@ -2,7 +2,6 @@
 
 import { AddEducationDialog } from "@/app/(app)//dashboard/educations/_components/add-education-dialog";
 import { EducationActionsDropdown } from "@/app/(app)//dashboard/educations/_components/education-actions-dropdown";
-import type { getUserEducations } from "@/app/(app)//dashboard/educations/_lib/queries";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -12,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { getUserEducations } from "@/lib/queries";
 import { formatDate } from "@/lib/utils";
 import { useState } from "react";
 

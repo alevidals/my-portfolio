@@ -2,7 +2,6 @@ import {
   insertWorkExperience,
   updateWorkExperience,
 } from "@/app/(app)//dashboard/work-experiences/_lib/actions";
-import type { getUserWorkExperiences } from "@/app/(app)//dashboard/work-experiences/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
 import { Label } from "@/components/ui/label";
@@ -13,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { getUserWorkExperiences } from "@/lib/queries";
 import { getMonths, getYears } from "@/lib/utils";
 import {
   type Dispatch,

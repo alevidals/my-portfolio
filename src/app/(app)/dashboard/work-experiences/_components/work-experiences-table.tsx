@@ -2,7 +2,6 @@
 
 import { AddWorkExperienceDialog } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-dialog";
 import { WorkExperienceActionsDropdown } from "@/app/(app)//dashboard/work-experiences/_components/work-experience-actions-dropdown";
-import type { getUserWorkExperiences } from "@/app/(app)//dashboard/work-experiences/_lib/queries";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -12,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { getUserWorkExperiences } from "@/lib/queries";
 import { formatDate } from "@/lib/utils";
 import { useState } from "react";
 

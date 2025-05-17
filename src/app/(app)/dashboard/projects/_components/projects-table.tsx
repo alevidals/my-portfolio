@@ -3,7 +3,6 @@
 import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/add-project-dialog";
 import { ImportProjectsDialog } from "@/app/(app)//dashboard/projects/_components/import-projects-dialog";
 import { ProjectActionsDropdown } from "@/app/(app)//dashboard/projects/_components/project-actions-dropdown";
-import type { getUserProjects } from "@/app/(app)//dashboard/projects/_lib/queries";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { getUserProjects } from "@/lib/queries";
 import { useState } from "react";
 
 type Props = {

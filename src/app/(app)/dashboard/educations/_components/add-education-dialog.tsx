@@ -1,5 +1,4 @@
 import { AddEducationForm } from "@/app/(app)//dashboard/educations/_components/add-education-form";
-import type { getUserEducations } from "@/app/(app)//dashboard/educations/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { getUserEducations } from "@/lib/queries";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 

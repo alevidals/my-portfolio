@@ -2,7 +2,6 @@ import {
   insertEducation,
   updateEducation,
 } from "@/app/(app)//dashboard/educations/_lib/actions";
-import type { getUserEducations } from "@/app/(app)//dashboard/educations/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
 import { Label } from "@/components/ui/label";
@@ -13,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { getUserEducations } from "@/lib/queries";
 import { getMonths, getYears } from "@/lib/utils";
 import {
   type Dispatch,

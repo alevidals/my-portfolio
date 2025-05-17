@@ -1,6 +1,5 @@
 import { AddWorkExperienceDialog } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-dialog";
 import { DeleteWorkExperienceAlertDialog } from "@/app/(app)//dashboard/work-experiences/_components/delete-work-experience-alert-dialog";
-import type { getUserWorkExperiences } from "@/app/(app)//dashboard/work-experiences/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { getUserWorkExperiences } from "@/lib/queries";
 import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 

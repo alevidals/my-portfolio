@@ -1,5 +1,4 @@
 import { AddWorkExperienceForm } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-form";
-import type { getUserWorkExperiences } from "@/app/(app)//dashboard/work-experiences/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { getUserWorkExperiences } from "@/lib/queries";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 

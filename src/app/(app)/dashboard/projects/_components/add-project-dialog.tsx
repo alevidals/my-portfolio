@@ -1,5 +1,4 @@
 import { AddProjectForm } from "@/app/(app)//dashboard/projects/_components/add-project-form";
-import type { getUserProjects } from "@/app/(app)//dashboard/projects/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { getUserProjects } from "@/lib/queries";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { type Dispatch, type SetStateAction, useState } from "react";

@@ -2,9 +2,9 @@ import {
   insertProject,
   updateProject,
 } from "@/app/(app)//dashboard/projects/_lib/actions";
-import type { getUserProjects } from "@/app/(app)//dashboard/projects/_lib/queries";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
+import type { getUserProjects } from "@/lib/queries";
 import { type Dispatch, type SetStateAction, useActionState } from "react";
 import { toast } from "sonner";
 

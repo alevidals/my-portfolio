@@ -1,6 +1,5 @@
 import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/add-project-dialog";
 import { DeleteProjectAlertDialog } from "@/app/(app)//dashboard/projects/_components/delete-project-alert-dialog";
-import type { getUserProjects } from "@/app/(app)//dashboard/projects/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { getUserProjects } from "@/lib/queries";
 import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
