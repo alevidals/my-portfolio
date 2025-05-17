@@ -8,14 +8,19 @@ export function cn(...inputs: ClassValue[]) {
 type FormatDateParams = {
   month: string;
   year: string;
+  monthFormat?: Intl.DateTimeFormatOptions["month"];
 };
 
-export function formatDate({ month, year }: FormatDateParams) {
+export function formatDate({
+  month,
+  year,
+  monthFormat = "long",
+}: FormatDateParams) {
   const parsedMonth = month.padStart(2, "0");
   const date = new Date(`${year}-${parsedMonth}-01`);
 
   const formatter = new Intl.DateTimeFormat("en", {
-    month: "long",
+    month: monthFormat,
     year: "numeric",
   });
 

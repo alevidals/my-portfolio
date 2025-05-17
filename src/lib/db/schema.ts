@@ -52,3 +52,9 @@ export const educations = sqliteTable("educations", {
   }>(),
   description: text("description"),
 });
+
+export const portfolioUrls = sqliteTable("portfolio_urls", {
+  id: text("id").$defaultFn(uuidv7).primaryKey(),
+  userId: text("user_id").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+});

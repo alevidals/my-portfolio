@@ -1,6 +1,6 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
-async function getClerkClient() {
+export async function getClerkClient() {
   const client = await clerkClient();
 
   return client;
