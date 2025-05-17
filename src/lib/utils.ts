@@ -11,7 +11,8 @@ type FormatDateParams = {
 };
 
 export function formatDate({ month, year }: FormatDateParams) {
-  const date = new Date(`${year}-${month}-01`);
+  const parsedMonth = month.padStart(2, "0");
+  const date = new Date(`${year}-${parsedMonth}-01`);
 
   const formatter = new Intl.DateTimeFormat("en", {
     month: "long",
