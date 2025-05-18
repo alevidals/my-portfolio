@@ -1,6 +1,12 @@
 import { EducationsTable } from "@/app/(app)//dashboard/educations/_components/educations-table";
 import { getUserEducations } from "@/lib/queries";
 import { auth } from "@clerk/nextjs/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MyPortfolio - Dashboard - Educations",
+  description: "Manage your educations",
+};
 
 export default async function DashboardWorkExperiencesPage() {
   const { userId, redirectToSignIn } = await auth();

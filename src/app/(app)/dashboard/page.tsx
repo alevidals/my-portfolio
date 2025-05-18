@@ -12,7 +12,13 @@ import {
   IconInfoCircle,
   IconUser,
 } from "@tabler/icons-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "MyPortfolio - Dashboard",
+  description: "Manage your portfolio and CV from here",
+};
 
 const DASHBOARD_LINKS = [
   { href: "/dashboard/profile", label: "Profile", icon: <IconUser /> },

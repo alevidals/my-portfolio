@@ -8,6 +8,7 @@ import {
   IconExternalLink,
   IconMail,
 } from "@tabler/icons-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,6 +17,15 @@ type Props = {
     username: string;
   }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = await params;
+
+  return {
+    title: `MyPortfolio - ${username}`,
+    description: "MyPortfolio - View your portfolio",
+  };
+}
 
 type LinksProps = {
   email?: string;
