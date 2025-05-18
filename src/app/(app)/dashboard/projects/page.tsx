@@ -11,7 +11,7 @@ export default async function DashboardProjectsPage() {
 
   return (
     <>
-      <h1 className="font-medium text-3xl mb-4">Projects</h1>
+      <h1 className="text-3xl mb-4">Projects</h1>
       <ProjectsTable projects={projects} />
     </>
   );

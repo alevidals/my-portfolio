@@ -57,6 +57,8 @@ export function ProjectsTable({ projects }: Props) {
                 <TableHead>Name</TableHead>
                 <TableHead>Description</TableHead>
                 <TableHead>Technologies</TableHead>
+                <TableHead>Deployment URL</TableHead>
+                <TableHead>Repository URL</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -98,7 +100,21 @@ export function ProjectsTable({ projects }: Props) {
                         </Button>
                       )}
                     </TableCell>
-
+                    <TableCell className="whitespace-normal">
+                      {project.repositoryUrl && (
+                        <Button variant="link" className="px-0">
+                          <a
+                            className="flex items-center gap-2"
+                            href={project.repositoryUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {project.repositoryUrl}
+                            <IconExternalLink size={16} />
+                          </a>
+                        </Button>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <ProjectActionsDropdown project={project} />
                     </TableCell>

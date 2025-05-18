@@ -11,7 +11,7 @@ export default async function DashboardWorkExperiencesPage() {
 
   return (
     <>
-      <h1 className="font-medium text-3xl mb-4">Educations</h1>
+      <h1 className="text-3xl mb-4">Educations</h1>
       <EducationsTable educations={educations} />
     </>
   );

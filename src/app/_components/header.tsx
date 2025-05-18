@@ -12,14 +12,14 @@ export async function Header() {
   const slug = await getProfileSlug();
 
   return (
-    <header className="container mx-auto h-20 flex items-center justify-between fixed top-0 bg-transparent px-4">
+    <header className="container mx-auto h-20 flex items-center justify-between sticky top-0 bg-transparent px-4">
       <Link href="/" className="font-bold text-xl flex items-center gap-2">
         <span>MyPortfolio</span>
         <IconFileCv />
       </Link>
       {!userId ? (
         <SignedOut>
-          <SignInButton mode="modal">
+          <SignInButton mode="modal" forceRedirectUrl="/dashboard">
             <Button>
               <span>
                 Sign in <span className="hidden md:inline">with Github</span>

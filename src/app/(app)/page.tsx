@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default async function Home() {
   return (
-    <div className="h-dvh flex items-center justify-center">
+    <div className="flex items-center justify-center  h-full">
       <div>
         <h1 className="text-2xl md:text-5xl font-extrabold">
           Welcome to MyPortfolio
