@@ -1,5 +1,6 @@
 import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/add-project-dialog";
-import { DeleteProjectAlertDialog } from "@/app/(app)//dashboard/projects/_components/delete-project-alert-dialog";
+import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { deleteProject } from "@/app/(app)/dashboard/projects/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -40,11 +41,15 @@ export function ProjectActionsDropdown({ project }: Props) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteProjectAlertDialog
+
+      <ResponsiveDeleteDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        projectName={project.name}
-        projectId={project.id}
+        description="This action cannot be undone. This will permanently delete the project"
+        itemId={project.id}
+        itemName={project.name}
+        itemFormName="projectId"
+        action={deleteProject}
       />
       <AddProjectDialog
         project={project}

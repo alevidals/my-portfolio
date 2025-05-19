@@ -1,5 +1,6 @@
 import { AddWorkExperienceDialog } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-dialog";
-import { DeleteWorkExperienceAlertDialog } from "@/app/(app)//dashboard/work-experiences/_components/delete-work-experience-alert-dialog";
+import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { deleteWorkExperience } from "@/app/(app)/dashboard/work-experiences/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -40,12 +41,16 @@ export function WorkExperienceActionsDropdown({ workExperience }: Props) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteWorkExperienceAlertDialog
+      <ResponsiveDeleteDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        workExperienceId={workExperience.id}
-        companyName={workExperience.companyName}
+        description="This action cannot be undone. This will permanently delete the work experience"
+        itemId={workExperience.id}
+        itemName={workExperience.companyName}
+        itemFormName="workExperienceId"
+        action={deleteWorkExperience}
       />
+
       <AddWorkExperienceDialog
         workExperience={workExperience}
         externalIsOpen={isOpenEdit}

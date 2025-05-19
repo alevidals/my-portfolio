@@ -1,5 +1,6 @@
 import { AddEducationDialog } from "@/app/(app)//dashboard/educations/_components/add-education-dialog";
-import { DeleteEducationAlertDialog } from "@/app/(app)//dashboard/educations/_components/delete-education-alert-dialog";
+import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { deleteEducation } from "@/app/(app)/dashboard/educations/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -40,13 +41,16 @@ export function EducationActionsDropdown({ education }: Props) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteEducationAlertDialog
+      <ResponsiveDeleteDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        educationId={education.id}
-        institution={education.institution}
-        degree={education.degree}
+        description="This action cannot be undone. This will permanently delete the education"
+        itemId={education.id}
+        itemName={`${education.institution} - ${education.degree}`}
+        itemFormName="educationId"
+        action={deleteEducation}
       />
+
       <AddEducationDialog
         education={education}
         externalIsOpen={isOpenEdit}
