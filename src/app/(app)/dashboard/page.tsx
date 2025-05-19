@@ -39,12 +39,12 @@ export default async function DashboardPage() {
     <>
       <h1 className="text-3xl mb-4">Dashboard</h1>
       {slug ? (
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
           <CopySlugToClipboard slug={slug} />
           <Button variant="outline" asChild>
             <Link
               href={`/view/${slug}`}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full "
               target="_blank"
             >
               Visit your portfolio
@@ -78,10 +78,10 @@ export default async function DashboardPage() {
       </p>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         {DASHBOARD_LINKS.map((link) => (
-          <Button key={link.href} asChild variant="link">
+          <Button key={link.href} asChild variant="link" className="text-base">
             <Link
               href={link.href}
-              className="border h-32 flex items-center justify-center rounded-lg gap-4 text-lg"
+              className="border h-32 flex items-center justify-center rounded-lg gap-4"
             >
               {link.icon}
               {link.label}
