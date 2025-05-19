@@ -39,12 +39,12 @@ export default async function DashboardPage() {
     <>
       <h1 className="text-3xl mb-4">Dashboard</h1>
       {slug ? (
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <CopySlugToClipboard slug={slug} />
           <Button variant="outline" asChild>
             <Link
               href={`/view/${slug}`}
-              className="flex items-center gap-2 w-full "
+              className="flex items-center gap-2"
               target="_blank"
             >
               Visit your portfolio
