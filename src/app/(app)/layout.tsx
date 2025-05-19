@@ -6,9 +6,9 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="container mx-auto min-h-dvh grid grid-rows-[auto_1fr_auto]">
+    <div className="min-h-dvh grid grid-rows-[auto_1fr_auto]">
       <Header />
-      <main className="px-4">{children}</main>
+      <main className="px-4 container mx-auto">{children}</main>
       <footer>
         <div className="container mx-auto py-8">
           <p className="text-center text-sm text-neutral-400">

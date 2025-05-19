@@ -3,7 +3,7 @@ import { env } from "@/lib/env";
 export const siteConfig = {
   title: "MyPortfolio",
   description:
-    "The place where you can create your portfolio and CV at the same time",
+    "Create your portfolio and resume in one place. Share your profile with a unique link and stand out in selection processes.",
   links: {
     twitter: "https://twitter.com/alevidals",
     github: "https://github.com/alevidals",
