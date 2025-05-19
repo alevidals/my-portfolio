@@ -36,7 +36,7 @@ export function CtaSection() {
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <SignedOut>
-              <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+              <SignInButton mode="modal">
                 <Button size="lg" variant="secondary" className="mx-auto">
                   Create my portfolio{" "}
                   <IconArrowRight className="ml-2 h-4 w-4" />

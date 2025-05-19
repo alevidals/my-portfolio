@@ -28,7 +28,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <SignedOut>
-                <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                <SignInButton mode="modal">
                   <Button size="lg" variant="secondary">
                     Get started now <IconArrowRight className="ml-2 h-4 w-4" />
                   </Button>
