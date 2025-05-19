@@ -1,5 +1,6 @@
-import { AddWorkExperienceDialog } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-dialog";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
 import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { AddWorkExperienceForm } from "@/app/(app)/dashboard/work-experiences/_components/add-work-experience-form";
 import { deleteWorkExperience } from "@/app/(app)/dashboard/work-experiences/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,12 +51,20 @@ export function WorkExperienceActionsDropdown({ workExperience }: Props) {
         itemFormName="workExperienceId"
         action={deleteWorkExperience}
       />
-
-      <AddWorkExperienceDialog
-        workExperience={workExperience}
+      <ResponsiveAddDialog
+        title="Edit Work Experience"
+        description="Edit your work experience"
+        type="update"
         externalIsOpen={isOpenEdit}
         externalSetIsOpen={setIsOpenEdit}
-      />
+      >
+        {({ setIsOpen }) => (
+          <AddWorkExperienceForm
+            workExperience={workExperience}
+            setIsOpen={setIsOpen}
+          />
+        )}
+      </ResponsiveAddDialog>
     </>
   );
 }

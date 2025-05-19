@@ -97,7 +97,7 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
       {project && <input type="hidden" name="id" value={project.id} />}
 
       <LoadingButton
-        className="justify-self-end"
+        className="justify-self-end w-full md:w-auto"
         isLoading={isPending}
         type="submit"
         form="project-form"

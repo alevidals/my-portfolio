@@ -1,7 +1,7 @@
 "use client";
-
-import { AddWorkExperienceDialog } from "@/app/(app)//dashboard/work-experiences/_components/add-work-experience-dialog";
 import { WorkExperienceActionsDropdown } from "@/app/(app)//dashboard/work-experiences/_components/work-experience-actions-dropdown";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
+import { AddWorkExperienceForm } from "@/app/(app)/dashboard/work-experiences/_components/add-work-experience-form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -40,7 +40,13 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-full md:w-96"
         />
-        <AddWorkExperienceDialog />
+        <ResponsiveAddDialog
+          title="Add Work Experience"
+          description="Add a new work experience"
+          type="add"
+        >
+          {({ setIsOpen }) => <AddWorkExperienceForm setIsOpen={setIsOpen} />}
+        </ResponsiveAddDialog>
       </div>
       <div className="border rounded-md">
         <ScrollArea className="grid grid-cols-1">

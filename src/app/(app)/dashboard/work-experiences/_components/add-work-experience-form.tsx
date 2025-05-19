@@ -226,7 +226,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         <input type="hidden" name="id" value={workExperience.id} />
       )}
       <LoadingButton
-        className="justify-self-end"
+        className="justify-self-end w-full md:w-fit"
         isLoading={isPending}
         type="submit"
       >

@@ -12,8 +12,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { IconBrandGithub, IconLoader2, IconX } from "@tabler/icons-react";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
@@ -34,6 +45,7 @@ async function fetchRepositories() {
 }
 
 export function ImportProjectsDialog({ className }: Props) {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<string>("");
   const [selectedRepositories, setSelectedRepositories] = useState<number[]>(
@@ -89,79 +101,156 @@ export function ImportProjectsDialog({ className }: Props) {
     formAction(newFormData);
   }
 
+  if (isDesktop) {
+    return (
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <Button onClick={() => setIsOpen(true)} className={className}>
+            <IconBrandGithub />
+            <span>Import from Github</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="p-0 [&>button]:hidden gap-0 h-3/4 w-fit grid-rows-[auto_1fr]">
+          <DialogHeader className="border-b px-6 py-3">
+            <DialogTitle className="flex items-center justify-between">
+              <span>Import projects</span>
+              <DialogClose asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <IconX />
+                </Button>
+              </DialogClose>
+            </DialogTitle>
+            <DialogDescription className="">
+              Choose repositories to import from your Github account.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="h-full overflow-hidden flex flex-col px-6 py-3">
+            {isLoading && (
+              <div className="flex items-center justify-center h-full">
+                <IconLoader2 className="animate-spin" />
+              </div>
+            )}
+
+            {shouldShowError && (
+              <p className="h-full text-red-500">
+                {error.message ?? "Failed to fetch projects"}
+              </p>
+            )}
+
+            {shouldShowData && (
+              <>
+                <Input
+                  className="h-10 mb-4 dark:bg-transparent"
+                  placeholder="Filter projects..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+                {filteredRepositories.length === 0 ? (
+                  <p className="h-full">No results found.</p>
+                ) : (
+                  <ScrollArea className="h-full overflow-hidden">
+                    <ImportProjectsForm
+                      filteredRepositories={filteredRepositories}
+                      selectedRepositories={selectedRepositories}
+                      setSelectedRepositories={setSelectedRepositories}
+                      handleAction={handleAction}
+                    />
+                  </ScrollArea>
+                )}
+
+                <LoadingButton
+                  isLoading={isPending}
+                  form="import-projects"
+                  icon={<IconBrandGithub />}
+                  className="mt-4 flex items-center"
+                >
+                  <span>Import {selectedRepositories.length} repositories</span>
+                </LoadingButton>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger asChild>
         <Button onClick={() => setIsOpen(true)} className={className}>
           <IconBrandGithub />
           <span>Import from Github</span>
         </Button>
-      </DialogTrigger>
-      <DialogContent className="p-0 [&>button]:hidden gap-0 h-3/4 w-fit grid-rows-[auto_1fr]">
-        <DialogHeader className="border-b px-6 py-3">
-          <DialogTitle className="flex items-center justify-between">
-            <span>Import projects</span>
-            <DialogClose asChild>
-              <Button
-                size="icon"
-                variant="ghost"
-                onClick={() => setIsOpen(false)}
-              >
-                <IconX />
-              </Button>
-            </DialogClose>
-          </DialogTitle>
-          <DialogDescription className="">
-            Choose repositories to import from your Github account.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="h-full overflow-hidden flex flex-col px-6 py-3">
-          {isLoading && (
-            <div className="flex items-center justify-center h-full">
-              <IconLoader2 className="animate-spin" />
-            </div>
-          )}
-
-          {shouldShowError && (
-            <p className="h-full text-red-500">
-              {error.message ?? "Failed to fetch projects"}
-            </p>
-          )}
-
-          {shouldShowData && (
-            <>
-              <Input
-                className="h-10 mb-4 dark:bg-transparent"
-                placeholder="Filter projects..."
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-              />
-              {filteredRepositories.length === 0 ? (
-                <p className="h-full">No results found.</p>
-              ) : (
-                <ScrollArea className="h-full overflow-hidden">
-                  <ImportProjectsForm
-                    filteredRepositories={filteredRepositories}
-                    selectedRepositories={selectedRepositories}
-                    setSelectedRepositories={setSelectedRepositories}
-                    handleAction={handleAction}
-                  />
-                </ScrollArea>
+      </DrawerTrigger>
+      <DrawerContent>
+        <ScrollArea className="overflow-y-auto">
+          <DrawerHeader className="text-left">
+            <DrawerTitle>Import projects</DrawerTitle>
+            <DrawerDescription>
+              Choose repositories to import from your Github account.
+            </DrawerDescription>
+          </DrawerHeader>
+          <div className="px-4">
+            <div className="h-full overflow-hidden flex flex-col py-3">
+              {isLoading && (
+                <div className="flex items-center justify-center h-full">
+                  <IconLoader2 className="animate-spin" />
+                </div>
               )}
 
-              <LoadingButton
-                isLoading={isPending}
-                form="import-projects"
-                icon={<IconBrandGithub />}
-                className="mt-4 flex items-center"
-              >
-                <span>Import {selectedRepositories.length} repositories</span>
-              </LoadingButton>
-            </>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+              {shouldShowError && (
+                <p className="h-full text-red-500">
+                  {error.message ?? "Failed to fetch projects"}
+                </p>
+              )}
+
+              {shouldShowData && (
+                <>
+                  <Input
+                    className="h-10 mb-4 dark:bg-transparent"
+                    placeholder="Filter projects..."
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                  />
+                  {filteredRepositories.length === 0 ? (
+                    <p className="h-full">No results found.</p>
+                  ) : (
+                    <ScrollArea className="h-full overflow-hidden">
+                      <ImportProjectsForm
+                        filteredRepositories={filteredRepositories}
+                        selectedRepositories={selectedRepositories}
+                        setSelectedRepositories={setSelectedRepositories}
+                        handleAction={handleAction}
+                      />
+                    </ScrollArea>
+                  )}
+
+                  <LoadingButton
+                    isLoading={isPending}
+                    form="import-projects"
+                    icon={<IconBrandGithub />}
+                    className="mt-4 flex items-center"
+                  >
+                    <span>
+                      Import {selectedRepositories.length} repositories
+                    </span>
+                  </LoadingButton>
+                </>
+              )}
+            </div>
+          </div>
+          <DrawerFooter className="pt-2">
+            <DrawerClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </ScrollArea>
+      </DrawerContent>
+    </Drawer>
   );
 }

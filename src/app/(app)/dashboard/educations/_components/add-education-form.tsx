@@ -217,7 +217,7 @@ export function AddEducationForm({ education, setIsOpen }: Props) {
       </div>
       {education && <input type="hidden" name="id" value={education.id} />}
       <LoadingButton
-        className="justify-self-end"
+        className="justify-self-end w-full md:w-fit"
         isLoading={isPending}
         type="submit"
       >

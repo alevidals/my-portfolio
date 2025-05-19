@@ -1,8 +1,8 @@
 "use client";
-
-import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/add-project-dialog";
 import { ImportProjectsDialog } from "@/app/(app)//dashboard/projects/_components/import-projects-dialog";
 import { ProjectActionsDropdown } from "@/app/(app)//dashboard/projects/_components/project-actions-dropdown";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
+import { AddProjectForm } from "@/app/(app)/dashboard/projects/_components/add-project-form";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -44,10 +44,16 @@ export function ProjectsTable({ projects }: Props) {
         />
         <div className="flex items-center gap-2">
           <ImportProjectsDialog className="hidden md:flex" />
-          <AddProjectDialog />
+          <ResponsiveAddDialog
+            title="Add Project"
+            description="Add a new project"
+            type="add"
+          >
+            {({ setIsOpen }) => <AddProjectForm setIsOpen={setIsOpen} />}
+          </ResponsiveAddDialog>
         </div>
       </div>
-      <ImportProjectsDialog className="flex md:hidden w-full mb-4" />
+      <ImportProjectsDialog className="w-full mb-4" />
       <div className="border rounded-md">
         <ScrollArea className="grid grid-cols-1">
           <Table>

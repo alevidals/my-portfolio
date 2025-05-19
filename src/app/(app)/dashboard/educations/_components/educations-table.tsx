@@ -1,7 +1,8 @@
 "use client";
 
-import { AddEducationDialog } from "@/app/(app)//dashboard/educations/_components/add-education-dialog";
 import { EducationActionsDropdown } from "@/app/(app)//dashboard/educations/_components/education-actions-dropdown";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
+import { AddEducationForm } from "@/app/(app)/dashboard/educations/_components/add-education-form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -40,7 +41,13 @@ export function EducationsTable({ educations }: Props) {
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-full md:w-96"
         />
-        <AddEducationDialog />
+        <ResponsiveAddDialog
+          title="Add Education"
+          description="Add a new education"
+          type="add"
+        >
+          {({ setIsOpen }) => <AddEducationForm setIsOpen={setIsOpen} />}
+        </ResponsiveAddDialog>
       </div>
       <div className="border rounded-md">
         <ScrollArea className="grid grid-cols-1">

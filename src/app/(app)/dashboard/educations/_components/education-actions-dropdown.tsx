@@ -1,5 +1,6 @@
-import { AddEducationDialog } from "@/app/(app)//dashboard/educations/_components/add-education-dialog";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
 import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { AddEducationForm } from "@/app/(app)/dashboard/educations/_components/add-education-form";
 import { deleteEducation } from "@/app/(app)/dashboard/educations/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,11 +52,17 @@ export function EducationActionsDropdown({ education }: Props) {
         action={deleteEducation}
       />
 
-      <AddEducationDialog
-        education={education}
+      <ResponsiveAddDialog
+        title="Edit Education"
+        description="Edit your education"
+        type="update"
         externalIsOpen={isOpenEdit}
         externalSetIsOpen={setIsOpenEdit}
-      />
+      >
+        {({ setIsOpen }) => (
+          <AddEducationForm education={education} setIsOpen={setIsOpen} />
+        )}
+      </ResponsiveAddDialog>
     </>
   );
 }

@@ -1,5 +1,6 @@
-import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/add-project-dialog";
+import { ResponsiveAddDialog } from "@/app/(app)/dashboard/_components/responsive-add-dialog";
 import { ResponsiveDeleteDialog } from "@/app/(app)/dashboard/_components/responsive-delete-dialog";
+import { AddProjectForm } from "@/app/(app)/dashboard/projects/_components/add-project-form";
 import { deleteProject } from "@/app/(app)/dashboard/projects/_lib/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,11 +52,17 @@ export function ProjectActionsDropdown({ project }: Props) {
         itemFormName="projectId"
         action={deleteProject}
       />
-      <AddProjectDialog
-        project={project}
+      <ResponsiveAddDialog
+        title="Edit Project"
+        description="Edit your project"
+        type="update"
         externalIsOpen={isOpenEdit}
         externalSetIsOpen={setIsOpenEdit}
-      />
+      >
+        {({ setIsOpen }) => (
+          <AddProjectForm project={project} setIsOpen={setIsOpen} />
+        )}
+      </ResponsiveAddDialog>
     </>
   );
 }

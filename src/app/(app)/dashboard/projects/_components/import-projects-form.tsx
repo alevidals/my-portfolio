@@ -53,7 +53,15 @@ export function ImportProjectsForm({
             value={String(repository.id)}
           />
           <div className="flex-1">
-            <h3 className="font-bold mb-1">{repository.name}</h3>
+            <a
+              className="flex items-center gap-2 mb-1 hover:underline hover:underline-offset-4"
+              href={repository.repositoryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h3 className="font-bold">{repository.name}</h3>
+              <IconExternalLink size={20} />
+            </a>
             <p className="text-sm text-neutral-200">{repository.description}</p>
             <div className="space-x-1 space-y-1 mt-2 overflow-x-auto">
               {repository.technologies.map((technology) => (
@@ -63,14 +71,6 @@ export function ImportProjectsForm({
               ))}
             </div>
           </div>
-          <a
-            href={repository.repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="self-start"
-          >
-            <IconExternalLink />
-          </a>
         </label>
       ))}
     </form>
