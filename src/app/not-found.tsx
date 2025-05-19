@@ -1,10 +1,12 @@
 import { Header } from "@/app/_components/header";
+import { AnimatedGradient } from "@/components/ui/animated-gradient";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function NotFound() {
   return (
     <div className="min-h-dvh grid grid-rows-[auto_1fr_auto]">
+      <AnimatedGradient />
       <Header />
       <main className="flex flex-col items-center justify-center px-4">
         <Image

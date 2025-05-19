@@ -69,7 +69,7 @@ export function ImportProjectsForm({
             rel="noopener noreferrer"
             className="self-start"
           >
-            <IconExternalLink className="text-sky-400 hover:text-gray-200" />
+            <IconExternalLink />
           </a>
         </label>
       ))}
