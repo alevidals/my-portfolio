@@ -1,6 +1,6 @@
 "use client";
 
-import type { getUserData } from "@/app/view/[username]/_lib/queries";
+import type { getUserData } from "@/app/portfolio/[username]/_lib/queries";
 import { formatDate } from "@/lib/utils";
 import {
   Document,

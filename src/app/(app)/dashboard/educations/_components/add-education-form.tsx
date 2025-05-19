@@ -104,7 +104,6 @@ export function AddEducationForm({ education, setIsOpen }: Props) {
         defaultValue={state?.data?.description ?? education?.description ?? ""}
         error={state?.errors?.description}
       />
-      <p>{state?.data?.description ?? education?.description}</p>
       <div className="grid gap-3">
         <Label htmlFor="startMonth">Start Month</Label>
         <Select

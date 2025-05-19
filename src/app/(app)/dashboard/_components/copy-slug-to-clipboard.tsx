@@ -12,7 +12,7 @@ export function CopySlugToClipboard({ slug }: Props) {
   function handleOnClick() {
     try {
       const url = new URL(window.location.href);
-      const urlToCopy = `/view/${url.origin}/${slug}`;
+      const urlToCopy = `/portfolio/${url.origin}/${slug}`;
 
       navigator.clipboard.writeText(urlToCopy);
       toast.success("Slug copied to clipboard");

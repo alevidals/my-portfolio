@@ -1,4 +1,4 @@
-import { getUserData } from "@/app/view/[username]/_lib/queries";
+import { getUserData } from "@/app/portfolio/[username]/_lib/queries";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import {

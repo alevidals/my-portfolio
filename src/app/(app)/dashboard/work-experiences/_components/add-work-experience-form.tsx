@@ -105,12 +105,12 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         itemType="textarea"
         labelChildren="Description"
         placeholder="Description"
+        inputClassName="h-32"
         defaultValue={
           state?.data?.description ?? workExperience?.description ?? ""
         }
         error={state?.errors?.description}
       />
-      <p>{state?.data?.description ?? workExperience?.description}</p>
       <div className="grid gap-3">
         <Label htmlFor="startMonth">Start Month</Label>
         <Select

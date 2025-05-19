@@ -44,7 +44,9 @@ export function HeroSection() {
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/examples">See examples</Link>
+                <Link href="/portfolio/alevidals" target="_blank">
+                  See portfolio example
+                </Link>
               </Button>
             </motion.div>
           </div>

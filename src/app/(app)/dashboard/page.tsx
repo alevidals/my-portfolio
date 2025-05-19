@@ -1,7 +1,7 @@
 import { CopySlugToClipboard } from "@/app/(app)/dashboard/_components/copy-slug-to-clipboard";
 import { GenerateCVButton } from "@/app/(app)/dashboard/_components/generate-cv-button";
 import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
-import { getUserData } from "@/app/view/[username]/_lib/queries";
+import { getUserData } from "@/app/portfolio/[username]/_lib/queries";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
           <CopySlugToClipboard slug={slug} />
           <Button variant="outline" asChild>
             <Link
-              href={`/view/${slug}`}
+              href={`/portfolio/${slug}`}
               className="flex items-center gap-2"
               target="_blank"
             >

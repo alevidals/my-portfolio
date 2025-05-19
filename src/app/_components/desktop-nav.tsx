@@ -11,7 +11,7 @@ export async function DesktopNav({ slug }: Props) {
         <HeaderLink href="/dashboard" label="/dashboard" />
         {slug && (
           <HeaderLink
-            href={`/view/${slug}`}
+            href={`/portfolio/${slug}`}
             label="/portfolio"
             target="_blank"
           />

@@ -32,7 +32,7 @@ export function MobileNav({ slug }: Props) {
             /dashboard
           </Link>
           <Link
-            href={`/view/${slug}`}
+            href={`/portfolio/${slug}`}
             target="_blank"
             onClick={() => setOpen(false)}
           >

@@ -12,11 +12,8 @@ export async function Header() {
   const slug = await getProfileSlug();
 
   return (
-    <header
-      className="sticky top-0 z-50 px-4 
-   backdrop-blur-md backdrop-saturate-150"
-    >
-      <div className="container mx-auto h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150">
+      <div className="container mx-auto h-20 flex items-center justify-between px-4">
         <Link href="/" className="font-bold text-xl flex items-center gap-2">
           <span>MyPortfolio</span>
         </Link>

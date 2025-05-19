@@ -1,6 +1,6 @@
 "use client";
 import { PDFDocument } from "@/app/(app)/dashboard/_components/pdf-document";
-import type { getUserData } from "@/app/view/[username]/_lib/queries";
+import type { getUserData } from "@/app/portfolio/[username]/_lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
