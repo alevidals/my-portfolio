@@ -23,7 +23,6 @@ type Props = {
   className?: string;
 };
 
-// TODO: use better-fetch
 async function fetchRepositories() {
   const response = await fetch("/api/projects");
 

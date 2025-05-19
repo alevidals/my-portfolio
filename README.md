@@ -1,11 +1,6 @@
 # README under construction
 
-- [ ] Add a 404 page: https://illustrationkit.com/illustrations/yippy 
-- [ ] Add better error handling (try catch?)
-- [ ] Add translations
-- [ ] Add dark/white mode?
-- [ ] Add testing if got time
-- [ ] Check TODOS
+- [x] Add a 404 page: https://illustrationkit.com/illustrations/yippy 
 - [x] Add and check meta with https://github.com/alfonsusac/check-site-meta
 - [x] Change meta for each page
 - [x] Add a favicon
