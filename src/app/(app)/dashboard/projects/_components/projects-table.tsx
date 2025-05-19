@@ -49,7 +49,7 @@ export function ProjectsTable({ projects }: Props) {
         </div>
       </div>
       <ImportProjectsDialog className="flex md:hidden w-full mb-4" />
-      <ScrollArea className="w-full">
+      <ScrollArea className="grid grid-cols-1">
         <div className="border rounded-md">
           <Table>
             <TableHeader>

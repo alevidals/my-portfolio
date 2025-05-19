@@ -55,6 +55,7 @@ export function ProfileInformationForm({ userProfile }: Props) {
       <FormItem
         id="biography"
         name="biography"
+        inputClassName="h-32"
         itemType="textarea"
         labelChildren={
           <>

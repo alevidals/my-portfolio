@@ -42,7 +42,7 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
         />
         <AddWorkExperienceDialog />
       </div>
-      <ScrollArea className="w-full">
+      <ScrollArea className="grid grid-cols-1">
         <div className="border rounded-md">
           <Table>
             <TableHeader>

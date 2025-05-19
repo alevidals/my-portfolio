@@ -42,7 +42,7 @@ export function EducationsTable({ educations }: Props) {
         />
         <AddEducationDialog />
       </div>
-      <ScrollArea className="w-full">
+      <ScrollArea className="grid grid-cols-1">
         <div className="border rounded-md">
           <Table>
             <TableHeader>
