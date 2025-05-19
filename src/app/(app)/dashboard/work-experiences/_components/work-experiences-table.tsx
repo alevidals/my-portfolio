@@ -42,8 +42,8 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
         />
         <AddWorkExperienceDialog />
       </div>
-      <ScrollArea className="grid grid-cols-1">
-        <div className="border rounded-md">
+      <div className="border rounded-md">
+        <ScrollArea className="grid grid-cols-1">
           <Table>
             <TableHeader>
               <TableRow>
@@ -98,9 +98,9 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
               )}
             </TableBody>
           </Table>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </div>
     </>
   );
 }

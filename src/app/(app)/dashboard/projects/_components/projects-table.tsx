@@ -4,7 +4,6 @@ import { AddProjectDialog } from "@/app/(app)//dashboard/projects/_components/ad
 import { ImportProjectsDialog } from "@/app/(app)//dashboard/projects/_components/import-projects-dialog";
 import { ProjectActionsDropdown } from "@/app/(app)//dashboard/projects/_components/project-actions-dropdown";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -49,8 +48,8 @@ export function ProjectsTable({ projects }: Props) {
         </div>
       </div>
       <ImportProjectsDialog className="flex md:hidden w-full mb-4" />
-      <ScrollArea className="grid grid-cols-1">
-        <div className="border rounded-md">
+      <div className="border rounded-md">
+        <ScrollArea className="grid grid-cols-1">
           <Table>
             <TableHeader>
               <TableRow>
@@ -72,47 +71,48 @@ export function ProjectsTable({ projects }: Props) {
                     <TableCell className="whitespace-normal min-w-[400px] w-[400px]">
                       {project.description}
                     </TableCell>
-                    <TableCell className="max-w-[200px] overflow-x-auto grid-cols-1 space-x-1">
-                      <ScrollArea className="w-full py-4">
-                        {project.technologies.map((technology) => (
-                          <Badge
-                            key={`${project.name}-${technology}`}
-                            variant="outline"
-                          >
-                            {technology}
-                          </Badge>
-                        ))}
-                        <ScrollBar orientation="horizontal" />
-                      </ScrollArea>
+                    <TableCell className="max-w-[200px]">
+                      <div className="flex flex-wrap gap-1">
+                        {project.technologies.length > 0
+                          ? project.technologies.map((technology) => (
+                              <Badge
+                                key={`${project.name}-${technology}`}
+                                variant="outline"
+                              >
+                                {technology}
+                              </Badge>
+                            ))
+                          : "-"}
+                      </div>
                     </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {project.deploymentUrl && (
-                        <Button variant="link" className="px-0">
-                          <a
-                            className="flex items-center gap-2"
-                            href={project.deploymentUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {project.deploymentUrl}
-                            <IconExternalLink size={16} />
-                          </a>
-                        </Button>
+                    <TableCell className="max-w-[350px] whitespace-normal">
+                      {project.deploymentUrl ? (
+                        <a
+                          className="break-all hover:underline hover:underline-offset-4"
+                          href={project.deploymentUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {project.deploymentUrl}
+                          <IconExternalLink size={16} className="inline ml-2" />
+                        </a>
+                      ) : (
+                        "-"
                       )}
                     </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {project.repositoryUrl && (
-                        <Button variant="link" className="px-0">
-                          <a
-                            className="flex items-center gap-2"
-                            href={project.repositoryUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {project.repositoryUrl}
-                            <IconExternalLink size={16} />
-                          </a>
-                        </Button>
+                    <TableCell className="max-w-[350px] whitespace-normal">
+                      {project.repositoryUrl ? (
+                        <a
+                          className="break-all hover:underline hover:underline-offset-4"
+                          href={project.repositoryUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {project.repositoryUrl}
+                          <IconExternalLink size={16} className="inline ml-2" />
+                        </a>
+                      ) : (
+                        "-"
                       )}
                     </TableCell>
                     <TableCell>
@@ -129,9 +129,9 @@ export function ProjectsTable({ projects }: Props) {
               )}
             </TableBody>
           </Table>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </div>
     </>
   );
 }

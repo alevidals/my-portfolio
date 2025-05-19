@@ -42,8 +42,8 @@ export function EducationsTable({ educations }: Props) {
         />
         <AddEducationDialog />
       </div>
-      <ScrollArea className="grid grid-cols-1">
-        <div className="border rounded-md">
+      <div className="border rounded-md">
+        <ScrollArea className="grid grid-cols-1">
           <Table>
             <TableHeader>
               <TableRow>
@@ -96,9 +96,9 @@ export function EducationsTable({ educations }: Props) {
               )}
             </TableBody>
           </Table>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </div>
     </>
   );
 }
