@@ -12,18 +12,22 @@ type GetUserClerkDataParams = {
 };
 
 async function getUserClerkData({ userId }: GetUserClerkDataParams) {
-  const clerk = await getClerkClient();
-  const user = await clerk.users.getUser(userId);
+  try {
+    const clerk = await getClerkClient();
+    const user = await clerk.users.getUser(userId);
 
-  if (!user) notFound();
+    if (!user) notFound();
 
-  return {
-    imageUrl: user.imageUrl,
-    username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.primaryEmailAddress?.emailAddress,
-  };
+    return {
+      imageUrl: user.imageUrl,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.primaryEmailAddress?.emailAddress,
+    };
+  } catch (error) {
+    notFound();
+  }
 }
 
 type GetUserIdBySlugParams = {
