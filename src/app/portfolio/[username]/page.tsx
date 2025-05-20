@@ -10,8 +10,8 @@ type Props = {
   params: Promise<{
     username: string;
   }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params;
 
@@ -31,15 +31,19 @@ const PORTFOLIOS: Record<
   "studio-535": ({ data }) => <Studio535Portfolio data={data} />,
 };
 
-export default async function ViewPage({ params }: Props) {
+export default async function ViewPage({ params, searchParams }: Props) {
   const { username } = await params;
 
   const data = await getUserData({
     slug: username,
   });
 
+  const previewTheme = (await searchParams).preview as
+    | PreferredPortfolio
+    | undefined;
+
   const preferredPortfolio: PreferredPortfolio =
-    data.profile?.preferredPortfolio ?? "studio-535";
+    previewTheme ?? data.profile?.preferredPortfolio ?? "studio-535";
 
   const Portfolio = PORTFOLIOS[preferredPortfolio];
 

@@ -77,6 +77,10 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         placeholder="your-slug"
         error={state?.errors?.slug ?? ""}
       />
+      <PortfolioPicker
+        setPreferredPortfolio={setPreferredPortfolio}
+        preferredPortfolio={preferredPortfolio}
+      />
       <FormItem
         id="fullName"
         name="fullName"
@@ -157,11 +161,6 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
       />
 
       <LanguagesPicker languages={languages} setLanguages={setLanguages} />
-
-      <PortfolioPicker
-        setPreferredPortfolio={setPreferredPortfolio}
-        preferredPortfolio={preferredPortfolio}
-      />
 
       <LoadingButton isLoading={isPending} className="mt-4 md:w-fit">
         Save

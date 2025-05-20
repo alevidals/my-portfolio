@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IconBrush } from "@tabler/icons-react";
+import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 
 type PreferredPortfolio = NonNullable<InsertUserProfile["preferredPortfolio"]>;
@@ -49,6 +50,16 @@ export function PortfolioPicker({
           <SelectItem value="studio-535">Studio 535</SelectItem>
         </SelectContent>
       </Select>
+      <p className="text-sm text-muted-foreground">
+        See theme preview with an example at{" "}
+        <Link
+          href={`/portfolio/alevidals?preview=${preferredPortfolio}`}
+          className="hover:underline hover:underline-offset-4"
+          target="_blank"
+        >
+          {`${process.env.NEXT_PUBLIC_SITE_URL}/portfolio/alevidals?preview=${preferredPortfolio}`}
+        </Link>
+      </p>
     </div>
   );
 }
