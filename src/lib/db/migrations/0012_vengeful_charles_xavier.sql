@@ -1,0 +1,1 @@
+ALTER TABLE `user_profiles` ADD `preferred_portfolio` text;

@@ -31,6 +31,8 @@ export async function insertUserProfile(
       success: false,
       error: "Invalid input",
       errors: {
+        preferredPortfolio: result.error.formErrors.fieldErrors
+          .preferredPortfolio?.[0] as InsertUserProfileSchema["preferredPortfolio"],
         slug: result.error.formErrors.fieldErrors.slug?.[0],
         fullName: result.error.formErrors.fieldErrors.fullName?.[0],
         biography: result.error.formErrors.fieldErrors.biography?.[0],
@@ -49,6 +51,7 @@ export async function insertUserProfile(
   const userToInsert: InsertUserProfile = {
     userId,
     slug: result.data.slug,
+    preferredPortfolio: result.data.preferredPortfolio,
     fullName: result.data.fullName,
     biography: result.data.biography,
     githubUrl: result.data.githubUrl,

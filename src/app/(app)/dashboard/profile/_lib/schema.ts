@@ -8,6 +8,7 @@ export const insertUserProfileSchema = z.object({
     .regex(/^[a-zA-Z0-9-_]+$/, "Invalid slug format"),
   fullName: z.string().optional(),
   biography: z.string().optional(),
+  preferredPortfolio: z.enum(["evil-rabbit", "studio-535"]).optional(),
   linkedInUrl: z
     .string()
     .url("Invalid LinkedIn URL")

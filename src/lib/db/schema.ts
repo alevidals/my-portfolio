@@ -10,6 +10,9 @@ export const userProfiles = sqliteTable("user_profiles", {
   linkedInUrl: text("linkedin_url"),
   githubUrl: text("github_url"),
   xUrl: text("x_url"),
+  preferredPortfolio: text("preferred_portfolio", {
+    enum: ["evil-rabbit", "studio-535"],
+  }),
 });
 
 export const projects = sqliteTable("projects", {

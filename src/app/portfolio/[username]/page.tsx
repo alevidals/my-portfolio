@@ -1,16 +1,10 @@
+import type { InsertUserProfile } from "@/app/(app)/dashboard/profile/_lib/types";
+import { EvilRabbitPortfolio } from "@/app/portfolio/[username]/_components/evil-rabbit-portfolio";
+import { Studio535Portfolio } from "@/app/portfolio/[username]/_components/studio-535-portfolio";
 import { getUserData } from "@/app/portfolio/[username]/_lib/queries";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
-import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandX,
-  IconExternalLink,
-  IconMail,
-} from "@tabler/icons-react";
+import type { PortfolioProps } from "@/app/portfolio/[username]/_lib/types";
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import type { ReactNode } from "react";
 
 type Props = {
   params: Promise<{
@@ -27,249 +21,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-type LinksProps = {
-  email?: string;
-  githubUrl?: string | null;
-  linkedInUrl?: string | null;
-  xUrl?: string | null;
-};
+type PreferredPortfolio = NonNullable<InsertUserProfile["preferredPortfolio"]>;
 
-function Links({ email, githubUrl, linkedInUrl, xUrl }: LinksProps) {
-  return (
-    <div className="flex gap-4">
-      {email && (
-        <a
-          href={`mailto:${email}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconMail size={26} />
-        </a>
-      )}
-      {githubUrl && (
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandGithub size={26} />
-        </a>
-      )}
-      {linkedInUrl && (
-        <a
-          href={linkedInUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandLinkedin size={26} />
-        </a>
-      )}
-      {xUrl && (
-        <a
-          href={xUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandX size={26} />
-        </a>
-      )}
-    </div>
-  );
-}
+const PORTFOLIOS: Record<
+  PreferredPortfolio,
+  ({ data }: PortfolioProps) => ReactNode
+> = {
+  "evil-rabbit": ({ data }) => <EvilRabbitPortfolio data={data} />,
+  "studio-535": ({ data }) => <Studio535Portfolio data={data} />,
+};
 
 export default async function ViewPage({ params }: Props) {
   const { username } = await params;
 
-  const {
-    userData,
-    profile,
-    projects,
-    educations,
-    workExperiences,
-    languages,
-  } = await getUserData({
+  const data = await getUserData({
     slug: username,
   });
 
-  const fullName =
-    profile?.fullName || `${userData.firstName} ${userData.lastName}`;
+  const preferredPortfolio: PreferredPortfolio =
+    data.profile?.preferredPortfolio ?? "studio-535";
 
-  return (
-    <div className="w-5/6 md:w-full max-w-xl mx-auto py-32">
-      <header className="mb-20">
-        <Image
-          src={userData.imageUrl}
-          alt="Profile"
-          width={100}
-          height={100}
-          className="rounded-lg mx-auto"
-        />
-        <nav className="mx-auto flex flex-col items-center mt-4 gap-2">
-          <h1 className="font-bold text-xl">{fullName}</h1>
-          <Links
-            email={userData.email}
-            githubUrl={profile?.githubUrl}
-            linkedInUrl={profile?.linkedInUrl}
-            xUrl={profile?.xUrl}
-          />
-        </nav>
-      </header>
+  const Portfolio = PORTFOLIOS[preferredPortfolio];
 
-      <main>
-        {profile?.biography && (
-          <section>
-            <p>{profile?.biography}</p>
-          </section>
-        )}
+  if (!Portfolio) {
+    return <div>Portfolio not found</div>;
+  }
 
-        {workExperiences.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-lg font-bold uppercase">Work Experiences</h2>
-            <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
-              {workExperiences.map((experience) => (
-                <li key={experience.id} className="">
-                  <p className="text-base">
-                    {experience.companyName} - {experience.position}
-                  </p>
-                  <p className="text-sm">
-                    {formatDate({
-                      monthFormat: "2-digit",
-                      month: experience.startDate.month,
-                      year: experience.startDate.year,
-                    })}{" "}
-                    -{" "}
-                    {experience.endDate
-                      ? formatDate({
-                          monthFormat: "2-digit",
-                          month: experience.endDate.month,
-                          year: experience.endDate.year,
-                        })
-                      : "Present"}
-                  </p>
-                  {experience.description && (
-                    <p className="text-sm mt-1">{experience.description}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {educations.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-lg font-bold uppercase">Educations</h2>
-            <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
-              {educations.map((education) => (
-                <li key={education.id}>
-                  <p className="text-base">
-                    {education.institution} - {education.degree}
-                  </p>
-                  <p className="text-sm">
-                    {formatDate({
-                      monthFormat: "2-digit",
-                      month: education.startDate.month,
-                      year: education.startDate.year,
-                    })}{" "}
-                    -{" "}
-                    {education.endDate
-                      ? formatDate({
-                          monthFormat: "2-digit",
-                          month: education.endDate.month,
-                          year: education.endDate.year,
-                        })
-                      : "Present"}
-                  </p>
-                  {education.description && (
-                    <p className="text-sm mt-1">{education.description}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {projects.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-lg font-bold uppercase">Projects</h2>
-            <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
-              {projects.map((project) => (
-                <li key={project.id}>
-                  {project.deploymentUrl ? (
-                    <a
-                      href={project.deploymentUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="flex gap-2 hover:text-neutral-300 transition-colors"
-                    >
-                      <span>{project.name}</span>
-                      <IconExternalLink size={16} />
-                    </a>
-                  ) : (
-                    <p className="text-base">{project.name}</p>
-                  )}
-                  {project.repositoryUrl && (
-                    <a
-                      href={project.repositoryUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="text-sm underline underline-offset-4"
-                    >
-                      {project.repositoryUrl}
-                    </a>
-                  )}
-                  <div className="flex flex-wrap my-2 gap-2">
-                    {project.technologies.map((technology) => (
-                      <Badge
-                        variant="outline"
-                        key={`${project.id}-${technology}`}
-                      >
-                        {technology}
-                      </Badge>
-                    ))}
-                  </div>
-                  {project.description && (
-                    <p className="text-sm">{project.description}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {languages.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-lg font-bold uppercase">Languages</h2>
-            <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
-              {languages.map((language) => (
-                <li key={language.id} className="">
-                  {language.name} - {language.level}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </main>
-
-      <footer className="mt-20">
-        This portfolio was created with using{" "}
-        <Link href="/" className="underline underline-offset-4">
-          MyPortfolio
-        </Link>{" "}
-        and inspired by{" "}
-        <a
-          href="https://535.studio/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-4"
-        >
-          535 Studio
-        </a>
-        .
-      </footer>
-    </div>
-  );
+  return <Portfolio data={data} />;
 }

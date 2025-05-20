@@ -2,7 +2,10 @@
 
 import { insertUserProfile } from "@/app/(app)//dashboard/profile/_lib/actions";
 import type { getUserProfile } from "@/app/(app)//dashboard/profile/_lib/queries";
-import type { Language } from "@/app/(app)/dashboard/profile/_lib/types";
+import type {
+  InsertUserProfileSchema,
+  Language,
+} from "@/app/(app)/dashboard/profile/_lib/types";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
 import { Button } from "@/components/ui/button";
@@ -20,6 +23,7 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
+  IconBrush,
   IconLanguage,
   IconLink,
   IconPlus,
@@ -51,6 +55,7 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
   const [state, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
       formData.append("languages", JSON.stringify(languages));
+      formData.append("preferredPortfolio", preferredPortfolio);
 
       const response = await insertUserProfile(_, formData);
 
@@ -63,6 +68,12 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
       return response;
     },
     null,
+  );
+
+  const [preferredPortfolio, setPreferredPortfolio] = useState(
+    state?.data?.preferredPortfolio ??
+      userProfile?.preferredPortfolio ??
+      "evil-rabbit",
   );
 
   function addLanguage() {
@@ -179,77 +190,116 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         error={state?.errors?.xUrl ?? ""}
       />
 
-      <Label className="flex items-center gap-2">
-        <IconLanguage size={22} />
-        <span>Languages</span>
-      </Label>
+      <div className="flex flex-col gap-3">
+        <Label className="flex items-center gap-2 text-sm">
+          <IconLanguage size={22} />
+          <span>Languages</span>
+        </Label>
 
-      <div className="space-y-4">
-        {languages.map((language, index) => (
-          <div
-            key={language.id}
-            className="grid grid-cols-[1fr_1fr_auto] gap-4"
-          >
-            <div>
-              <Label
-                htmlFor={`language-${index}`}
-                className="block  font-medium mb-1"
-              >
-                Language
-              </Label>
-              <Input
-                id={`language-${index}`}
-                value={language.name}
-                onChange={(e) => updateLanguage(index, "name", e.target.value)}
-                placeholder="Spanish, English, French..."
-                required
-              />
-            </div>
-
-            <div>
-              <Label
-                htmlFor={`level-${index}`}
-                className="block  font-medium mb-1"
-              >
-                Level
-              </Label>
-              <Select
-                value={language.level}
-                onValueChange={(value) => updateLanguage(index, "level", value)}
-              >
-                <SelectTrigger id={`level-${index}`} className="w-full">
-                  <SelectValue placeholder="Choose a level" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="beginner">Beginner</SelectItem>
-                  <SelectItem value="basic">Basic</SelectItem>
-                  <SelectItem value="intermediate">Intermediate</SelectItem>
-                  <SelectItem value="advanced">Advanced</SelectItem>
-                  <SelectItem value="native">Native</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              onClick={() => removeLanguage(index)}
-              className="self-end"
+        <div className="space-y-4">
+          {languages.map((language, index) => (
+            <div
+              key={language.id}
+              className="grid grid-cols-[1fr_1fr_auto] gap-4"
             >
-              <IconTrash className="h-4 w-4" />
-            </Button>
-          </div>
-        ))}
+              <div>
+                <Label
+                  htmlFor={`language-${index}`}
+                  className="block  font-medium mb-1"
+                >
+                  Language
+                </Label>
+                <Input
+                  id={`language-${index}`}
+                  value={language.name}
+                  onChange={(e) =>
+                    updateLanguage(index, "name", e.target.value)
+                  }
+                  placeholder="Spanish, English, French..."
+                  required
+                />
+              </div>
 
-        <Button
-          type="button"
-          variant="outline"
-          onClick={addLanguage}
-          className="w-full"
+              <div>
+                <Label
+                  htmlFor={`level-${index}`}
+                  className="block  font-medium mb-1"
+                >
+                  Level
+                </Label>
+                <Select
+                  value={language.level}
+                  onValueChange={(value) =>
+                    updateLanguage(index, "level", value)
+                  }
+                >
+                  <SelectTrigger id={`level-${index}`} className="w-full">
+                    <SelectValue placeholder="Choose a level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="beginner">Beginner</SelectItem>
+                    <SelectItem value="basic">Basic</SelectItem>
+                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                    <SelectItem value="advanced">Advanced</SelectItem>
+                    <SelectItem value="native">Native</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => removeLanguage(index)}
+                className="self-end"
+              >
+                <IconTrash className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={addLanguage}
+            className="w-full"
+          >
+            <IconPlus className="h-4 w-4 mr-2" /> Add Language
+          </Button>
+        </div>
+      </div>
+
+      <div>
+        <Label
+          htmlFor="preferredPortfolio"
+          className="flex items-center gap-2 text-sm mb-1"
         >
-          <IconPlus className="h-4 w-4 mr-2" /> Add Language
-        </Button>
+          <IconBrush size={22} />
+          <span>Preferred Portfolio</span>
+        </Label>
+        <Select
+          value={preferredPortfolio}
+          onValueChange={(value) => {
+            if (value) {
+              setPreferredPortfolio(
+                value as NonNullable<
+                  InsertUserProfileSchema["preferredPortfolio"]
+                >,
+              );
+            }
+          }}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue
+              placeholder="Choose a portfolio"
+              id="preferredPortfolio"
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="evil-rabbit">Evil Rabbit</SelectItem>
+            <SelectItem value="studio-535">Studio 535</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <LoadingButton isLoading={isPending} className="mt-4 md:w-fit">
