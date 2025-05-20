@@ -71,7 +71,7 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
                     <TableCell className="whitespace-normal">
                       {workExperience.position}
                     </TableCell>
-                    <TableCell className="min-w-[400px] w-[400px] whitespace-normal">
+                    <TableCell className="min-w-[400px] w-[400px] whitespace-pre-line">
                       {workExperience.description || "-"}
                     </TableCell>
                     <TableCell>

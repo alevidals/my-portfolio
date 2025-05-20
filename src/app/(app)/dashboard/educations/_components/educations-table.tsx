@@ -72,7 +72,7 @@ export function EducationsTable({ educations }: Props) {
                     <TableCell className="whitespace-normal">
                       {education.degree}
                     </TableCell>
-                    <TableCell className="whitespace-normal min-w-[400px] w-[400px]">
+                    <TableCell className="whitespace-pre-line min-w-[400px] w-[400px]">
                       {education.description || "-"}
                     </TableCell>
                     <TableCell>

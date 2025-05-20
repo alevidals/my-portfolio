@@ -74,7 +74,7 @@ export function ProjectsTable({ projects }: Props) {
                     <TableCell className="whitespace-normal">
                       {project.name}
                     </TableCell>
-                    <TableCell className="whitespace-normal min-w-[400px] w-[400px]">
+                    <TableCell className="whitespace-pre-line min-w-[400px] w-[400px]">
                       {project.description}
                     </TableCell>
                     <TableCell className="max-w-[200px]">
