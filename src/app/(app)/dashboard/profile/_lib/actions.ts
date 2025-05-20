@@ -1,8 +1,12 @@
 "use server";
 
-import { insertUserProfile as insertUserProfileQuery } from "@/app/(app)//dashboard/profile/_lib/queries";
+import {
+  insertUserLanguages,
+  insertUserProfile as insertUserProfileQuery,
+} from "@/app/(app)//dashboard/profile/_lib/queries";
 import { insertUserProfileSchema } from "@/app/(app)//dashboard/profile/_lib/schema";
 import type {
+  InsertLanguages,
   InsertUserProfile,
   InsertUserProfileSchema,
 } from "@/app/(app)//dashboard/profile/_lib/types";
@@ -38,6 +42,10 @@ export async function insertUserProfile(
     };
   }
 
+  const languages = JSON.parse(
+    result.data.languages ?? "[]",
+  ) as InsertLanguages[];
+
   const userToInsert: InsertUserProfile = {
     userId,
     slug: result.data.slug,
@@ -54,6 +62,25 @@ export async function insertUserProfile(
     return {
       success: false,
       error: "Failed to update profile",
+      data: result.data,
+    };
+  }
+
+  const userLanguages: InsertLanguages[] = languages.map((language) => ({
+    userId,
+    name: language.name,
+    level: language.level,
+  }));
+
+  const insertedLanguages = await insertUserLanguages({
+    userId,
+    languages: userLanguages,
+  });
+
+  if (!insertedLanguages) {
+    return {
+      success: false,
+      error: "Failed to update languages",
       data: result.data,
     };
   }

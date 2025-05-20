@@ -46,3 +46,15 @@ export async function getUserWorkExperiences({
 
   return userWorkExperiences;
 }
+
+type GetUserLanguagesParams = {
+  userId: string;
+};
+
+export async function getUserLanguages({ userId }: GetUserLanguagesParams) {
+  const languages = await db.query.languages.findMany({
+    where: (languages, { eq }) => eq(languages.userId, userId),
+  });
+
+  return languages;
+}

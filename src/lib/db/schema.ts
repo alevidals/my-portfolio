@@ -55,3 +55,12 @@ export const educations = sqliteTable("educations", {
   }>(),
   description: text("description"),
 });
+
+export const languages = sqliteTable("languages", {
+  id: text("id").$defaultFn(uuidv7).primaryKey(),
+  userId: text("user_id").notNull(),
+  name: text("name").notNull(),
+  level: text("level", {
+    enum: ["beginner", "basic", "intermediate", "advanced", "native"],
+  }).notNull(),
+});

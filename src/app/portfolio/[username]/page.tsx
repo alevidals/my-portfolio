@@ -84,10 +84,16 @@ function Links({ email, githubUrl, linkedInUrl, xUrl }: LinksProps) {
 export default async function ViewPage({ params }: Props) {
   const { username } = await params;
 
-  const { userData, profile, projects, educations, workExperiences } =
-    await getUserData({
-      slug: username,
-    });
+  const {
+    userData,
+    profile,
+    projects,
+    educations,
+    workExperiences,
+    languages,
+  } = await getUserData({
+    slug: username,
+  });
 
   const fullName =
     profile?.fullName || `${userData.firstName} ${userData.lastName}`;
@@ -191,7 +197,7 @@ export default async function ViewPage({ params }: Props) {
             <h2 className="text-lg font-bold uppercase">Projects</h2>
             <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
               {projects.map((project) => (
-                <li key={project.id} className="">
+                <li key={project.id}>
                   {project.deploymentUrl ? (
                     <a
                       href={project.deploymentUrl}
@@ -228,6 +234,19 @@ export default async function ViewPage({ params }: Props) {
                   {project.description && (
                     <p className="text-sm">{project.description}</p>
                   )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {languages.length > 0 && (
+          <section className="mt-14">
+            <h2 className="text-lg font-bold uppercase">Languages</h2>
+            <ul className="list-disc pl-6 mt-2 flex flex-col gap-6">
+              {languages.map((language) => (
+                <li key={language.id} className="">
+                  {language.name} - {language.level}
                 </li>
               ))}
             </ul>

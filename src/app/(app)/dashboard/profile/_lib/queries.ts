@@ -1,6 +1,10 @@
-import type { InsertUserProfile } from "@/app/(app)//dashboard/profile/_lib/types";
+import type {
+  InsertLanguages,
+  InsertUserProfile,
+} from "@/app/(app)//dashboard/profile/_lib/types";
 import { db } from "@/lib/db/drizzle";
 import { userProfiles } from "@/lib/db/schema";
+import { languages as languagesSchema } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
@@ -53,4 +57,28 @@ export async function insertUserProfile({ user }: InsertUserProfileParams) {
     .get();
 
   return userProfile;
+}
+
+type InsertUserLanguagesParams = {
+  userId: string;
+  languages: InsertLanguages[];
+};
+
+export async function insertUserLanguages({
+  userId,
+  languages,
+}: InsertUserLanguagesParams) {
+  await db.delete(languagesSchema).where(eq(languagesSchema.userId, userId));
+
+  if (!languages.length) {
+    return [];
+  }
+
+  const insertedLanguages = await db
+    .insert(languagesSchema)
+    .values(languages)
+    .returning()
+    .get();
+
+  return insertedLanguages;
 }

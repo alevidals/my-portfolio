@@ -13,6 +13,7 @@ export const insertUserProfileSchema = z.object({
     .url("Invalid LinkedIn URL")
     .or(z.literal(""))
     .optional(),
+  languages: z.string().optional(),
   githubUrl: z.string().url("Invalid GitHub URL").or(z.literal("")).optional(),
   xUrl: z.string().url("Invalid X URL").or(z.literal("")).optional(),
 });

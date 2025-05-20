@@ -20,7 +20,14 @@ type Props = {
 export function PDFDocument({ data, isDarkTheme }: Props) {
   if (!data) return null;
 
-  const { userData, profile, workExperiences, educations, projects } = data;
+  const {
+    userData,
+    profile,
+    workExperiences,
+    educations,
+    projects,
+    languages,
+  } = data;
 
   const fullName =
     profile?.fullName || `${userData.firstName} ${userData.lastName}`;
@@ -312,6 +319,18 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
                   )}
                 </View>
               </View>
+            ))}
+          </View>
+        )}
+
+        {/* Languages Section */}
+        {languages.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Languages</Text>
+            {languages.map((language) => (
+              <Text key={language.name} style={styles.bio}>
+                {language.name} - {language.level}
+              </Text>
             ))}
           </View>
         )}

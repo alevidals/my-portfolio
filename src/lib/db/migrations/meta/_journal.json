@@ -71,6 +71,20 @@
       "when": 1747757982877,
       "tag": "0009_pretty_molten_man",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1747759661862,
+      "tag": "0010_lethal_rattler",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1747761767878,
+      "tag": "0011_faulty_wither",
+      "breakpoints": true
     }
   ]
 }

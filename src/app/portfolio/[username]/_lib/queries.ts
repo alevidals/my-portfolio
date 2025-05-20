@@ -2,6 +2,7 @@ import { getClerkClient } from "@/lib/clerk";
 import { db } from "@/lib/db/drizzle";
 import {
   getUserEducations,
+  getUserLanguages,
   getUserProjects,
   getUserWorkExperiences,
 } from "@/lib/queries";
@@ -70,12 +71,14 @@ export async function getUserData({ slug }: GetUserDataParams) {
 
   const userData = await getUserClerkData({ userId });
 
-  const [profile, projects, educations, workExperiences] = await Promise.all([
-    getUserProfileByUserId({ userId }),
-    getUserProjects({ userId: userId }),
-    getUserEducations({ userId: userId }),
-    getUserWorkExperiences({ userId: userId }),
-  ]);
+  const [profile, projects, educations, workExperiences, languages] =
+    await Promise.all([
+      getUserProfileByUserId({ userId }),
+      getUserProjects({ userId }),
+      getUserEducations({ userId }),
+      getUserWorkExperiences({ userId }),
+      getUserLanguages({ userId }),
+    ]);
 
   return {
     userData,
@@ -83,5 +86,6 @@ export async function getUserData({ slug }: GetUserDataParams) {
     projects,
     educations,
     workExperiences,
+    languages,
   };
 }
