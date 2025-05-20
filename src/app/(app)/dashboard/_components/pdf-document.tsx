@@ -22,6 +22,9 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
 
   const { userData, profile, workExperiences, educations, projects } = data;
 
+  const fullName =
+    profile?.fullName || `${userData.firstName} ${userData.lastName}`;
+
   const styles = StyleSheet.create({
     page: {
       padding: 30,
@@ -183,9 +186,7 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
             style={styles.image}
           />
           <View style={styles.headerContent}>
-            <Text style={styles.name}>
-              {userData.firstName} {userData.lastName}
-            </Text>
+            <Text style={styles.name}>{fullName}</Text>
             <Text style={styles.position}>Frontend Developer</Text>
             <Text style={styles.contact}>{userData.email}</Text>
             <View style={styles.socialLinks}>
@@ -209,93 +210,111 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
         </View>
 
         {/* Profile Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Profile</Text>
-          {profile?.biography && (
-            <Text style={styles.bio}>{profile.biography}</Text>
-          )}
-        </View>
+        {profile?.biography && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Profile</Text>
+            {profile?.biography && (
+              <Text style={styles.bio}>{profile.biography}</Text>
+            )}
+          </View>
+        )}
 
         {/* Work Experience Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Work Experience</Text>
-          {workExperiences.map((experience) => (
-            <View key={experience.id} style={styles.experienceItem}>
-              <Text style={styles.experienceCompany}>
-                {experience.companyName}
-              </Text>
-              <Text style={styles.experienceTitle}>{experience.position}</Text>
-              <Text style={styles.experienceDate}>
-                {formatDate(experience.startDate)} -
-                {experience.endDate
-                  ? formatDate(experience.endDate)
-                  : " Present"}
-              </Text>
-              {experience.description && (
-                <Text style={styles.experienceDescription}>
-                  {experience.description}
+        {workExperiences.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Work Experience</Text>
+            {workExperiences.map((experience) => (
+              <View key={experience.id} style={styles.experienceItem}>
+                <Text style={styles.experienceCompany}>
+                  {experience.companyName}
                 </Text>
-              )}
-            </View>
-          ))}
-        </View>
+                <Text style={styles.experienceTitle}>
+                  {experience.position}
+                </Text>
+                <Text style={styles.experienceDate}>
+                  {formatDate(experience.startDate)} -
+                  {experience.endDate
+                    ? formatDate(experience.endDate)
+                    : " Present"}
+                </Text>
+                {experience.description && (
+                  <Text style={styles.experienceDescription}>
+                    {experience.description}
+                  </Text>
+                )}
+              </View>
+            ))}
+          </View>
+        )}
 
         {/* Education Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Education</Text>
-          {educations.map((education) => (
-            <View key={education.id} style={styles.educationItem}>
-              <Text style={styles.educationInstitution}>
-                {education.institution}
-              </Text>
-              <Text style={styles.educationTitle}>{education.degree}</Text>
-              <Text style={styles.educationDate}>
-                {formatDate(education.startDate)} -
-                {education.endDate ? formatDate(education.endDate) : " Present"}
-              </Text>
-              {education.description && (
-                <Text style={styles.educationDescription}>
-                  {education.description}
+        {educations.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Education</Text>
+            {educations.map((education) => (
+              <View key={education.id} style={styles.educationItem}>
+                <Text style={styles.educationInstitution}>
+                  {education.institution}
                 </Text>
-              )}
-            </View>
-          ))}
-        </View>
+                <Text style={styles.educationTitle}>{education.degree}</Text>
+                <Text style={styles.educationDate}>
+                  {formatDate(education.startDate)} -
+                  {education.endDate
+                    ? formatDate(education.endDate)
+                    : " Present"}
+                </Text>
+                {education.description && (
+                  <Text style={styles.educationDescription}>
+                    {education.description}
+                  </Text>
+                )}
+              </View>
+            ))}
+          </View>
+        )}
 
         {/* Projects Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Projects</Text>
-          {projects.map((project) => (
-            <View key={project.id} style={styles.projectItem}>
-              <Text style={styles.projectTitle}>{project.name}</Text>
-              <Text style={styles.projectDescription}>
-                {project.description}
-              </Text>
-              <View style={styles.technologies}>
-                {project.technologies.map((tech) => (
-                  <Text
-                    key={`${project.name}-${tech}`}
-                    style={styles.technology}
-                  >
-                    {tech}
-                  </Text>
-                ))}
+        {projects.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Projects</Text>
+            {projects.map((project) => (
+              <View key={project.id} style={styles.projectItem}>
+                <Text style={styles.projectTitle}>{project.name}</Text>
+                <Text style={styles.projectDescription}>
+                  {project.description}
+                </Text>
+                <View style={styles.technologies}>
+                  {project.technologies.map((tech) => (
+                    <Text
+                      key={`${project.name}-${tech}`}
+                      style={styles.technology}
+                    >
+                      {tech}
+                    </Text>
+                  ))}
+                </View>
+                <View style={styles.projectLinks}>
+                  {project.repositoryUrl && (
+                    <Link
+                      src={project.repositoryUrl}
+                      style={styles.projectLink}
+                    >
+                      GitHub
+                    </Link>
+                  )}
+                  {project.deploymentUrl && (
+                    <Link
+                      src={project.deploymentUrl}
+                      style={styles.projectLink}
+                    >
+                      Demo
+                    </Link>
+                  )}
+                </View>
               </View>
-              <View style={styles.projectLinks}>
-                {project.repositoryUrl && (
-                  <Link src={project.repositoryUrl} style={styles.projectLink}>
-                    GitHub
-                  </Link>
-                )}
-                {project.deploymentUrl && (
-                  <Link src={project.deploymentUrl} style={styles.projectLink}>
-                    Demo
-                  </Link>
-                )}
-              </View>
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
       </Page>
     </Document>
   );
