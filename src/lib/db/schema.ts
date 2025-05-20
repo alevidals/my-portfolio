@@ -5,6 +5,7 @@ import { v7 as uuidv7 } from "uuid";
 export const userProfiles = sqliteTable("user_profiles", {
   userId: text("user_id").primaryKey(),
   slug: text("slug").notNull().unique(),
+  fullName: text("full_name"),
   biography: text("biography"),
   linkedInUrl: text("linkedin_url"),
   githubUrl: text("github_url"),

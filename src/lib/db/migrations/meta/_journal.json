@@ -57,6 +57,20 @@
       "when": 1747510694948,
       "tag": "0007_wonderful_hammerhead",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1747757605654,
+      "tag": "0008_loud_marvel_boy",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1747757982877,
+      "tag": "0009_pretty_molten_man",
+      "breakpoints": true
     }
   ]
 }

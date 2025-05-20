@@ -89,7 +89,8 @@ export default async function ViewPage({ params }: Props) {
       slug: username,
     });
 
-  const fullName = `${userData.firstName} ${userData.lastName}`;
+  const fullName =
+    profile?.fullName || `${userData.firstName} ${userData.lastName}`;
 
   return (
     <div className="w-5/6 md:w-full max-w-xl mx-auto py-32">

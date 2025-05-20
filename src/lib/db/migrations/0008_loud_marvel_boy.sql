@@ -1,0 +1,1 @@
+ALTER TABLE `user_profiles` ADD `full_name` text DEFAULT '' NOT NULL;

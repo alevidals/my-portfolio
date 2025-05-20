@@ -28,6 +28,7 @@ export async function insertUserProfile(
       error: "Invalid input",
       errors: {
         slug: result.error.formErrors.fieldErrors.slug?.[0],
+        fullName: result.error.formErrors.fieldErrors.fullName?.[0],
         biography: result.error.formErrors.fieldErrors.biography?.[0],
         linkedInUrl: result.error.formErrors.fieldErrors.linkedInUrl?.[0],
         githubUrl: result.error.formErrors.fieldErrors.githubUrl?.[0],
@@ -40,6 +41,7 @@ export async function insertUserProfile(
   const userToInsert: InsertUserProfile = {
     userId,
     slug: result.data.slug,
+    fullName: result.data.fullName,
     biography: result.data.biography,
     githubUrl: result.data.githubUrl,
     linkedInUrl: result.data.linkedInUrl,

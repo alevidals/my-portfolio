@@ -10,6 +10,7 @@ import {
   IconBrandX,
   IconLink,
   IconTypography,
+  IconUser,
 } from "@tabler/icons-react";
 import { useActionState } from "react";
 import { toast } from "sonner";
@@ -51,6 +52,22 @@ export function ProfileInformationForm({ userProfile }: Props) {
         defaultValue={state?.data?.slug ?? userProfile?.slug ?? ""}
         placeholder="your-slug"
         error={state?.errors?.slug ?? ""}
+      />
+      <FormItem
+        id="fullName"
+        name="fullName"
+        itemType="input"
+        labelChildren={
+          <>
+            <IconUser size={22} />
+            <span>Full Name</span>
+          </>
+        }
+        helperText="If full name is not provided, the one in your github profile will be used."
+        type="text"
+        defaultValue={state?.data?.fullName ?? userProfile?.fullName ?? ""}
+        placeholder="Full Name"
+        error={state?.errors?.fullName ?? ""}
       />
       <FormItem
         id="biography"
