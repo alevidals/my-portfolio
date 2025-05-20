@@ -53,7 +53,7 @@ export function ProjectsTable({ projects }: Props) {
           </ResponsiveAddDialog>
         </div>
       </div>
-      <ImportProjectsDialog className="w-full mb-4" />
+      <ImportProjectsDialog className="w-full mb-4 flex md:hidden" />
       <div className="border rounded-md">
         <ScrollArea className="grid grid-cols-1">
           <Table>

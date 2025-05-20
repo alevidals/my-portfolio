@@ -1,3 +1,4 @@
+import { SocialLinks } from "@/app/portfolio/[username]/_components/social-links";
 import type { PortfolioProps } from "@/app/portfolio/[username]/_lib/types";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
@@ -24,6 +25,14 @@ export function EvilRabbitPortfolio({ data }: PortfolioProps) {
         {data.profile?.biography && (
           <p className="text-neutral-500 mt-4">{data.profile.biography}</p>
         )}
+
+        <SocialLinks
+          className="mt-4"
+          email={data.userData.email}
+          githubUrl={data.profile?.githubUrl}
+          linkedInUrl={data.profile?.linkedInUrl}
+          xUrl={data.profile?.xUrl}
+        />
 
         {data.workExperiences.length > 0 && (
           <section className="mt-8">

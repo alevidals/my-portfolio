@@ -1,69 +1,10 @@
+import { SocialLinks } from "@/app/portfolio/[username]/_components/social-links";
 import type { PortfolioProps } from "@/app/portfolio/[username]/_lib/types";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { IconExternalLink } from "@tabler/icons-react";
-import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandX,
-  IconMail,
-} from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-
-type LinksProps = {
-  email?: string;
-  githubUrl?: string | null;
-  linkedInUrl?: string | null;
-  xUrl?: string | null;
-};
-
-function Links({ email, githubUrl, linkedInUrl, xUrl }: LinksProps) {
-  return (
-    <div className="flex gap-4">
-      {email && (
-        <a
-          href={`mailto:${email}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconMail size={26} />
-        </a>
-      )}
-      {githubUrl && (
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandGithub size={26} />
-        </a>
-      )}
-      {linkedInUrl && (
-        <a
-          href={linkedInUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandLinkedin size={26} />
-        </a>
-      )}
-      {xUrl && (
-        <a
-          href={xUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-neutral-300 transition-colors"
-        >
-          <IconBrandX size={26} />
-        </a>
-      )}
-    </div>
-  );
-}
 
 export function Studio535Portfolio({ data }: PortfolioProps) {
   const {
@@ -90,7 +31,7 @@ export function Studio535Portfolio({ data }: PortfolioProps) {
         />
         <nav className="mx-auto flex flex-col items-center mt-4 gap-2">
           <h1 className="font-bold text-xl">{fullName}</h1>
-          <Links
+          <SocialLinks
             email={userData.email}
             githubUrl={profile?.githubUrl}
             linkedInUrl={profile?.linkedInUrl}
