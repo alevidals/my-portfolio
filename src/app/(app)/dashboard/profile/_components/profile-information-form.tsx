@@ -2,38 +2,22 @@
 
 import { insertUserProfile } from "@/app/(app)//dashboard/profile/_lib/actions";
 import type { getUserProfile } from "@/app/(app)//dashboard/profile/_lib/queries";
-import type {
-  InsertUserProfileSchema,
-  Language,
-} from "@/app/(app)/dashboard/profile/_lib/types";
+import { LanguagesPicker } from "@/app/(app)/dashboard/profile/_components/languages-picker";
+import { PortfolioPicker } from "@/app/(app)/dashboard/profile/_components/portfolio-picker";
+import type { Language } from "@/app/(app)/dashboard/profile/_lib/types";
 import { FormItem } from "@/components/form-item";
 import { LoadingButton } from "@/components/loading-button";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type { getUserLanguages } from "@/lib/queries";
-import { Label } from "@radix-ui/react-label";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
-  IconBrush,
-  IconLanguage,
   IconLink,
-  IconPlus,
-  IconTrash,
   IconTypography,
   IconUser,
 } from "@tabler/icons-react";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
-import { v7 as uuidv7 } from "uuid";
 
 type Props = {
   userProfile?: Awaited<ReturnType<typeof getUserProfile>>;
@@ -42,14 +26,13 @@ type Props = {
 
 export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
   const [languages, setLanguages] = useState<Language[]>(
-    () =>
-      userLanguages?.map(
-        (language): Language => ({
-          name: language.name,
-          level: language.level,
-          id: language.id,
-        }),
-      ) ?? [],
+    userLanguages?.map(
+      (language): Language => ({
+        name: language.name,
+        level: language.level,
+        id: language.id,
+      }),
+    ) ?? [],
   );
 
   const [state, formAction, isPending] = useActionState(
@@ -75,23 +58,6 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
       userProfile?.preferredPortfolio ??
       "evil-rabbit",
   );
-
-  function addLanguage() {
-    setLanguages((prev) => [
-      ...prev,
-      { id: uuidv7(), name: "", level: "beginner" },
-    ]);
-  }
-
-  function removeLanguage(index: number) {
-    setLanguages((prev) => prev.filter((_, i) => i !== index));
-  }
-
-  function updateLanguage(index: number, field: keyof Language, value: string) {
-    const updatedLanguages = [...languages];
-    updatedLanguages[index] = { ...updatedLanguages[index], [field]: value };
-    setLanguages(updatedLanguages);
-  }
 
   return (
     <form className="grid gap-4 max-w-xl" action={formAction}>
@@ -190,117 +156,12 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         error={state?.errors?.xUrl ?? ""}
       />
 
-      <div className="flex flex-col gap-3">
-        <Label className="flex items-center gap-2 text-sm">
-          <IconLanguage size={22} />
-          <span>Languages</span>
-        </Label>
+      <LanguagesPicker languages={languages} setLanguages={setLanguages} />
 
-        <div className="space-y-4">
-          {languages.map((language, index) => (
-            <div
-              key={language.id}
-              className="grid grid-cols-[1fr_1fr_auto] gap-4"
-            >
-              <div>
-                <Label
-                  htmlFor={`language-${index}`}
-                  className="block  font-medium mb-1"
-                >
-                  Language
-                </Label>
-                <Input
-                  id={`language-${index}`}
-                  value={language.name}
-                  onChange={(e) =>
-                    updateLanguage(index, "name", e.target.value)
-                  }
-                  placeholder="Spanish, English, French..."
-                  required
-                />
-              </div>
-
-              <div>
-                <Label
-                  htmlFor={`level-${index}`}
-                  className="block  font-medium mb-1"
-                >
-                  Level
-                </Label>
-                <Select
-                  value={language.level}
-                  onValueChange={(value) =>
-                    updateLanguage(index, "level", value)
-                  }
-                >
-                  <SelectTrigger id={`level-${index}`} className="w-full">
-                    <SelectValue placeholder="Choose a level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="beginner">Beginner</SelectItem>
-                    <SelectItem value="basic">Basic</SelectItem>
-                    <SelectItem value="intermediate">Intermediate</SelectItem>
-                    <SelectItem value="advanced">Advanced</SelectItem>
-                    <SelectItem value="native">Native</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={() => removeLanguage(index)}
-                className="self-end"
-              >
-                <IconTrash className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
-
-          <Button
-            type="button"
-            variant="outline"
-            onClick={addLanguage}
-            className="w-full"
-          >
-            <IconPlus className="h-4 w-4 mr-2" /> Add Language
-          </Button>
-        </div>
-      </div>
-
-      <div>
-        <Label
-          htmlFor="preferredPortfolio"
-          className="flex items-center gap-2 text-sm mb-1"
-        >
-          <IconBrush size={22} />
-          <span>Preferred Portfolio</span>
-        </Label>
-        <Select
-          value={preferredPortfolio}
-          onValueChange={(value) => {
-            if (value) {
-              setPreferredPortfolio(
-                value as NonNullable<
-                  InsertUserProfileSchema["preferredPortfolio"]
-                >,
-              );
-            }
-          }}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue
-              placeholder="Choose a portfolio"
-              id="preferredPortfolio"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="evil-rabbit">Evil Rabbit</SelectItem>
-            <SelectItem value="studio-535">Studio 535</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <PortfolioPicker
+        setPreferredPortfolio={setPreferredPortfolio}
+        preferredPortfolio={preferredPortfolio}
+      />
 
       <LoadingButton isLoading={isPending} className="mt-4 md:w-fit">
         Save
