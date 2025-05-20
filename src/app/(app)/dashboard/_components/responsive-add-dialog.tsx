@@ -71,7 +71,7 @@ export function ResponsiveAddDialog({
             </Button>
           </DialogTrigger>
         )}
-        <DialogContent className="p-0 [&>button]:hidden gap-0">
+        <DialogContent className="p-0 [&>button]:hidden gap-0 max-h-3/4 flex flex-col">
           <DialogHeader className="border-b px-6 py-3">
             <DialogTitle className="flex items-center justify-between">
               <span>{title}</span>
@@ -89,7 +89,9 @@ export function ResponsiveAddDialog({
               {description}
             </DialogDescription>
           </DialogHeader>
-          <div className="px-6 py-3">{children({ setIsOpen })}</div>
+          <div className="px-6 py-3 overflow-y-auto">
+            <ScrollArea>{children({ setIsOpen })}</ScrollArea>
+          </div>
         </DialogContent>
       </Dialog>
     );
