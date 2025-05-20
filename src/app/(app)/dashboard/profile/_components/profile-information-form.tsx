@@ -60,7 +60,7 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
   );
 
   return (
-    <form className="grid gap-4 max-w-xl" action={formAction}>
+    <form className="grid gap-4" action={formAction}>
       <FormItem
         id="slug"
         name="slug"

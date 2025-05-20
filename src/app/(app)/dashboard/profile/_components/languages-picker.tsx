@@ -52,12 +52,13 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
             <div>
               <Label
                 htmlFor={`language-${index}`}
-                className="block  font-medium mb-1"
+                className="block font-medium mb-1"
               >
                 Language
               </Label>
               <Input
                 id={`language-${index}`}
+                className="h-10"
                 value={language.name}
                 onChange={(e) => updateLanguage(index, "name", e.target.value)}
                 placeholder="Spanish, English, French..."
@@ -76,7 +77,7 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
                 value={language.level}
                 onValueChange={(value) => updateLanguage(index, "level", value)}
               >
-                <SelectTrigger id={`level-${index}`} className="w-full">
+                <SelectTrigger id={`level-${index}`} className="w-full !h-10">
                   <SelectValue placeholder="Choose a level" />
                 </SelectTrigger>
                 <SelectContent>

@@ -39,7 +39,7 @@ export function PortfolioPicker({
           }
         }}
       >
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full !h-10">
           <SelectValue
             placeholder="Choose a portfolio"
             id="preferredPortfolio"
