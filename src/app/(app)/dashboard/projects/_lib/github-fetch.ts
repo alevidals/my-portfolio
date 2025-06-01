@@ -3,8 +3,9 @@ import {
   getRepositoriesResponseSchema,
   getRepositoryLanguagesParamsSchema,
   getRepositoryLanguagesResponseSchema,
+  getUserResponseSchema,
 } from "@/app/(app)//dashboard/projects/_lib/schema";
-import { getUserOauthToken } from "@/lib/clerk";
+import { getGithubAccessToken } from "@/lib/auth";
 import { env } from "@/lib/env";
 import { createFetch, createSchema } from "@better-fetch/fetch";
 
@@ -17,6 +18,9 @@ const schema = createSchema({
     params: getRepositoryLanguagesParamsSchema,
     output: getRepositoryLanguagesResponseSchema,
   },
+  "@get/user": {
+    output: getUserResponseSchema,
+  },
 });
 
 export const githubFetch = createFetch({
@@ -24,6 +28,6 @@ export const githubFetch = createFetch({
   schema,
   auth: {
     type: "Bearer",
-    token: async () => await getUserOauthToken(),
+    token: async () => await getGithubAccessToken(),
   },
 });

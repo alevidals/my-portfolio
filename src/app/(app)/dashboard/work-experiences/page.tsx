@@ -1,7 +1,8 @@
 import { WorkExperiencesTable } from "@/app/(app)//dashboard/work-experiences/_components/work-experiences-table";
+import { getSession } from "@/lib/auth";
 import { getUserWorkExperiences } from "@/lib/queries";
-import { auth } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "MyPortfolio - Dashboard - Work Experiences",
@@ -9,11 +10,13 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardWorkExperiencesPage() {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
-  const workExperiences = await getUserWorkExperiences({ userId });
+  const workExperiences = await getUserWorkExperiences({
+    userId: session.user.id,
+  });
 
   return (
     <>

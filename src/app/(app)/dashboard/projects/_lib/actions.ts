@@ -19,17 +19,18 @@ import type {
   UpdateProject,
   UpdateProjectSchema,
 } from "@/app/(app)//dashboard/projects/_lib/types";
+import { getSession } from "@/lib/auth";
 import type { ActionResponse } from "@/lib/types";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function insertProject(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<InsertProjectSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as InsertProjectSchema;
 
@@ -60,7 +61,7 @@ export async function insertProject(
   );
 
   const projectToInsert: InsertProject = {
-    userId,
+    userId: session.user.id,
     name: result.data.name,
     description: result.data.description,
     deploymentUrl: result.data.deploymentUrl,
@@ -90,9 +91,9 @@ export async function importProjects(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<ImportProjectsSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = JSON.parse(formData.get("repositories") as string);
 
@@ -110,7 +111,7 @@ export async function importProjects(
     result.data.map((project) =>
       insertProjectQuery({
         project: {
-          userId,
+          userId: session.user.id,
           name: project.name,
           description: project.description,
           deploymentUrl: project.deploymentUrl,
@@ -133,9 +134,9 @@ export async function deleteProject(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<DeleteProjectSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as DeleteProjectSchema;
 
@@ -175,9 +176,9 @@ export async function updateProject(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<UpdateProjectSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as UpdateProjectSchema;
 
@@ -204,7 +205,7 @@ export async function updateProject(
 
   const newProject: UpdateProject = {
     id: project.id,
-    userId,
+    userId: session.user.id,
     name: project.name,
     description: project.description,
     deploymentUrl: project.deploymentUrl,

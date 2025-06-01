@@ -1,7 +1,8 @@
 import { EducationsTable } from "@/app/(app)//dashboard/educations/_components/educations-table";
+import { getSession } from "@/lib/auth";
 import { getUserEducations } from "@/lib/queries";
-import { auth } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "MyPortfolio - Dashboard - Educations",
@@ -9,11 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardWorkExperiencesPage() {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
+  if (!session) redirect("/");
 
-  if (!userId) return redirectToSignIn();
-
-  const educations = await getUserEducations({ userId });
+  const educations = await getUserEducations({ userId: session.user.id });
 
   return (
     <>

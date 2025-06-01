@@ -1,15 +1,20 @@
 import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
 import { DesktopNav } from "@/app/_components/desktop-nav";
 import { MobileNav } from "@/app/_components/mobile-nav";
-import { Button } from "@/components/ui/button";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+import { ProfileButton } from "@/app/_components/profile-button";
+import { SignInButton } from "@/app/_components/sign-in-button";
+import { getUserAccountData } from "@/app/portfolio/[username]/_lib/queries";
+import { getSession } from "@/lib/auth";
 import { IconBrandGithub } from "@tabler/icons-react";
 import Link from "next/link";
 
 export async function Header() {
-  const { userId } = await auth();
-  const slug = await getProfileSlug();
+  const session = await getSession();
+
+  const slug = session ? await getProfileSlug() : undefined;
+  const userData = session
+    ? await getUserAccountData({ userId: session.user.id })
+    : undefined;
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150">
@@ -17,25 +22,19 @@ export async function Header() {
         <Link href="/" className="font-bold text-xl flex items-center gap-2">
           <span>MyPortfolio</span>
         </Link>
-        {!userId ? (
-          <SignedOut>
-            <SignInButton mode="modal">
-              <Button variant="secondary" size="lg">
-                <span>
-                  Sign in <span className="hidden md:inline">with Github</span>
-                </span>
-                <IconBrandGithub className="ml-1 size-5" />
-              </Button>
-            </SignInButton>
-          </SignedOut>
+        {session ? (
+          <div className="flex items-center gap-4 md:gap-10 flex-row-reverse md:flex-row">
+            <DesktopNav slug={slug} />
+            <MobileNav slug={slug} />
+            <ProfileButton userData={userData} />
+          </div>
         ) : (
-          <SignedIn>
-            <div className="flex items-center gap-4 md:gap-10 flex-row-reverse md:flex-row">
-              <DesktopNav slug={slug} />
-              <MobileNav slug={slug} />
-              <UserButton />
-            </div>
-          </SignedIn>
+          <SignInButton>
+            <span>
+              Sign in <span className="hidden md:inline">with Github</span>
+            </span>
+            <IconBrandGithub className="ml-1 size-5" />
+          </SignInButton>
         )}
       </div>
     </header>

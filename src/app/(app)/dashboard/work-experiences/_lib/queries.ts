@@ -2,10 +2,11 @@ import type {
   InsertWorkExperience,
   UpdateWorkExperience,
 } from "@/app/(app)//dashboard/work-experiences/_lib/types";
+import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { workExperiences } from "@/lib/db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 type InsertWorkExperienceParams = {
   workExperience: InsertWorkExperience;
@@ -50,13 +51,13 @@ type DeleteWorkExperienceParams = {
 export async function deleteWorkExperience({
   workExperienceId,
 }: DeleteWorkExperienceParams) {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const belongsToUser = await belongsWorkExperienceToUser({
     workExperienceId,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {
@@ -79,13 +80,13 @@ type UpdateWorkExperienceParams = {
 export async function updateWorkExperience({
   workExperience,
 }: UpdateWorkExperienceParams) {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const belongsToUser = await belongsWorkExperienceToUser({
     workExperienceId: workExperience.id,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {

@@ -1,16 +1,20 @@
 "use client";
 
+import { SignInButton } from "@/app/_components/sign-in-button";
 import { AnimatedText } from "@/components/ui/animated-text";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import { FloatingElement } from "@/components/ui/floating-element";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { IconArrowRight } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-export function HeroSection() {
+type Props = {
+  isAuthenticated: boolean;
+};
+
+export function HeroSection({ isAuthenticated }: Props) {
   return (
     <section className="container flex flex-col-reverse md:flex-row items-center justify-between py-12 md:py-24 z-10">
       <div className="space-y-6 md:w-3/5">
@@ -27,20 +31,17 @@ export function HeroSection() {
         <FadeIn delay={0.7} direction="up">
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <Button size="lg" variant="secondary">
-                    Get started now <IconArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </SignInButton>
-              </SignedOut>
-              <SignedIn>
+              {isAuthenticated ? (
                 <Button size="lg" variant="secondary" asChild>
                   <Link href="/dashboard">
                     Get started now <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </SignedIn>
+              ) : (
+                <SignInButton>
+                  Get started now <IconArrowRight className="ml-2 h-4 w-4" />
+                </SignInButton>
+              )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button size="lg" variant="outline" asChild>

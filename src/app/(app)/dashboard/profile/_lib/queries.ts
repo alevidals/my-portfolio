@@ -2,19 +2,22 @@ import type {
   InsertLanguages,
   InsertUserProfile,
 } from "@/app/(app)//dashboard/profile/_lib/types";
+import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { userProfiles } from "@/lib/db/schema";
 import { languages as languagesSchema } from "@/lib/db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 export async function getUserProfile() {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) {
+    redirect("/");
+  }
 
   const userProfile = await db.query.userProfiles.findFirst({
-    where: (userProfiles, { eq }) => eq(userProfiles.userId, userId),
+    where: (userProfiles, { eq }) => eq(userProfiles.userId, session.user.id),
   });
 
   return userProfile;

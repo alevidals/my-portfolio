@@ -1,8 +1,9 @@
-import { ProfileInformationForm } from "@/app/(app)//dashboard/profile/_components/profile-information-form";
-import { getUserProfile } from "@/app/(app)//dashboard/profile/_lib/queries";
+import { ProfileInformationForm } from "@/app/(app)/dashboard/profile/_components/profile-information-form";
+import { getUserProfile } from "@/app/(app)/dashboard/profile/_lib/queries";
+import { getSession } from "@/lib/auth";
 import { getUserLanguages } from "@/lib/queries";
-import { auth } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "MyPortfolio - Dashboard - Profile",
@@ -10,13 +11,15 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardProfilePage() {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) {
+    redirect("/");
+  }
 
   const [userProfile, userLanguages] = await Promise.all([
     getUserProfile(),
-    getUserLanguages({ userId }),
+    getUserLanguages({ userId: session.user.id }),
   ]);
 
   return (

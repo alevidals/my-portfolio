@@ -2,9 +2,9 @@ import type {
   InsertEducation,
   UpdateEducation,
 } from "@/app/(app)//dashboard/educations/_lib/types";
+import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { educations } from "@/lib/db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
 type InsertEducationParams = {
@@ -43,13 +43,12 @@ type DeleteEducationParams = {
 };
 
 export async function deleteEducation({ educationId }: DeleteEducationParams) {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) return;
 
   const belongsToUser = await belongsEducationToUser({
     educationId,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {
@@ -70,13 +69,12 @@ type UpdateEducationParams = {
 };
 
 export async function updateEducation({ education }: UpdateEducationParams) {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) return;
 
   const belongsToUser = await belongsEducationToUser({
     educationId: education.id,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {

@@ -10,17 +10,18 @@ import type {
   InsertUserProfile,
   InsertUserProfileSchema,
 } from "@/app/(app)//dashboard/profile/_lib/types";
+import { getSession } from "@/lib/auth";
 import type { ActionResponse } from "@/lib/types";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function insertUserProfile(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<InsertUserProfileSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries());
 
@@ -49,7 +50,7 @@ export async function insertUserProfile(
   ) as InsertLanguages[];
 
   const userToInsert: InsertUserProfile = {
-    userId,
+    userId: session.user.id,
     slug: result.data.slug,
     preferredPortfolio: result.data.preferredPortfolio,
     fullName: result.data.fullName,
@@ -70,13 +71,13 @@ export async function insertUserProfile(
   }
 
   const userLanguages: InsertLanguages[] = languages.map((language) => ({
-    userId,
+    userId: session.user.id,
     name: language.name,
     level: language.level,
   }));
 
   const insertedLanguages = await insertUserLanguages({
-    userId,
+    userId: session.user.id,
     languages: userLanguages,
   });
 

@@ -16,9 +16,6 @@ export function Studio535Portfolio({ data }: PortfolioProps) {
     languages,
   } = data;
 
-  const fullName =
-    profile?.fullName || `${userData.firstName} ${userData.lastName}`;
-
   return (
     <div className="w-5/6 md:w-full max-w-xl mx-auto py-32">
       <header className="mb-20">
@@ -30,7 +27,7 @@ export function Studio535Portfolio({ data }: PortfolioProps) {
           className="rounded-lg mx-auto"
         />
         <nav className="mx-auto flex flex-col items-center mt-4 gap-2">
-          <h1 className="font-bold text-xl">{fullName}</h1>
+          <h1 className="font-bold text-xl">{userData.name}</h1>
           <SocialLinks
             email={userData.email}
             githubUrl={profile?.githubUrl}

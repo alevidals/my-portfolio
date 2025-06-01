@@ -17,17 +17,18 @@ import type {
   UpdateWorkExperience,
   UpdateWorkExperienceSchema,
 } from "@/app/(app)//dashboard/work-experiences/_lib/types";
+import { getSession } from "@/lib/auth";
 import type { ActionResponse } from "@/lib/types";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function insertWorkExperience(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<InsertWorkExperienceSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(
     formData.entries(),
@@ -53,7 +54,7 @@ export async function insertWorkExperience(
   }
 
   const workExperienceToInsert: InsertWorkExperience = {
-    userId,
+    userId: session.user.id,
     companyName: result.data.companyName,
     position: result.data.position,
     description: result.data.description,
@@ -94,9 +95,9 @@ export async function deleteWorkExperience(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<DeleteWorkExperienceSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(
     formData.entries(),
@@ -138,9 +139,9 @@ export async function updateWorkExperience(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<UpdateWorkExperienceSchema>> {
-  const { userId, redirectToSignIn } = await auth();
+  const session = await getSession();
 
-  if (!userId) return redirectToSignIn();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(
     formData.entries(),
@@ -158,7 +159,7 @@ export async function updateWorkExperience(
 
   const newWorkExperience: UpdateWorkExperience = {
     id: result.data.id,
-    userId,
+    userId: session.user.id,
     companyName: result.data.companyName,
     position: result.data.position,
     description: result.data.description,

@@ -5,8 +5,6 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/config";
 import { env } from "@/lib/env";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -61,18 +59,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-      }}
-    >
-      <html lang="en" className="dark">
-        <body className={`${geistMono.variable} font-sans antialiased`}>
-          {children}
-          <Toaster />
-          <TailwindIndicator />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className="dark">
+      <body className={`${geistMono.variable} font-sans antialiased`}>
+        {children}
+        <Toaster />
+        <TailwindIndicator />
+      </body>
+    </html>
   );
 }

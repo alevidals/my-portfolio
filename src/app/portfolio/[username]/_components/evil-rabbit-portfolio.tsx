@@ -7,10 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function EvilRabbitPortfolio({ data }: PortfolioProps) {
-  const fullName =
-    data.profile?.fullName ||
-    `${data.userData.firstName} ${data.userData.lastName}`;
-
   return (
     <div>
       <main className="max-w-[700px] mx-auto px-4">
@@ -21,7 +17,7 @@ export function EvilRabbitPortfolio({ data }: PortfolioProps) {
           height={100}
           className="my-24"
         />
-        <p>{fullName}</p>
+        <p>{data.userData.name}</p>
         {data.profile?.biography && (
           <p className="text-neutral-500 mt-4">{data.profile.biography}</p>
         )}

@@ -29,9 +29,6 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
     languages,
   } = data;
 
-  const fullName =
-    profile?.fullName || `${userData.firstName} ${userData.lastName}`;
-
   const styles = StyleSheet.create({
     page: {
       padding: 30,
@@ -193,7 +190,9 @@ export function PDFDocument({ data, isDarkTheme }: Props) {
             style={styles.image}
           />
           <View style={styles.headerContent}>
-            <Text style={styles.name}>{fullName}</Text>
+            <Text style={styles.name}>
+              {profile?.fullName || userData.name}
+            </Text>
             <Text style={styles.position}>Frontend Developer</Text>
             <Text style={styles.contact}>{userData.email}</Text>
             <View style={styles.socialLinks}>

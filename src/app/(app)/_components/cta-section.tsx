@@ -1,13 +1,17 @@
 "use client";
 
+import { SignInButton } from "@/app/_components/sign-in-button";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { IconArrowRight } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export function CtaSection() {
+type Props = {
+  isAuthenticated: boolean;
+};
+
+export function CtaSection({ isAuthenticated }: Props) {
   return (
     <FadeIn>
       <section className="container py-12 md:py-24 z-10">
@@ -35,22 +39,18 @@ export function CtaSection() {
             boost their careers.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button size="lg" variant="secondary" className="mx-auto">
-                  Create my portfolio{" "}
-                  <IconArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
+            {isAuthenticated ? (
               <Button size="lg" variant="secondary" className="mx-auto" asChild>
                 <Link href="/dashboard">
                   Create my portfolio{" "}
                   <IconArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-            </SignedIn>
+            ) : (
+              <SignInButton>
+                Create my portfolio <IconArrowRight className="ml-2 h-4 w-4" />
+              </SignInButton>
+            )}
           </motion.div>
         </motion.div>
       </section>

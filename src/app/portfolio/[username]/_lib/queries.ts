@@ -1,4 +1,3 @@
-import { getClerkClient } from "@/lib/clerk";
 import { db } from "@/lib/db/drizzle";
 import {
   getUserEducations,
@@ -8,27 +7,26 @@ import {
 } from "@/lib/queries";
 import { notFound } from "next/navigation";
 
-type GetUserClerkDataParams = {
+type GetUserAccountDataParams = {
   userId: string;
 };
 
-async function getUserClerkData({ userId }: GetUserClerkDataParams) {
-  try {
-    const clerk = await getClerkClient();
-    const user = await clerk.users.getUser(userId);
+export async function getUserAccountData({ userId }: GetUserAccountDataParams) {
+  // TODO: refactor and extract this to a query
+  const user = await db.query.usersSchema.findFirst({
+    where: (users, { eq }) => eq(users.id, userId),
+    columns: {
+      image: true,
+      name: true,
+      email: true,
+    },
+  });
 
-    if (!user) notFound();
-
-    return {
-      imageUrl: user.imageUrl,
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.primaryEmailAddress?.emailAddress,
-    };
-  } catch (error) {
-    notFound();
-  }
+  return {
+    imageUrl: user?.image,
+    name: user?.name,
+    email: user?.email,
+  };
 }
 
 type GetUserIdBySlugParams = {
@@ -69,7 +67,7 @@ export async function getUserData({ slug }: GetUserDataParams) {
 
   if (!userId) notFound();
 
-  const userData = await getUserClerkData({ userId });
+  const userData = await getUserAccountData({ userId });
 
   const [profile, projects, educations, workExperiences, languages] =
     await Promise.all([

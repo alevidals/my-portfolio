@@ -5,10 +5,11 @@ import type {
   Repository,
   UpdateProject,
 } from "@/app/(app)//dashboard/projects/_lib/types";
+import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db/drizzle";
 import { projects } from "@/lib/db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 export async function getRepositories() {
   const repositories: Repository[] = [];
@@ -124,13 +125,12 @@ type DeleteProjectParams = {
 };
 
 export async function deleteProject({ projectId }: DeleteProjectParams) {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) return redirect("/");
 
   const belongsToUser = await belongsProjectToUser({
     projectId,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {
@@ -151,13 +151,12 @@ type UpdateProjectParams = {
 };
 
 export async function updateProject({ project }: UpdateProjectParams) {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) return redirect("/");
 
   const belongsToUser = await belongsProjectToUser({
     projectId: project.id,
-    userId,
+    userId: session.user.id,
   });
 
   if (!belongsToUser) {
@@ -172,4 +171,15 @@ export async function updateProject({ project }: UpdateProjectParams) {
     .get();
 
   return updatedProject;
+}
+
+async function getUserGithubData() {
+  const { data, error } = await githubFetch("@get/user");
+
+  if (error) {
+    console.error("Error fetching user data:", error.message);
+    throw error;
+  }
+
+  return data;
 }

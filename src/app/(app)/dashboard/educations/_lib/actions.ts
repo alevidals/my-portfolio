@@ -17,17 +17,17 @@ import type {
   UpdateEducation,
   UpdateEducationSchema,
 } from "@/app/(app)//dashboard/educations/_lib/types";
+import { getSession } from "@/lib/auth";
 import type { ActionResponse } from "@/lib/types";
-import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function insertEducation(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<InsertEducationSchema>> {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as InsertEducationSchema;
 
@@ -51,7 +51,7 @@ export async function insertEducation(
   }
 
   const educationToInsert: InsertEducation = {
-    userId,
+    userId: session.user.id,
     institution: result.data.institution,
     degree: result.data.degree,
     description: result.data.description,
@@ -92,9 +92,8 @@ export async function deleteEducation(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<DeleteEducationSchema>> {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as DeleteEducationSchema;
 
@@ -134,9 +133,8 @@ export async function updateEducation(
   _: unknown,
   formData: FormData,
 ): Promise<ActionResponse<UpdateEducationSchema>> {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
+  const session = await getSession();
+  if (!session) redirect("/");
 
   const data = Object.fromEntries(formData.entries()) as UpdateEducationSchema;
 
@@ -152,7 +150,7 @@ export async function updateEducation(
 
   const newEducation: UpdateEducation = {
     id: result.data.id,
-    userId,
+    userId: session.user.id,
     institution: result.data.institution,
     degree: result.data.degree,
     description: result.data.description,
