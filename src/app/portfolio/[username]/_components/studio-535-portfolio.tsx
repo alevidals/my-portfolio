@@ -19,13 +19,15 @@ export function Studio535Portfolio({ data }: PortfolioProps) {
   return (
     <div className="w-5/6 md:w-full max-w-xl mx-auto py-32">
       <header className="mb-20">
-        <Image
-          src={userData.imageUrl}
-          alt="Profile"
-          width={100}
-          height={100}
-          className="rounded-lg mx-auto"
-        />
+        {userData.imageUrl && (
+          <Image
+            src={userData.imageUrl}
+            alt="Profile"
+            width={100}
+            height={100}
+            className="rounded-lg mx-auto"
+          />
+        )}
         <nav className="mx-auto flex flex-col items-center mt-4 gap-2">
           <h1 className="font-bold text-xl">{userData.name}</h1>
           <SocialLinks

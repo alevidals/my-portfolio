@@ -10,13 +10,15 @@ export function EvilRabbitPortfolio({ data }: PortfolioProps) {
   return (
     <div>
       <main className="max-w-[700px] mx-auto px-4">
-        <Image
-          src={data.userData.imageUrl}
-          alt="user avatar"
-          width={100}
-          height={100}
-          className="my-24"
-        />
+        {data.userData.imageUrl && (
+          <Image
+            src={data.userData.imageUrl}
+            alt="user avatar"
+            width={100}
+            height={100}
+            className="my-24"
+          />
+        )}
         <p>{data.userData.name}</p>
         {data.profile?.biography && (
           <p className="text-neutral-500 mt-4">{data.profile.biography}</p>
