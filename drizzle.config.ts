@@ -1,4 +1,4 @@
-import { env } from "@/lib/env";
+import { env } from "@/shared/lib/env";
 import { defineConfig } from "drizzle-kit";
 
 if (!env.TURSO_AUTH_TOKEN || !env.TURSO_DATABASE_URL) {

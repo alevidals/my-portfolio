@@ -1,7 +1,7 @@
-import { ProfileInformationForm } from "@/app/(app)/dashboard/profile/_components/profile-information-form";
-import { getUserProfile } from "@/app/(app)/dashboard/profile/_lib/queries";
-import { getSession } from "@/lib/auth";
-import { getUserLanguages } from "@/lib/queries";
+import { ProfileInformationForm } from "@/features/dashboard/profile/components/profile-information-form";
+import { getUserProfile } from "@/features/dashboard/profile/lib/queries";
+import { getSession } from "@/shared/lib/auth";
+import { getUserLanguages } from "@/shared/lib/queries";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 

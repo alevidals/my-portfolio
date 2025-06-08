@@ -1,9 +1,13 @@
-import { CopySlugToClipboard } from "@/app/(app)/dashboard/_components/copy-slug-to-clipboard";
-import { GenerateCVButton } from "@/app/(app)/dashboard/_components/generate-cv-button";
-import { getProfileSlug } from "@/app/(app)/dashboard/_lib/queries";
-import { getUserData } from "@/app/portfolio/[username]/_lib/queries";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { CopySlugToClipboard } from "@/features/dashboard/components/copy-slug-to-clipboard";
+import { GenerateCVButton } from "@/features/dashboard/components/generate-cv-button";
+import { getProfileSlug } from "@/features/dashboard/lib/queries";
+import { getUserData } from "@/features/portfolio/lib/queries";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/shared/components/ui/alert";
+import { Button } from "@/shared/components/ui/button";
 import {
   IconBook,
   IconBox,

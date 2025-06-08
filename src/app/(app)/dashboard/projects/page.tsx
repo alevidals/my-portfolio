@@ -1,6 +1,6 @@
-import { ProjectsTable } from "@/app/(app)//dashboard/projects/_components/projects-table";
-import { getSession } from "@/lib/auth";
-import { getUserProjects } from "@/lib/queries";
+import { ProjectsTable } from "@/features/dashboard/projects/components/projects-table";
+import { getSession } from "@/shared/lib/auth";
+import { getUserProjects } from "@/shared/lib/queries";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 

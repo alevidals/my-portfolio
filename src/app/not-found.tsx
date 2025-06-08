@@ -1,5 +1,5 @@
-import { Header } from "@/app/_components/header";
-import { AnimatedGradient } from "@/components/ui/animated-gradient";
+import { Header } from "@/shared/components/header";
+import { AnimatedGradient } from "@/shared/components/ui/animated-gradient";
 import Image from "next/image";
 import Link from "next/link";
 
