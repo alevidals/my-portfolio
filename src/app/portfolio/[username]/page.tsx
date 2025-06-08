@@ -1,8 +1,8 @@
-import type { InsertUserProfile } from "@/app/(app)/dashboard/profile/_lib/types";
-import { EvilRabbitPortfolio } from "@/app/portfolio/[username]/_components/evil-rabbit-portfolio";
-import { Studio535Portfolio } from "@/app/portfolio/[username]/_components/studio-535-portfolio";
-import { getUserData } from "@/app/portfolio/[username]/_lib/queries";
-import type { PortfolioProps } from "@/app/portfolio/[username]/_lib/types";
+import type { InsertUserProfile } from "@/features/dashboard/profile/lib/types";
+import { EvilRabbitPortfolio } from "@/features/portfolio/components/evil-rabbit-portfolio";
+import { Studio535Portfolio } from "@/features/portfolio/components/studio-535-portfolio";
+import { getUserData } from "@/features/portfolio/lib/queries";
+import type { PortfolioProps } from "@/features/portfolio/lib/types";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 

@@ -1,6 +1,6 @@
-import { WorkExperiencesTable } from "@/app/(app)//dashboard/work-experiences/_components/work-experiences-table";
-import { getSession } from "@/lib/auth";
-import { getUserWorkExperiences } from "@/lib/queries";
+import { WorkExperiencesTable } from "@/features/dashboard/work-experiences/components/work-experiences-table";
+import { getSession } from "@/shared/lib/auth";
+import { getUserWorkExperiences } from "@/shared/lib/queries";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "@/lib/config";
-import { env } from "@/lib/env";
+import { TailwindIndicator } from "@/shared/components/tailwind-indicator";
+import { Toaster } from "@/shared/components/ui/sonner";
+import { siteConfig } from "@/shared/lib/config";
+import { env } from "@/shared/lib/env";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",

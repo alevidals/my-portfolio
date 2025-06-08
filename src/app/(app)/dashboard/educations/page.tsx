@@ -1,6 +1,6 @@
-import { EducationsTable } from "@/app/(app)//dashboard/educations/_components/educations-table";
-import { getSession } from "@/lib/auth";
-import { getUserEducations } from "@/lib/queries";
+import { EducationsTable } from "@/features/dashboard/educations/components/educations-table";
+import { getSession } from "@/shared/lib/auth";
+import { getUserEducations } from "@/shared/lib/queries";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
