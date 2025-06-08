@@ -1,5 +1,7 @@
 "use client";
 
+import { m } from "@/paraglide/messages";
+import { getLocale, setLocale } from "@/paraglide/runtime";
 import { SignInButton } from "@/shared/components/sign-in-button";
 import { AnimatedText } from "@/shared/components/ui/animated-text";
 import { Button } from "@/shared/components/ui/button";
@@ -17,15 +19,21 @@ type Props = {
 export function HeroSection({ isAuthenticated }: Props) {
   return (
     <section className="container flex flex-col-reverse md:flex-row items-center justify-between py-12 md:py-24 z-10">
+      <div>
+        <Button onClick={() => setLocale("es")}>ES</Button>
+        <Button onClick={() => setLocale("en")}>EN</Button>
+        <Button onClick={() => setLocale("fr")}>FR</Button>
+        <Button onClick={() => setLocale("de")}>DE</Button>
+        <p>Locale: {getLocale()}</p>
+      </div>
       <div className="space-y-6 md:w-3/5">
         <AnimatedText
-          text="Your professional profile, simplified"
+          text={m["home.title"]()}
           className="text-4xl md:text-6xl font-bold tracking-tighter"
         />
         <FadeIn delay={0.5} direction="up">
           <p className="text-xl text-muted-foreground max-w-[600px]">
-            Create your portfolio and resume in one place. Share your profile
-            with a unique link and stand out in selection processes.
+            {m["home.subtitle"]()}
           </p>
         </FadeIn>
         <FadeIn delay={0.7} direction="up">

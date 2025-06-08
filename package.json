@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "next dev",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && next build",
     "start": "next start",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint ./src --fix",
@@ -13,7 +13,9 @@
     "check": "biome check --write ./src --no-errors-on-unmatched --files-ignore-unknown=true --colors=off",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "machine-translate": "inlang machine translate --project project.inlang",
+    "compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide"
   },
   "dependencies": {
     "@better-fetch/fetch": "1.1.18",
@@ -56,6 +58,8 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.9",
     "typescript": "^5",
-    "uuid": "11.1.0"
+    "uuid": "11.1.0",
+    "@inlang/paraglide-js": "2.0.13",
+    "@inlang/cli": "^3.0.0"
   }
 }
