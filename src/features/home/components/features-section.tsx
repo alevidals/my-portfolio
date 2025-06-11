@@ -4,18 +4,20 @@ import { Card, CardContent } from "@/shared/components/ui/card";
 import { FadeIn } from "@/shared/components/ui/fade-in";
 import { IconFileCv, IconUser, IconWorld } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export function FeaturesSection() {
+  const t = useTranslations("home");
+
   return (
     <section className="container py-12 md:py-24 z-10">
       <FadeIn>
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
-            Everything you need to stand out
+            {t("featuresSection.title")}
           </h2>
           <p className="text-muted-foreground text-lg max-w-[800px]">
-            MyPortfolio provides all the tools to create a complete and
-            attractive professional profile.
+            {t("featuresSection.description")}
           </p>
         </div>
       </FadeIn>
@@ -35,10 +37,11 @@ export function FeaturesSection() {
                 >
                   <IconUser className="h-10 w-10 text-neutral-400" />
                 </motion.div>
-                <h3 className="text-xl font-bold">Personalized profile</h3>
+                <h3 className="text-xl font-bold">
+                  {t("featuresSection.features.profile.title")}
+                </h3>
                 <p className="text-muted-foreground flex-grow">
-                  Create a complete profile with your professional data,
-                  experience, skills, and projects.
+                  {t("featuresSection.features.profile.description")}
                 </p>
               </CardContent>
             </Card>
@@ -59,10 +62,11 @@ export function FeaturesSection() {
                 >
                   <IconWorld className="h-10 w-10 text-neutral-400" />
                 </motion.div>
-                <h3 className="text-xl font-bold">Unique URL</h3>
+                <h3 className="text-xl font-bold">
+                  {t("featuresSection.features.url.title")}
+                </h3>
                 <p className="text-muted-foreground flex-grow">
-                  Get a personalized web address to share your profile with
-                  anyone you want.
+                  {t("featuresSection.features.url.description")}
                 </p>
               </CardContent>
             </Card>
@@ -83,10 +87,11 @@ export function FeaturesSection() {
                 >
                   <IconFileCv className="h-10 w-10 text-neutral-400" />
                 </motion.div>
-                <h3 className="text-xl font-bold">Resume generator</h3>
+                <h3 className="text-xl font-bold">
+                  {t("featuresSection.features.resume.title")}
+                </h3>
                 <p className="text-muted-foreground flex-grow">
-                  Create professional resumes from your profile data using
-                  different templates.
+                  {t("featuresSection.features.resume.description")}
                 </p>
               </CardContent>
             </Card>

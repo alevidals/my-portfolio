@@ -2,18 +2,20 @@
 
 import { FadeIn } from "@/shared/components/ui/fade-in";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export function HowItWorksSection() {
+  const t = useTranslations("home");
+
   return (
     <section className=" py-12 md:py-24 px-12 md:px-24 bg-muted/20 rounded-lg my-12 z-10">
       <FadeIn>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
-            How it works
+            {t("howItWorks.title")}
           </h2>
           <p className="text-muted-foreground text-lg max-w-[800px] mx-auto">
-            In three simple steps, your portfolio and resume will be ready to
-            share.
+            {t("howItWorks.description")}
           </p>
         </div>
       </FadeIn>
@@ -27,9 +29,11 @@ export function HowItWorksSection() {
             >
               1
             </motion.div>
-            <h3 className="text-xl font-bold">Sign up</h3>
+            <h3 className="text-xl font-bold">
+              {t("howItWorks.steps.1.title")}
+            </h3>
             <p className="text-muted-foreground">
-              Create your account on MyPortfolio in less than a minute.
+              {t("howItWorks.steps.1.description")}
             </p>
           </div>
         </FadeIn>
@@ -42,10 +46,11 @@ export function HowItWorksSection() {
             >
               2
             </motion.div>
-            <h3 className="text-xl font-bold">Complete your profile</h3>
+            <h3 className="text-xl font-bold">
+              {t("howItWorks.steps.2.title")}
+            </h3>
             <p className="text-muted-foreground">
-              Add your professional information, experience, projects, and
-              skills.
+              {t("howItWorks.steps.2.description")}
             </p>
           </div>
         </FadeIn>
@@ -58,10 +63,11 @@ export function HowItWorksSection() {
             >
               3
             </motion.div>
-            <h3 className="text-xl font-bold">Share</h3>
+            <h3 className="text-xl font-bold">
+              {t("howItWorks.steps.3.title")}
+            </h3>
             <p className="text-muted-foreground">
-              Get your unique URL and generate your resume to share with anyone
-              you want.
+              {t("howItWorks.steps.3.description")}
             </p>
           </div>
         </FadeIn>

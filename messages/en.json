@@ -1,0 +1,55 @@
+{
+  "home": {
+    "hero": {
+      "title": "Your professional profile, simplified",
+      "description": "Create your portfolio and resume in one place. Share your profile with a unique link and stand out in selection processes.",
+      "getStarted": "Get started now",
+      "seeExample": "See portfolio example",
+      "illustrationAlt": "Programmer illustration"
+    },
+    "featuresSection": {
+      "title": "Everything you need to stand out",
+      "description": "MyPortfolio provides all the tools to create a complete and attractive professional profile.",
+      "features": {
+        "profile": {
+          "title": "Personalized profile",
+          "description": "Create a complete profile with your professional data, experience, skills, and projects."
+        },
+        "url": {
+          "title": "Unique URL",
+          "description": "Get a personalized web address to share your profile with anyone you want."
+        },
+        "resume": {
+          "title": "Resume generator",
+          "description": "Create professional resumes from your profile data using different templates."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "description": "In three simple steps, your portfolio and resume will be ready to share.",
+      "steps": {
+        "1": {
+          "title": "Sign up",
+          "description": "Create your account on MyPortfolio in less than a minute."
+        },
+        "2": {
+          "title": "Complete your profile",
+          "description": "Add your professional information, experience, projects, and skills."
+        },
+        "3": {
+          "title": "Share",
+          "description": "Get your unique URL and generate your resume to share with anyone you want."
+        }
+      }
+    },
+    "cta": {
+      "title": "Stand out in selection processes",
+      "description": "Join the thousands of professionals already using MyPortfolio to boost their careers.",
+      "button": "Create my portfolio"
+    }
+  },
+  "footer": {
+    "allRightsReserved": "All rights reserved"
+  }
+}

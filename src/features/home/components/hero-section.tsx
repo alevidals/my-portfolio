@@ -8,6 +8,7 @@ import { FloatingElement } from "@/shared/components/ui/floating-element";
 import { IconArrowRight } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type Props = {
@@ -15,17 +16,18 @@ type Props = {
 };
 
 export function HeroSection({ isAuthenticated }: Props) {
+  const t = useTranslations("home");
+
   return (
     <section className="container flex flex-col-reverse md:flex-row items-center justify-between py-12 md:py-24 z-10">
       <div className="space-y-6 md:w-3/5">
         <AnimatedText
-          text="Your professional profile, simplified"
+          text={t("hero.title")}
           className="text-4xl md:text-6xl font-bold tracking-tighter"
         />
         <FadeIn delay={0.5} direction="up">
           <p className="text-xl text-muted-foreground max-w-[600px]">
-            Create your portfolio and resume in one place. Share your profile
-            with a unique link and stand out in selection processes.
+            {t("hero.description")}
           </p>
         </FadeIn>
         <FadeIn delay={0.7} direction="up">
@@ -34,19 +36,21 @@ export function HeroSection({ isAuthenticated }: Props) {
               {isAuthenticated ? (
                 <Button size="lg" variant="secondary" asChild>
                   <Link href="/dashboard">
-                    Get started now <ArrowRight className="ml-2 h-4 w-4" />
+                    {t("hero.getStarted")}{" "}
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               ) : (
                 <SignInButton>
-                  Get started now <IconArrowRight className="ml-2 h-4 w-4" />
+                  {t("hero.getStarted")}{" "}
+                  <IconArrowRight className="ml-2 h-4 w-4" />
                 </SignInButton>
               )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/portfolio/alevidals" target="_blank">
-                  See portfolio example
+                  {t("hero.seeExample")}
                 </Link>
               </Button>
             </motion.div>
@@ -61,7 +65,7 @@ export function HeroSection({ isAuthenticated }: Props) {
         >
           <motion.img
             src="/programmer.svg"
-            alt="Programmer illustration"
+            alt={t("hero.illustrationAlt")}
             className="w-full max-w-[700px] h-auto"
             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}

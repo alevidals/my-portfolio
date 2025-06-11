@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
+import { routing } from "@/i18n/routing";
 import { TailwindIndicator } from "@/shared/components/tailwind-indicator";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { siteConfig } from "@/shared/lib/config";
 import { env } from "@/shared/lib/env";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -53,15 +56,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
-    <html lang="en" className="dark">
+    <html lang={locale} className="dark">
       <body className={`${geistMono.variable} font-sans antialiased`}>
-        {children}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Toaster />
         <TailwindIndicator />
       </body>

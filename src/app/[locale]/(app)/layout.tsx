@@ -1,3 +1,4 @@
+import { Footer } from "@/shared/components/footer";
 import { Header } from "@/shared/components/header";
 
 export default function AppLayout({
@@ -9,13 +10,7 @@ export default function AppLayout({
     <div className="min-h-dvh grid grid-rows-[auto_1fr_auto]">
       <Header />
       <main className="px-4 container mx-auto">{children}</main>
-      <footer>
-        <div className="container mx-auto py-8">
-          <p className="text-center text-sm text-neutral-400">
-            &copy; {new Date().getFullYear()} MyPortfolio. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

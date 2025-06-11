@@ -1,0 +1,55 @@
+{
+  "home": {
+    "hero": {
+      "title": "Votre profil professionnel, simplifié",
+      "description": "Créez votre portfolio et votre CV en un seul endroit. Partagez votre profil avec un lien unique et démarquez-vous dans les processus de sélection.",
+      "getStarted": "Commencer maintenant",
+      "seeExample": "Voir un exemple de portfolio",
+      "illustrationAlt": "Illustration de programmeur"
+    },
+    "featuresSection": {
+      "title": "Tout ce dont vous avez besoin pour vous démarquer",
+      "description": "MyPortfolio fournit tous les outils nécessaires pour créer un profil professionnel complet et attrayant.",
+      "features": {
+        "profile": {
+          "title": "Profil personnalisé",
+          "description": "Créez un profil complet avec vos données professionnelles, votre expérience, vos compétences et vos projets."
+        },
+        "url": {
+          "title": "URL unique",
+          "description": "Obtenez une adresse web personnalisée pour partager votre profil avec qui vous voulez."
+        },
+        "resume": {
+          "title": "Générateur de CV",
+          "description": "Créez des CV professionnels à partir des données de votre profil en utilisant différents modèles."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "description": "En trois étapes simples, votre portfolio et votre CV seront prêts à être partagés.",
+      "steps": {
+        "1": {
+          "title": "Inscrivez-vous",
+          "description": "Créez votre compte sur MyPortfolio en moins d'une minute."
+        },
+        "2": {
+          "title": "Complétez votre profil",
+          "description": "Ajoutez vos informations professionnelles, votre expérience, vos projets et vos compétences."
+        },
+        "3": {
+          "title": "Partagez",
+          "description": "Obtenez votre URL unique et générez votre CV pour le partager avec qui vous voulez."
+        }
+      }
+    },
+    "cta": {
+      "title": "Démarquez-vous dans les processus de sélection",
+      "description": "Rejoignez les milliers de professionnels qui utilisent déjà MyPortfolio pour booster leur carrière.",
+      "button": "Créer mon portfolio"
+    }
+  },
+  "footer": {
+    "allRightsReserved": "Tous droits réservés"
+  }
+}

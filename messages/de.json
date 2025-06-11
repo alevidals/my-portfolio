@@ -1,0 +1,55 @@
+{
+  "home": {
+    "hero": {
+      "title": "Dein professionelles Profil, vereinfacht",
+      "description": "Erstelle dein Portfolio und deinen Lebenslauf an einem Ort. Teile dein Profil mit einem einzigartigen Link und hebe dich in Auswahlverfahren hervor.",
+      "getStarted": "Jetzt loslegen",
+      "seeExample": "Beispielportfolio ansehen",
+      "illustrationAlt": "Programmierer-Illustration"
+    },
+    "featuresSection": {
+      "title": "Alles, was du brauchst, um dich abzuheben",
+      "description": "MyPortfolio bietet dir alle Werkzeuge, um ein vollständiges und ansprechendes professionelles Profil zu erstellen.",
+      "features": {
+        "profile": {
+          "title": "Personalisierter Profil",
+          "description": "Erstelle ein vollständiges Profil mit deinen beruflichen Daten, Erfahrungen, Fähigkeiten und Projekten."
+        },
+        "url": {
+          "title": "Einzigartige URL",
+          "description": "Erhalte eine personalisierte Webadresse, um dein Profil mit jedem zu teilen, den du möchtest."
+        },
+        "resume": {
+          "title": "Lebenslauf-Generator",
+          "description": "Erstelle professionelle Lebensläufe aus deinen Profildaten mit verschiedenen Vorlagen."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "So funktioniert's",
+      "description": "In drei einfachen Schritten ist dein Portfolio und Lebenslauf bereit zum Teilen.",
+      "steps": {
+        "1": {
+          "title": "Registrieren",
+          "description": "Erstelle dein Konto bei MyPortfolio in weniger als einer Minute."
+        },
+        "2": {
+          "title": "Profil vervollständigen",
+          "description": "Füge deine beruflichen Informationen, Erfahrungen, Projekte und Fähigkeiten hinzu."
+        },
+        "3": {
+          "title": "Teilen",
+          "description": "Erhalte deine einzigartige URL und generiere deinen Lebenslauf, um ihn mit jedem zu teilen, den du möchtest."
+        }
+      }
+    },
+    "cta": {
+      "title": "Hebe dich in Auswahlverfahren hervor",
+      "description": "Schließe dich den Tausenden von Fachkräften an, die MyPortfolio bereits nutzen, um ihre Karriere voranzutreiben.",
+      "button": "Mein Portfolio erstellen"
+    }
+  },
+  "footer": {
+    "allRightsReserved": "Alle Rechte vorbehalten"
+  }
+}

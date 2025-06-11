@@ -1,0 +1,55 @@
+{
+  "home": {
+    "hero": {
+      "title": "Tu perfil profesional, simplificado",
+      "description": "Crea tu portafolio y currículum en un solo lugar. Comparte tu perfil con un enlace único y destaca en los procesos de selección.",
+      "getStarted": "Empieza ahora",
+      "seeExample": "Ver ejemplo de portafolio",
+      "illustrationAlt": "Ilustración de programador"
+    },
+    "featuresSection": {
+      "title": "Todo lo que necesitas para destacar",
+      "description": "MyPortfolio te ofrece todas las herramientas para crear un perfil profesional completo y atractivo.",
+      "features": {
+        "profile": {
+          "title": "Perfil personalizado",
+          "description": "Crea un perfil completo con tus datos profesionales, experiencia, habilidades y proyectos."
+        },
+        "url": {
+          "title": "URL única",
+          "description": "Obtén una dirección web personalizada para compartir tu perfil con quien quieras."
+        },
+        "resume": {
+          "title": "Generador de currículums",
+          "description": "Crea currículums profesionales a partir de los datos de tu perfil usando diferentes plantillas."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "description": "En tres simples pasos, tu portafolio y currículum estarán listos para compartir.",
+      "steps": {
+        "1": {
+          "title": "Regístrate",
+          "description": "Crea tu cuenta en MyPortfolio en menos de un minuto."
+        },
+        "2": {
+          "title": "Completa tu perfil",
+          "description": "Agrega tu información profesional, experiencia, proyectos y habilidades."
+        },
+        "3": {
+          "title": "Comparte",
+          "description": "Obtén tu URL única y genera tu currículum para compartirlo con quien quieras."
+        }
+      }
+    },
+    "cta": {
+      "title": "Destaca en los procesos de selección",
+      "description": "Únete a los miles de profesionales que ya están usando MyPortfolio para impulsar sus carreras.",
+      "button": "Crear mi portafolio"
+    }
+  },
+  "footer": {
+    "allRightsReserved": "Todos los derechos reservados"
+  }
+}

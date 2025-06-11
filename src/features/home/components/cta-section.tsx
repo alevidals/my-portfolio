@@ -5,6 +5,7 @@ import { Button } from "@/shared/components/ui/button";
 import { FadeIn } from "@/shared/components/ui/fade-in";
 import { IconArrowRight } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export function CtaSection({ isAuthenticated }: Props) {
+  const t = useTranslations("home");
+
   return (
     <FadeIn>
       <section className="container py-12 md:py-24 z-10">
@@ -32,23 +35,21 @@ export function CtaSection({ isAuthenticated }: Props) {
           viewport={{ once: false, margin: "-100px" }}
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
-            Stand out in selection processes
+            {t("cta.title")}
           </h2>
           <p className="text-muted-foreground text-lg max-w-[800px] mx-auto mb-8">
-            Join the thousands of professionals already using MyPortfolio to
-            boost their careers.
+            {t("cta.description")}
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             {isAuthenticated ? (
               <Button size="lg" variant="secondary" className="mx-auto" asChild>
                 <Link href="/dashboard">
-                  Create my portfolio{" "}
-                  <IconArrowRight className="ml-2 h-4 w-4" />
+                  {t("cta.button")} <IconArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             ) : (
               <SignInButton>
-                Create my portfolio <IconArrowRight className="ml-2 h-4 w-4" />
+                {t("cta.button")} <IconArrowRight className="ml-2 h-4 w-4" />
               </SignInButton>
             )}
           </motion.div>

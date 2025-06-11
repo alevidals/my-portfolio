@@ -1,3 +1,4 @@
+import { Footer } from "@/shared/components/footer";
 import { Header } from "@/shared/components/header";
 import { AnimatedGradient } from "@/shared/components/ui/animated-gradient";
 import Image from "next/image";
@@ -27,13 +28,7 @@ export default async function NotFound() {
           </p>
         </Link>
       </main>
-      <footer>
-        <div className="container mx-auto py-8">
-          <p className="text-center text-sm text-neutral-400">
-            &copy; {new Date().getFullYear()} MyPortfolio. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
