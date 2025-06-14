@@ -91,6 +91,7 @@
     }
   },
   "profile": {
+    "title": "Profile information",
     "slug": "slug",
     "preferredPortfolio": "Preferred Portfolio",
     "previewHint": "See theme preview with an example at <url></url>",
@@ -118,6 +119,54 @@
       "intermediate": "Intermediate",
       "advanced": "Advanced",
       "native": "Native"
+    }
+  },
+  "workExperiences": {
+    "title": "Work experiences",
+    "filterPlaceholder": "Filter work experiences...",
+    "table": {
+      "companyName": "Company Name",
+      "position": "Position",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "actions": "Actions",
+      "noneFound": "No work experiences found.",
+      "present": "Present"
+    },
+    "addDialog": {
+      "title": "Add Work Experience",
+      "description": "Add a new work experience"
+    },
+    "editDialog": {
+      "title": "Edit Work Experience",
+      "description": "Edit your work experience"
+    },
+    "form": {
+      "companyName": "Company Name",
+      "position": "Position",
+      "description": "Description",
+      "startMonth": "Start Month",
+      "startYear": "Start Year",
+      "endMonth": "End Month",
+      "endYear": "End Year",
+      "submitAdd": "Add Work Experience",
+      "submitEdit": "Edit Work Experience"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteWarning": "This action cannot be undone. This will permanently delete the work experience"
+    },
+    "actions": {
+      "invalidInput": "Invalid input",
+      "creationError": "Failed to create work experience",
+      "creationSuccess": "Work experience created successfully",
+      "deletionError": "Failed to delete work experience",
+      "deletionSuccess": "Work experience deleted successfully",
+      "updateError": "Failed to update work experience",
+      "updateSuccess": "Work experience updated successfully"
     }
   }
 }

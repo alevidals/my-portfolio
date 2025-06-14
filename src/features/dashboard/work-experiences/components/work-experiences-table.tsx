@@ -15,6 +15,7 @@ import {
 } from "@/shared/components/ui/table";
 import type { getUserWorkExperiences } from "@/shared/lib/queries";
 import { formatDate } from "@/shared/lib/utils";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type Props = {
@@ -22,6 +23,8 @@ type Props = {
 };
 
 export function WorkExperiencesTable({ workExperiences }: Props) {
+  const t = useTranslations("workExperiences");
+
   const [filter, setFilter] = useState("");
 
   const filteredWorkExperiences = workExperiences.filter((workExperience) => {
@@ -36,14 +39,14 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
     <>
       <div className="flex items-center justify-between mb-4 gap-4">
         <Input
-          placeholder="Filter work experiences..."
+          placeholder={t("filterPlaceholder")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-full md:w-96"
         />
         <ResponsiveAddDialog
-          title="Add Work Experience"
-          description="Add a new work experience"
+          title={t("addDialog.title")}
+          description={t("addDialog.description")}
           type="add"
         >
           {({ setIsOpen }) => <AddWorkExperienceForm setIsOpen={setIsOpen} />}
@@ -54,12 +57,12 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Company Name</TableHead>
-                <TableHead>Position</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Start Date</TableHead>
-                <TableHead>End Date</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("table.companyName")}</TableHead>
+                <TableHead>{t("table.position")}</TableHead>
+                <TableHead>{t("table.description")}</TableHead>
+                <TableHead>{t("table.startDate")}</TableHead>
+                <TableHead>{t("table.endDate")}</TableHead>
+                <TableHead>{t("table.actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -87,7 +90,7 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
                             month: workExperience.endDate.month,
                             year: workExperience.endDate.year,
                           })
-                        : "Present"}
+                        : t("table.present")}
                     </TableCell>
                     <TableCell>
                       <WorkExperienceActionsDropdown
@@ -99,7 +102,7 @@ export function WorkExperiencesTable({ workExperiences }: Props) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center">
-                    No work experiences found.
+                    {t("table.noneFound")}
                   </TableCell>
                 </TableRow>
               )}

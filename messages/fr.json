@@ -91,6 +91,7 @@
     }
   },
   "profile": {
+    "title": "Informations sur le profil",
     "slug": "slug",
     "preferredPortfolio": "Portefeuille préféré",
     "previewHint": "Voir un aperçu du thème avec un exemple sur <url></url>",
@@ -118,6 +119,54 @@
       "intermediate": "Intermédiaire",
       "advanced": "Avancé",
       "native": "Natif"
+    }
+  },
+  "workExperiences": {
+    "title": "Expériences professionnelles",
+    "filterPlaceholder": "Filtrer les expériences professionnelles...",
+    "table": {
+      "companyName": "Nom de l'entreprise",
+      "position": "Poste",
+      "description": "Description",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
+      "actions": "Actions",
+      "noneFound": "Aucune expérience professionnelle trouvée.",
+      "present": "Présent"
+    },
+    "addDialog": {
+      "title": "Ajouter une expérience professionnelle",
+      "description": "Ajoutez une nouvelle expérience professionnelle"
+    },
+    "editDialog": {
+      "title": "Modifier une expérience professionnelle",
+      "description": "Modifiez votre expérience professionnelle"
+    },
+    "form": {
+      "companyName": "Nom de l'entreprise",
+      "position": "Poste",
+      "description": "Description",
+      "startMonth": "Mois de début",
+      "startYear": "Année de début",
+      "endMonth": "Mois de fin",
+      "endYear": "Année de fin",
+      "submitAdd": "Ajouter une expérience",
+      "submitEdit": "Modifier l'expérience"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteWarning": "Cette action est irréversible. L'expérience sera définitivement supprimée"
+    },
+    "actions": {
+      "invalidInput": "Entrée invalide",
+      "creationError": "Échec de la création de l'expérience professionnelle",
+      "creationSuccess": "Expérience professionnelle créée avec succès",
+      "deletionError": "Échec de la suppression de l'expérience professionnelle",
+      "deletionSuccess": "Expérience professionnelle supprimée avec succès",
+      "updateError": "Échec de la mise à jour de l'expérience professionnelle",
+      "updateSuccess": "Expérience professionnelle mise à jour avec succès"
     }
   }
 }

@@ -91,6 +91,7 @@
     }
   },
   "profile": {
+    "title": "Información del perfil",
     "slug": "slug",
     "preferredPortfolio": "Portafolio preferido",
     "choosePortfolio": "Elige un portafolio",
@@ -118,6 +119,54 @@
       "intermediate": "Intermedio",
       "advanced": "Avanzado",
       "native": "Nativo"
+    }
+  },
+  "workExperiences": {
+    "title": "Experiencias laborales",
+    "filterPlaceholder": "Filtrar experiencias laborales...",
+    "table": {
+      "companyName": "Nombre de la empresa",
+      "position": "Puesto",
+      "description": "Descripción",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de fin",
+      "actions": "Acciones",
+      "noneFound": "No se encontraron experiencias laborales.",
+      "present": "Actualidad"
+    },
+    "addDialog": {
+      "title": "Añadir experiencia laboral",
+      "description": "Añade una nueva experiencia laboral"
+    },
+    "editDialog": {
+      "title": "Editar experiencia laboral",
+      "description": "Edita tu experiencia laboral"
+    },
+    "form": {
+      "companyName": "Nombre de la empresa",
+      "position": "Puesto",
+      "description": "Descripción",
+      "startMonth": "Mes de inicio",
+      "startYear": "Año de inicio",
+      "endMonth": "Mes de fin",
+      "endYear": "Año de fin",
+      "submitAdd": "Añadir experiencia laboral",
+      "submitEdit": "Editar experiencia laboral"
+    },
+    "dropdown": {
+      "label": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteWarning": "Esta acción no se puede deshacer. Se eliminará permanentemente la experiencia laboral"
+    },
+    "actions": {
+      "invalidInput": "Entrada no válida",
+      "creationError": "No se pudo crear la experiencia laboral",
+      "creationSuccess": "Experiencia laboral creada correctamente",
+      "deletionError": "No se pudo eliminar la experiencia laboral",
+      "deletionSuccess": "Experiencia laboral eliminada correctamente",
+      "updateError": "No se pudo actualizar la experiencia laboral",
+      "updateSuccess": "Experiencia laboral actualizada correctamente"
     }
   }
 }

@@ -19,6 +19,7 @@ import type {
 } from "@/features/dashboard/work-experiences/lib/types";
 import { getSession } from "@/shared/lib/auth";
 import type { ActionResponse } from "@/shared/lib/types";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -30,6 +31,8 @@ export async function insertWorkExperience(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("workExperiences");
+
   const data = Object.fromEntries(
     formData.entries(),
   ) as InsertWorkExperienceSchema;
@@ -39,7 +42,7 @@ export async function insertWorkExperience(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       errors: {
         companyName: result.error.formErrors.fieldErrors.companyName?.[0],
         position: result.error.formErrors.fieldErrors.position?.[0],
@@ -78,7 +81,7 @@ export async function insertWorkExperience(
   if (!workExperience) {
     return {
       success: false,
-      error: "Failed to create work experience",
+      error: t("actions.creationError"),
       data: result.data,
     };
   }
@@ -87,7 +90,7 @@ export async function insertWorkExperience(
 
   return {
     success: true,
-    message: "Work experience created successfully",
+    message: t("actions.creationSuccess"),
   };
 }
 
@@ -99,6 +102,8 @@ export async function deleteWorkExperience(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("workExperiences");
+
   const data = Object.fromEntries(
     formData.entries(),
   ) as DeleteWorkExperienceSchema;
@@ -108,7 +113,7 @@ export async function deleteWorkExperience(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -122,7 +127,7 @@ export async function deleteWorkExperience(
   if (!deletedWorkExperience) {
     return {
       success: false,
-      error: "Failed to delete work experience",
+      error: t("actions.deletionError"),
       data,
     };
   }
@@ -131,7 +136,7 @@ export async function deleteWorkExperience(
 
   return {
     success: true,
-    message: "Work experience deleted successfully",
+    message: t("actions.deletionSuccess"),
   };
 }
 
@@ -143,6 +148,8 @@ export async function updateWorkExperience(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("workExperiences");
+
   const data = Object.fromEntries(
     formData.entries(),
   ) as UpdateWorkExperienceSchema;
@@ -152,7 +159,7 @@ export async function updateWorkExperience(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -183,7 +190,7 @@ export async function updateWorkExperience(
   if (!updatedWorkExperience) {
     return {
       success: false,
-      error: "Failed to update work experience",
+      error: t("actions.updateError"),
       data: result.data,
     };
   }
@@ -192,6 +199,6 @@ export async function updateWorkExperience(
 
   return {
     success: true,
-    message: "Work experience updated successfully",
+    message: t("actions.updateSuccess"),
   };
 }

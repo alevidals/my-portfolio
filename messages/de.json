@@ -91,6 +91,7 @@
     }
   },
   "profile": {
+    "title": "Profilinformationen",
     "slug": "Slug",
     "preferredPortfolio": "Bevorzugtes Portfolio",
     "previewHint": "Sieh dir eine Vorschau des Themas mit einem Beispiel unter <url></url> an",
@@ -118,6 +119,54 @@
       "intermediate": "Mittelstufe",
       "advanced": "Fortgeschritten",
       "native": "Muttersprache"
+    }
+  },
+  "workExperiences": {
+    "title": "Berufserfahrungen",
+    "filterPlaceholder": "Berufserfahrungen filtern...",
+    "table": {
+      "companyName": "Firmenname",
+      "position": "Position",
+      "description": "Beschreibung",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "actions": "Aktionen",
+      "noneFound": "Keine Berufserfahrungen gefunden.",
+      "present": "Aktuell"
+    },
+    "addDialog": {
+      "title": "Berufserfahrung hinzufügen",
+      "description": "Füge eine neue Berufserfahrung hinzu"
+    },
+    "editDialog": {
+      "title": "Berufserfahrung bearbeiten",
+      "description": "Bearbeite deine Berufserfahrung"
+    },
+    "form": {
+      "companyName": "Firmenname",
+      "position": "Position",
+      "description": "Beschreibung",
+      "startMonth": "Startmonat",
+      "startYear": "Startjahr",
+      "endMonth": "Endmonat",
+      "endYear": "Endjahr",
+      "submitAdd": "Berufserfahrung hinzufügen",
+      "submitEdit": "Berufserfahrung bearbeiten"
+    },
+    "dropdown": {
+      "label": "Aktionen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteWarning": "Diese Aktion kann nicht rückgängig gemacht werden. Die Berufserfahrung wird dauerhaft gelöscht"
+    },
+    "actions": {
+      "invalidInput": "Ungültige Eingabe",
+      "creationError": "Berufserfahrung konnte nicht erstellt werden",
+      "creationSuccess": "Berufserfahrung erfolgreich erstellt",
+      "deletionError": "Berufserfahrung konnte nicht gelöscht werden",
+      "deletionSuccess": "Berufserfahrung erfolgreich gelöscht",
+      "updateError": "Berufserfahrung konnte nicht aktualisiert werden",
+      "updateSuccess": "Berufserfahrung erfolgreich aktualisiert"
     }
   }
 }

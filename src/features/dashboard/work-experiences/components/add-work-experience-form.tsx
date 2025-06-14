@@ -14,6 +14,7 @@ import {
 } from "@/shared/components/ui/select";
 import type { getUserWorkExperiences } from "@/shared/lib/queries";
 import { getMonths, getYears } from "@/shared/lib/utils";
+import { useTranslations } from "next-intl";
 import {
   type Dispatch,
   type SetStateAction,
@@ -30,6 +31,8 @@ type Props = {
 const MONTHS = getMonths();
 
 export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
+  const t = useTranslations("workExperiences");
+
   const [state, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
       // due to shadcn select have bugs with uncontrolled components we need to
@@ -72,8 +75,8 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
   );
 
   const buttonText = workExperience
-    ? "Edit Work Experience"
-    : "Add Work Experience";
+    ? t("editDialog.title")
+    : t("addDialog.title");
 
   return (
     <form action={formAction} className="grid gap-4" id="work-experience-form">
@@ -83,8 +86,8 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         itemType="input"
         type="text"
         required
-        labelChildren="Company Name"
-        placeholder="Company Name"
+        labelChildren={t("form.companyName")}
+        placeholder={t("form.companyName")}
         defaultValue={state?.data?.companyName ?? workExperience?.companyName}
         error={state?.errors?.companyName}
       />
@@ -94,8 +97,8 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         itemType="input"
         type="text"
         required
-        labelChildren="Position"
-        placeholder="Position"
+        labelChildren={t("form.position")}
+        placeholder={t("form.position")}
         defaultValue={state?.data?.position ?? workExperience?.position}
         error={state?.errors?.position}
       />
@@ -103,8 +106,8 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         id="description"
         name="description"
         itemType="textarea"
-        labelChildren="Description"
-        placeholder="Description"
+        labelChildren={t("form.description")}
+        placeholder={t("form.description")}
         inputClassName="h-32"
         defaultValue={
           state?.data?.description ?? workExperience?.description ?? ""
@@ -112,7 +115,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         error={state?.errors?.description}
       />
       <div className="grid gap-3">
-        <Label htmlFor="startMonth">Start Month</Label>
+        <Label htmlFor="startMonth">{t("form.startMonth")}</Label>
         <Select
           name="startMonth"
           value={startMonth}
@@ -122,7 +125,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
           }}
         >
           <SelectTrigger className="w-full !h-10">
-            <SelectValue placeholder="Start Month" />
+            <SelectValue placeholder={t("form.startMonth")} />
           </SelectTrigger>
           <SelectContent id="startMonth">
             {MONTHS.map((month) => (
@@ -137,7 +140,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         )}
       </div>
       <div className="grid gap-3">
-        <Label htmlFor="startYear">Start Year</Label>
+        <Label htmlFor="startYear">{t("form.startYear")}</Label>
         <Select
           name="startYear"
           value={startYear}
@@ -148,7 +151,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
           }}
         >
           <SelectTrigger className="w-full !h-10">
-            <SelectValue placeholder="Start Year" />
+            <SelectValue placeholder={t("form.startYear")} />
           </SelectTrigger>
           <SelectContent id="startYear">
             {getYears({
@@ -166,14 +169,14 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         )}
       </div>
       <div className="grid gap-3">
-        <Label htmlFor="endMonth">End Month</Label>
+        <Label htmlFor="endMonth">{t("form.endMonth")}</Label>
         <Select
           value={endMonth}
           onValueChange={setEndMonth}
           disabled={!startMonth || !startYear}
         >
           <SelectTrigger className="w-full !h-10">
-            <SelectValue placeholder="End Month" />
+            <SelectValue placeholder={t("form.endMonth")} />
           </SelectTrigger>
           <SelectContent id="endMonth">
             {MONTHS.filter((month) => {
@@ -194,7 +197,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
         )}
       </div>
       <div className="grid gap-3">
-        <Label htmlFor="endYear">End Year</Label>
+        <Label htmlFor="endYear">{t("form.endYear")}</Label>
         <Select
           value={endYear}
           onValueChange={(value) => {
@@ -206,7 +209,7 @@ export function AddWorkExperienceForm({ workExperience, setIsOpen }: Props) {
           disabled={!startMonth || !startYear}
         >
           <SelectTrigger className="w-full !h-10">
-            <SelectValue placeholder="End Year" />
+            <SelectValue placeholder={t("form.endYear")} />
           </SelectTrigger>
           <SelectContent id="endYear">
             {getYears({
