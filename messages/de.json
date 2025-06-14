@@ -51,5 +51,73 @@
   },
   "footer": {
     "allRightsReserved": "Alle Rechte vorbehalten"
+  },
+  "header": {
+    "signIn": "Anmelden",
+    "signInWithGithubSuffix": "mit Github",
+    "language": {
+      "es": "Spanisch",
+      "en": "Englisch",
+      "fr": "Französisch",
+      "de": "Deutsch"
+    },
+    "mobileNav": {
+      "title": "Mobile Navigation",
+      "description": "Dieses Modal zeigt die mobilen Navigationslinks an."
+    },
+    "profileMenu": {
+      "label": "Mein Konto",
+      "logout": "Abmelden"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Du kannst dein Portfolio von hier aus verwalten. Klicke auf die folgenden Links, um zu den einzelnen Bereichen zu gelangen.",
+    "visitPortfolio": "Portfolio ansehen",
+    "generateCV": "Lebenslauf erstellen",
+    "copySlug": "Slug kopieren",
+    "slugCopied": "Slug in die Zwischenablage kopiert",
+    "slugCopyFailed": "Fehler beim Kopieren des Slugs",
+    "alertTitle": "Achtung!",
+    "alertDescription": "Du musst dein Profil (mindestens den Slug) ausfüllen, um es öffentlich zu machen.",
+    "fillProfileNow": "Profil jetzt ausfüllen",
+    "lightDesign": "Helles Design",
+    "darkDesign": "Dunkles Design",
+    "sections": {
+      "profile": "Profil",
+      "workExperiences": "Berufserfahrung",
+      "educations": "Ausbildung",
+      "projects": "Projekte"
+    }
+  },
+  "profile": {
+    "slug": "Slug",
+    "preferredPortfolio": "Bevorzugtes Portfolio",
+    "previewHint": "Sieh dir eine Vorschau des Themas mit einem Beispiel unter <url></url> an",
+    "choosePortfolio": "Wähle ein Portfolio",
+    "fullName": "Vollständiger Name",
+    "fullNameHelper": "Wenn kein vollständiger Name angegeben ist, wird der von deinem GitHub-Profil verwendet.",
+    "biography": "Biografie",
+    "biographyPlaceholder": "Erzähl uns etwas über dich",
+    "linkedInUrl": "LinkedIn-URL",
+    "linkedInPlaceholder": "https://www.linkedin.com/in/dein-profil",
+    "githubUrl": "GitHub-URL",
+    "githubPlaceholder": "https://www.github.com/dein-profil",
+    "xUrl": "X-URL",
+    "xPlaceholder": "https://www.x.com/dein-profil",
+    "languages": "Sprachen",
+    "language": "Sprache",
+    "languagePlaceholder": "Spanisch, Englisch, Französisch...",
+    "level": "Niveau",
+    "addLanguage": "Sprache hinzufügen",
+    "chooseLevel": "Wähle ein Niveau",
+    "save": "Speichern",
+    "levelOptions": {
+      "beginner": "Anfänger",
+      "basic": "Grundkenntnisse",
+      "intermediate": "Mittelstufe",
+      "advanced": "Fortgeschritten",
+      "native": "Muttersprache"
+    }
   }
 }

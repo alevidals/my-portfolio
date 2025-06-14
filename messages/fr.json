@@ -51,5 +51,73 @@
   },
   "footer": {
     "allRightsReserved": "Tous droits réservés"
+  },
+  "header": {
+    "signIn": "Se connecter",
+    "signInWithGithubSuffix": "avec Github",
+    "language": {
+      "es": "Espagnol",
+      "en": "Anglais",
+      "fr": "Français",
+      "de": "Allemand"
+    },
+    "mobileNav": {
+      "title": "Navigation mobile",
+      "description": "Cette fenêtre modale affiche les liens de navigation mobile."
+    },
+    "profileMenu": {
+      "label": "Mon compte",
+      "logout": "Se déconnecter"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "description": "Vous pouvez gérer votre portfolio depuis ici. Cliquez sur les liens ci-dessous pour accéder aux différentes sections.",
+    "visitPortfolio": "Voir votre portfolio",
+    "generateCV": "Générer un CV",
+    "copySlug": "Copier le Slug",
+    "slugCopied": "Slug copié dans le presse-papiers",
+    "slugCopyFailed": "Échec de la copie du slug",
+    "alertTitle": "Attention !",
+    "alertDescription": "Vous devez compléter votre profil (au moins le slug) pour le rendre public.",
+    "fillProfileNow": "Compléter le profil maintenant",
+    "lightDesign": "Design clair",
+    "darkDesign": "Design sombre",
+    "sections": {
+      "profile": "Profil",
+      "workExperiences": "Expériences professionnelles",
+      "educations": "Formations",
+      "projects": "Projets"
+    }
+  },
+  "profile": {
+    "slug": "slug",
+    "preferredPortfolio": "Portefeuille préféré",
+    "previewHint": "Voir un aperçu du thème avec un exemple sur <url></url>",
+    "choosePortfolio": "Choisir un portefeuille",
+    "fullName": "Nom complet",
+    "fullNameHelper": "Si aucun nom complet n'est fourni, celui de votre profil GitHub sera utilisé.",
+    "biography": "Biographie",
+    "biographyPlaceholder": "Parlez-nous de vous",
+    "linkedInUrl": "URL LinkedIn",
+    "linkedInPlaceholder": "https://www.linkedin.com/in/votre-profil",
+    "githubUrl": "URL GitHub",
+    "githubPlaceholder": "https://www.github.com/votre-profil",
+    "xUrl": "URL X",
+    "xPlaceholder": "https://www.x.com/votre-profil",
+    "languages": "Langues",
+    "language": "Langue",
+    "languagePlaceholder": "Espagnol, Anglais, Français...",
+    "level": "Niveau",
+    "addLanguage": "Ajouter une langue",
+    "chooseLevel": "Wähle ein Niveau",
+    "save": "Enregistrer",
+    "levelOptions": {
+      "beginner": "Débutant",
+      "basic": "Basique",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé",
+      "native": "Natif"
+    }
   }
 }

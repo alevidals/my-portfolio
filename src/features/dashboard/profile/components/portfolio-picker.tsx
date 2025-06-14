@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { IconBrush } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -22,6 +23,8 @@ export function PortfolioPicker({
   preferredPortfolio,
   setPreferredPortfolio,
 }: Props) {
+  const t = useTranslations("profile");
+
   return (
     <div className="flex flex-col gap-3">
       <Label
@@ -29,7 +32,7 @@ export function PortfolioPicker({
         className="flex items-center gap-2 text-sm "
       >
         <IconBrush size={22} />
-        <span>Preferred Portfolio</span>
+        <span>{t("preferredPortfolio")}</span>
       </Label>
       <Select
         value={preferredPortfolio}
@@ -51,14 +54,17 @@ export function PortfolioPicker({
         </SelectContent>
       </Select>
       <p className="text-sm text-muted-foreground">
-        See theme preview with an example at{" "}
-        <Link
-          href={`/portfolio/alevidals?preview=${preferredPortfolio}`}
-          className="hover:underline hover:underline-offset-4"
-          target="_blank"
-        >
-          {`${process.env.NEXT_PUBLIC_SITE_URL}/portfolio/alevidals?preview=${preferredPortfolio}`}
-        </Link>
+        {t.rich("previewHint", {
+          url: () => (
+            <Link
+              href={`/portfolio/alevidals?preview=${preferredPortfolio}`}
+              className="hover:underline hover:underline-offset-4"
+              target="_blank"
+            >
+              {`${process.env.NEXT_PUBLIC_SITE_URL}/portfolio/alevidals?preview=${preferredPortfolio}`}
+            </Link>
+          ),
+        })}
       </p>
     </div>
   );

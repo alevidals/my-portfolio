@@ -10,6 +10,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu";
 import { pdf } from "@react-pdf/renderer";
 import { IconFileCv, IconMoon, IconSun } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 
 type OpenPdfParams = {
   isDarkTheme: boolean;
@@ -20,6 +21,8 @@ type Props = {
 };
 
 export function GenerateCVButton({ data }: Props) {
+  const t = useTranslations("dashboard");
+
   async function openPdf({ isDarkTheme }: OpenPdfParams) {
     const blob = await pdf(
       <PDFDocument data={data} isDarkTheme={isDarkTheme} />,
@@ -35,7 +38,7 @@ export function GenerateCVButton({ data }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          Generate CV
+          {t("generateCV")}
           <IconFileCv size={22} />
         </Button>
       </DropdownMenuTrigger>
@@ -44,14 +47,14 @@ export function GenerateCVButton({ data }: Props) {
           onClick={() => openPdf({ isDarkTheme: false })}
           className="flex items-center justify-between gap-2"
         >
-          Light design
+          {t("lightDesign")}
           <IconSun className="h-4 w-4" />
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => openPdf({ isDarkTheme: true })}
           className="flex items-center justify-between gap-2"
         >
-          Dark design
+          {t("darkDesign")}
           <IconMoon className="h-4 w-4" />
         </DropdownMenuItem>
       </DropdownMenuContent>

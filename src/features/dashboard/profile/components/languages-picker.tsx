@@ -10,6 +10,7 @@ import {
 } from "@/shared/components/ui/select";
 import { Label } from "@radix-ui/react-label";
 import { IconLanguage, IconPlus, IconTrash } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import type { Dispatch, SetStateAction } from "react";
 import { v7 as uuidv7 } from "uuid";
 
@@ -19,6 +20,8 @@ type Props = {
 };
 
 export function LanguagesPicker({ languages, setLanguages }: Props) {
+  const t = useTranslations("profile");
+
   function addLanguage() {
     setLanguages((prev) => [
       ...prev,
@@ -40,7 +43,7 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
     <div className="flex flex-col gap-3">
       <Label className="flex items-center gap-2 text-sm">
         <IconLanguage size={22} />
-        <span>Languages</span>
+        <span>{t("languages")}</span>
       </Label>
 
       <div className="space-y-4">
@@ -54,14 +57,14 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
                 htmlFor={`language-${index}`}
                 className="block font-medium mb-1"
               >
-                Language
+                {t("language")}
               </Label>
               <Input
                 id={`language-${index}`}
                 className="h-10"
                 value={language.name}
                 onChange={(e) => updateLanguage(index, "name", e.target.value)}
-                placeholder="Spanish, English, French..."
+                placeholder={t("languagePlaceholder")}
                 required
               />
             </div>
@@ -69,23 +72,33 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
             <div>
               <Label
                 htmlFor={`level-${index}`}
-                className="block  font-medium mb-1"
+                className="block font-medium mb-1"
               >
-                Level
+                {t("level")}
               </Label>
               <Select
                 value={language.level}
                 onValueChange={(value) => updateLanguage(index, "level", value)}
               >
                 <SelectTrigger id={`level-${index}`} className="w-full !h-10">
-                  <SelectValue placeholder="Choose a level" />
+                  <SelectValue placeholder={t("chooseLevel")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="beginner">Beginner</SelectItem>
-                  <SelectItem value="basic">Basic</SelectItem>
-                  <SelectItem value="intermediate">Intermediate</SelectItem>
-                  <SelectItem value="advanced">Advanced</SelectItem>
-                  <SelectItem value="native">Native</SelectItem>
+                  <SelectItem value="beginner">
+                    {t("levelOptions.beginner")}
+                  </SelectItem>
+                  <SelectItem value="basic">
+                    {t("levelOptions.basic")}
+                  </SelectItem>
+                  <SelectItem value="intermediate">
+                    {t("levelOptions.intermediate")}
+                  </SelectItem>
+                  <SelectItem value="advanced">
+                    {t("levelOptions.advanced")}
+                  </SelectItem>
+                  <SelectItem value="native">
+                    {t("levelOptions.native")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -108,7 +121,7 @@ export function LanguagesPicker({ languages, setLanguages }: Props) {
           onClick={addLanguage}
           className="w-full"
         >
-          <IconPlus className="h-4 w-4 mr-2" /> Add Language
+          <IconPlus className="h-4 w-4 mr-2" /> {t("addLanguage")}
         </Button>
       </div>
     </div>

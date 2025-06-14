@@ -51,5 +51,73 @@
   },
   "footer": {
     "allRightsReserved": "Todos los derechos reservados"
+  },
+  "header": {
+    "signIn": "Iniciar sesión",
+    "signInWithGithubSuffix": "con Github",
+    "language": {
+      "es": "Español",
+      "en": "Inglés",
+      "fr": "Francés",
+      "de": "Alemán"
+    },
+    "mobileNav": {
+      "title": "Navegación móvil",
+      "description": "Este modal muestra los enlaces de navegación móvil."
+    },
+    "profileMenu": {
+      "label": "Mi cuenta",
+      "logout": "Cerrar sesión"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "description": "Puedes gestionar tu portafolio desde aquí. Haz clic en los enlaces de abajo para ir a las distintas secciones.",
+    "visitPortfolio": "Ver tu portafolio",
+    "generateCV": "Generar CV",
+    "copySlug": "Copiar Slug",
+    "slugCopied": "Slug copiado al portapapeles",
+    "slugCopyFailed": "Error al copiar el slug",
+    "alertTitle": "¡Atención!",
+    "alertDescription": "Necesitas completar tu perfil (al menos el slug) para hacerlo público.",
+    "fillProfileNow": "Completa el perfil ahora",
+    "lightDesign": "Diseño claro",
+    "darkDesign": "Diseño oscuro",
+    "sections": {
+      "profile": "Perfil",
+      "workExperiences": "Experiencia laboral",
+      "educations": "Educación",
+      "projects": "Proyectos"
+    }
+  },
+  "profile": {
+    "slug": "slug",
+    "preferredPortfolio": "Portafolio preferido",
+    "choosePortfolio": "Elige un portafolio",
+    "previewHint": "Mira una vista previa del tema con un ejemplo en <url></url>",
+    "fullName": "Nombre completo",
+    "fullNameHelper": "Si no se proporciona un nombre completo, se usará el de tu perfil de GitHub.",
+    "biography": "Biografía",
+    "biographyPlaceholder": "Cuéntanos sobre ti",
+    "linkedInUrl": "URL de LinkedIn",
+    "linkedInPlaceholder": "https://www.linkedin.com/in/tu-perfil",
+    "githubUrl": "URL de GitHub",
+    "githubPlaceholder": "https://www.github.com/tu-perfil",
+    "xUrl": "URL de X",
+    "xPlaceholder": "https://www.x.com/tu-perfil",
+    "languages": "Idiomas",
+    "language": "Idioma",
+    "languagePlaceholder": "Español, Inglés, Francés...",
+    "level": "Nivel",
+    "addLanguage": "Añadir idioma",
+    "chooseLevel": "Elige un nivel",
+    "save": "Guardar",
+    "levelOptions": {
+      "beginner": "Principiante",
+      "basic": "Básico",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "native": "Nativo"
+    }
   }
 }

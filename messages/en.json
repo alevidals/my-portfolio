@@ -51,5 +51,73 @@
   },
   "footer": {
     "allRightsReserved": "All rights reserved"
+  },
+  "header": {
+    "signIn": "Sign in",
+    "signInWithGithub": "Sign in with Github",
+    "language": {
+      "es": "Spanish",
+      "en": "English",
+      "fr": "French",
+      "de": "German"
+    },
+    "mobileNav": {
+      "title": "Mobile Navigation",
+      "description": "This modal shows the mobile navigation links."
+    },
+    "profileMenu": {
+      "label": "My Account",
+      "logout": "Log out"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "You can manage your portfolio from here. Click on the links below to navigate todifferent sections of your portfolio.",
+    "visitPortfolio": "Visit your portfolio",
+    "generateCV": "Generate CV",
+    "copySlug": "Copy Slug",
+    "slugCopied": "Slug copied to clipboard",
+    "slugCopyFailed": "Failed to copy slug",
+    "alertTitle": "Heads up!",
+    "alertDescription": "You need to complete your profile (at least slug) to get the public.",
+    "fillProfileNow": "Fill the profile now",
+    "lightDesign": "Light design",
+    "darkDesign": "Dark design",
+    "sections": {
+      "profile": "Profile",
+      "workExperiences": "Work Experiences",
+      "educations": "Educations",
+      "projects": "Projects"
+    }
+  },
+  "profile": {
+    "slug": "slug",
+    "preferredPortfolio": "Preferred Portfolio",
+    "previewHint": "See theme preview with an example at <url></url>",
+    "choosePortfolio": "Choose a portfolio",
+    "fullName": "Full Name",
+    "fullNameHelper": "If full name is not provided, the one in your github profile will be used.",
+    "biography": "Biography",
+    "biographyPlaceholder": "Tell us about yourself",
+    "linkedInUrl": "LinkedIn URL",
+    "linkedInPlaceholder": "https://www.linkedin.com/in/your-profile",
+    "githubUrl": "GitHub URL",
+    "githubPlaceholder": "https://www.github.com/your-profile",
+    "xUrl": "X URL",
+    "xPlaceholder": "https://www.x.com/your-profile",
+    "languages": "Languages",
+    "language": "Language",
+    "languagePlaceholder": "Spanish, English, French...",
+    "level": "Level",
+    "addLanguage": "Add Language",
+    "chooseLevel": "Choose a level",
+    "save": "Save",
+    "levelOptions": {
+      "beginner": "Beginner",
+      "basic": "Basic",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "native": "Native"
+    }
   }
 }

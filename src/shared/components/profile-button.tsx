@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import { signOut } from "@/shared/lib/auth-client";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
 
 export function ProfileButton({ userData }: Props) {
   const router = useRouter();
+  const t = useTranslations("header");
 
   const initals = userData?.name
     ? userData.name
@@ -40,10 +42,10 @@ export function ProfileButton({ userData }: Props) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("profileMenu.label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut({ router })}>
-          Log out
+          {t("profileMenu.logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

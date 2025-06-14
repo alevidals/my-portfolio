@@ -9,6 +9,7 @@ import {
 } from "@/shared/components/ui/drawer";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { IconMenu } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ type Props = {
 
 export function MobileNav({ slug }: Props) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("header");
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -27,9 +29,9 @@ export function MobileNav({ slug }: Props) {
         </Button>
       </DrawerTrigger>
       <DrawerContent className="p-0 max-h-svh">
-        <DialogTitle className="sr-only">Mobile Navigation</DialogTitle>
+        <DialogTitle className="sr-only">{t("mobileNav.title")}</DialogTitle>
         <DialogDescription className="sr-only">
-          This modal shows the mobile navigation links.
+          {t("mobileNav.description")}
         </DialogDescription>
         <div className="p-6 flex flex-col gap-4">
           <Link href="/dashboard" onClick={() => setOpen(false)}>

@@ -17,6 +17,7 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -24,20 +25,34 @@ export const metadata: Metadata = {
   description: "Manage your portfolio and CV from here",
 };
 
-const DASHBOARD_LINKS = [
-  { href: "/dashboard/profile", label: "Profile", icon: <IconUser /> },
-  {
-    href: "/dashboard/work-experiences",
-    label: "Work Experiences",
-    icon: <IconBriefcase2 />,
-  },
-  { href: "/dashboard/educations", label: "Educations", icon: <IconBook /> },
-  { href: "/dashboard/projects", label: "Projects", icon: <IconBox /> },
-];
-
 export default async function DashboardPage() {
   const slug = await getProfileSlug();
   const data = slug ? await getUserData({ slug }) : undefined;
+
+  const t = await getTranslations("dashboard");
+
+  const DASHBOARD_LINKS = [
+    {
+      href: "/dashboard/profile",
+      label: t("sections.profile"),
+      icon: <IconUser />,
+    },
+    {
+      href: "/dashboard/work-experiences",
+      label: t("sections.workExperiences"),
+      icon: <IconBriefcase2 />,
+    },
+    {
+      href: "/dashboard/educations",
+      label: t("sections.educations"),
+      icon: <IconBook />,
+    },
+    {
+      href: "/dashboard/projects",
+      label: t("sections.projects"),
+      icon: <IconBox />,
+    },
+  ];
 
   return (
     <>
@@ -51,7 +66,7 @@ export default async function DashboardPage() {
               className="flex items-center gap-2"
               target="_blank"
             >
-              Visit your portfolio
+              {t("visitPortfolio")}
               <IconExternalLink size={22} />
             </Link>
           </Button>
@@ -60,26 +75,22 @@ export default async function DashboardPage() {
       ) : (
         <Alert variant="destructive">
           <IconInfoCircle className="h-4 w-4" />
-          <AlertTitle>Heads up!</AlertTitle>
+          <AlertTitle>{t("alertTitle")}</AlertTitle>
           <AlertDescription>
             <p>
-              You need to complete your profile (at least slug) to get the
-              public.{" "}
+              {t("alertDescription")}{" "}
               <Link
                 href="/dashboard/profile"
                 className="font-medium underline underline-offset-4"
               >
-                Fill the profile now
+                {t("fillProfileNow")}
               </Link>
               .
             </p>
           </AlertDescription>
         </Alert>
       )}
-      <p className="mt-4 text-base">
-        You can manage your portfolio from here. Click on the links below to
-        navigate to different sections of your portfolio.
-      </p>
+      <p className="mt-4 text-base">{t("description")}</p>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         {DASHBOARD_LINKS.map((link) => (
           <Button key={link.href} asChild variant="link" className="text-base">

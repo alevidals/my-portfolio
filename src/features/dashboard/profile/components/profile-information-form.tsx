@@ -16,6 +16,7 @@ import {
   IconTypography,
   IconUser,
 } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
 
@@ -25,6 +26,8 @@ type Props = {
 };
 
 export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
+  const t = useTranslations("profile");
+
   const [languages, setLanguages] = useState<Language[]>(
     userLanguages?.map(
       (language): Language => ({
@@ -69,7 +72,7 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconLink size={22} />
-            <span>slug</span>
+            <span>{t("slug")}</span>
           </>
         }
         type="text"
@@ -88,10 +91,10 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconUser size={22} />
-            <span>Full Name</span>
+            <span>{t("fullName")}</span>
           </>
         }
-        helperText="If full name is not provided, the one in your github profile will be used."
+        helperText={t("fullNameHelper")}
         type="text"
         defaultValue={state?.data?.fullName ?? userProfile?.fullName ?? ""}
         placeholder="Full Name"
@@ -105,11 +108,11 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconTypography size={22} />
-            <span>Biography</span>
+            <span>{t("biography")}</span>
           </>
         }
         defaultValue={state?.data?.biography ?? userProfile?.biography ?? ""}
-        placeholder="Tell us about yourself"
+        placeholder={t("biographyPlaceholder")}
         error={state?.errors?.biography ?? ""}
       />
       <FormItem
@@ -120,13 +123,13 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconBrandLinkedin size={22} />
-            <span>LinkedIn URL</span>
+            <span>{t("linkedInUrl")}</span>
           </>
         }
         defaultValue={
           state?.data?.linkedInUrl ?? userProfile?.linkedInUrl ?? ""
         }
-        placeholder="https://www.linkedin.com/in/your-profile"
+        placeholder={t("linkedInPlaceholder")}
         error={state?.errors?.linkedInUrl ?? ""}
       />
       <FormItem
@@ -137,11 +140,11 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconBrandGithub size={22} />
-            <span>GitHub URL</span>
+            <span>{t("githubUrl")}</span>
           </>
         }
         defaultValue={state?.data?.githubUrl ?? userProfile?.githubUrl ?? ""}
-        placeholder="https://www.github.com/your-profile"
+        placeholder={t("githubPlaceholder")}
         error={state?.errors?.githubUrl ?? ""}
       />
       <FormItem
@@ -152,18 +155,18 @@ export function ProfileInformationForm({ userProfile, userLanguages }: Props) {
         labelChildren={
           <>
             <IconBrandX size={22} />
-            <span>X URL</span>
+            <span>{t("xUrl")}</span>
           </>
         }
         defaultValue={state?.data?.xUrl ?? userProfile?.xUrl ?? ""}
-        placeholder="https://www.x.com/your-profile"
+        placeholder={t("xPlaceholder")}
         error={state?.errors?.xUrl ?? ""}
       />
 
       <LanguagesPicker languages={languages} setLanguages={setLanguages} />
 
       <LoadingButton isLoading={isPending} className="mt-4 md:w-fit">
-        Save
+        {t("save")}
       </LoadingButton>
     </form>
   );
