@@ -168,5 +168,53 @@
       "updateError": "No se pudo actualizar la experiencia laboral",
       "updateSuccess": "Experiencia laboral actualizada correctamente"
     }
+  },
+  "educations": {
+    "title": "Formación académica",
+    "filterPlaceholder": "Filtrar formaciones...",
+    "table": {
+      "institution": "Institución",
+      "degree": "Título",
+      "description": "Descripción",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de finalización",
+      "actions": "Acciones",
+      "noneFound": "No se encontraron formaciones.",
+      "present": "Actualidad"
+    },
+    "addDialog": {
+      "title": "Añadir formación",
+      "description": "Añade una nueva formación"
+    },
+    "editDialog": {
+      "title": "Editar formación",
+      "description": "Edita tu formación"
+    },
+    "form": {
+      "institution": "Institución",
+      "degree": "Título",
+      "description": "Descripción",
+      "startMonth": "Mes de inicio",
+      "startYear": "Año de inicio",
+      "endMonth": "Mes de finalización",
+      "endYear": "Año de finalización",
+      "submitAdd": "Añadir formación",
+      "submitEdit": "Editar formación"
+    },
+    "dropdown": {
+      "label": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteWarning": "Esta acción no se puede deshacer. Esto eliminará permanentemente la formación"
+    },
+    "actions": {
+      "invalidInput": "Entrada no válida",
+      "creationError": "Error al crear la formación",
+      "creationSuccess": "Formación creada con éxito",
+      "deletionError": "Error al eliminar la formación",
+      "deletionSuccess": "Formación eliminada con éxito",
+      "updateError": "Error al actualizar la formación",
+      "updateSuccess": "Formación actualizada con éxito"
+    }
   }
 }

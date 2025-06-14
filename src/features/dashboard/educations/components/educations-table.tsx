@@ -15,6 +15,7 @@ import {
 } from "@/shared/components/ui/table";
 import type { getUserEducations } from "@/shared/lib/queries";
 import { formatDate } from "@/shared/lib/utils";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type Props = {
@@ -22,6 +23,8 @@ type Props = {
 };
 
 export function EducationsTable({ educations }: Props) {
+  const t = useTranslations("educations");
+
   const [filter, setFilter] = useState("");
 
   const filteredEducations = educations.filter((educations) => {
@@ -36,14 +39,14 @@ export function EducationsTable({ educations }: Props) {
     <>
       <div className="flex items-center justify-between mb-4 gap-4">
         <Input
-          placeholder="Filter educations..."
+          placeholder={t("filterPlaceholder")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-full md:w-96"
         />
         <ResponsiveAddDialog
-          title="Add Education"
-          description="Add a new education"
+          title={t("addDialog.title")}
+          description={t("addDialog.description")}
           type="add"
         >
           {({ setIsOpen }) => <AddEducationForm setIsOpen={setIsOpen} />}
@@ -54,12 +57,12 @@ export function EducationsTable({ educations }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Institution</TableHead>
-                <TableHead>Degree</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Start Date</TableHead>
-                <TableHead>End Date</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("table.institution")}</TableHead>
+                <TableHead>{t("table.degree")}</TableHead>
+                <TableHead>{t("table.description")}</TableHead>
+                <TableHead>{t("table.startDate")}</TableHead>
+                <TableHead>{t("table.endDate")}</TableHead>
+                <TableHead>{t("table.actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -87,7 +90,7 @@ export function EducationsTable({ educations }: Props) {
                             month: education.endDate.month,
                             year: education.endDate.year,
                           })
-                        : "Present"}
+                        : t("table.present")}
                     </TableCell>
                     <TableCell>
                       <EducationActionsDropdown education={education} />
@@ -97,7 +100,7 @@ export function EducationsTable({ educations }: Props) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center">
-                    No educations found.
+                    {t("table.noneFound")}
                   </TableCell>
                 </TableRow>
               )}

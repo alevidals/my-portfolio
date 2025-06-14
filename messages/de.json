@@ -168,5 +168,53 @@
       "updateError": "Berufserfahrung konnte nicht aktualisiert werden",
       "updateSuccess": "Berufserfahrung erfolgreich aktualisiert"
     }
+  },
+  "educations": {
+    "title": "Ausbildungen",
+    "filterPlaceholder": "Ausbildungen filtern...",
+    "table": {
+      "institution": "Institution",
+      "degree": "Abschluss",
+      "description": "Beschreibung",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "actions": "Aktionen",
+      "noneFound": "Keine Ausbildungen gefunden.",
+      "present": "Gegenwart"
+    },
+    "addDialog": {
+      "title": "Ausbildung hinzufügen",
+      "description": "Eine neue Ausbildung hinzufügen"
+    },
+    "editDialog": {
+      "title": "Ausbildung bearbeiten",
+      "description": "Bearbeite deine Ausbildung"
+    },
+    "form": {
+      "institution": "Institution",
+      "degree": "Abschluss",
+      "description": "Beschreibung",
+      "startMonth": "Startmonat",
+      "startYear": "Startjahr",
+      "endMonth": "Endmonat",
+      "endYear": "Endjahr",
+      "submitAdd": "Ausbildung hinzufügen",
+      "submitEdit": "Ausbildung bearbeiten"
+    },
+    "dropdown": {
+      "label": "Aktionen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteWarning": "Diese Aktion kann nicht rückgängig gemacht werden. Die Ausbildung wird dauerhaft gelöscht"
+    },
+    "actions": {
+      "invalidInput": "Ungültige Eingabe",
+      "creationError": "Fehler beim Erstellen der Ausbildung",
+      "creationSuccess": "Ausbildung erfolgreich erstellt",
+      "deletionError": "Fehler beim Löschen der Ausbildung",
+      "deletionSuccess": "Ausbildung erfolgreich gelöscht",
+      "updateError": "Fehler beim Aktualisieren der Ausbildung",
+      "updateSuccess": "Ausbildung erfolgreich aktualisiert"
+    }
   }
 }

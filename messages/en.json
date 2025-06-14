@@ -168,5 +168,53 @@
       "updateError": "Failed to update work experience",
       "updateSuccess": "Work experience updated successfully"
     }
+  },
+  "educations": {
+    "title": "Educations",
+    "filterPlaceholder": "Filter educations...",
+    "table": {
+      "institution": "Institution",
+      "degree": "Degree",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "actions": "Actions",
+      "noneFound": "No educations found.",
+      "present": "Present"
+    },
+    "addDialog": {
+      "title": "Add Education",
+      "description": "Add a new education"
+    },
+    "editDialog": {
+      "title": "Edit Education",
+      "description": "Edit your education"
+    },
+    "form": {
+      "institution": "Institution",
+      "degree": "Degree",
+      "description": "Description",
+      "startMonth": "Start Month",
+      "startYear": "Start Year",
+      "endMonth": "End Month",
+      "endYear": "End Year",
+      "submitAdd": "Add Education",
+      "submitEdit": "Edit Education"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteWarning": "This action cannot be undone. This will permanently delete the education"
+    },
+    "actions": {
+      "invalidInput": "Invalid input",
+      "creationError": "Failed to create education",
+      "creationSuccess": "Education created successfully",
+      "deletionError": "Failed to delete education",
+      "deletionSuccess": "Education deleted successfully",
+      "updateError": "Failed to update education",
+      "updateSuccess": "Education updated successfully"
+    }
   }
 }

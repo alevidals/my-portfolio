@@ -19,6 +19,7 @@ import type {
 } from "@/features/dashboard/educations/lib/types";
 import { getSession } from "@/shared/lib/auth";
 import type { ActionResponse } from "@/shared/lib/types";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -29,6 +30,8 @@ export async function insertEducation(
   const session = await getSession();
   if (!session) redirect("/");
 
+  const t = await getTranslations("educations");
+
   const data = Object.fromEntries(formData.entries()) as InsertEducationSchema;
 
   const result = insertEducationSchema.safeParse(data);
@@ -36,7 +39,7 @@ export async function insertEducation(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       errors: {
         institution: result.error.formErrors.fieldErrors.institution?.[0],
         degree: result.error.formErrors.fieldErrors.degree?.[0],
@@ -75,7 +78,7 @@ export async function insertEducation(
   if (!education) {
     return {
       success: false,
-      error: "Failed to create education",
+      error: t("actions.creationError"),
       data: result.data,
     };
   }
@@ -84,7 +87,7 @@ export async function insertEducation(
 
   return {
     success: true,
-    message: "Education created successfully",
+    message: t("actions.creationSuccess"),
   };
 }
 
@@ -95,6 +98,8 @@ export async function deleteEducation(
   const session = await getSession();
   if (!session) redirect("/");
 
+  const t = await getTranslations("educations");
+
   const data = Object.fromEntries(formData.entries()) as DeleteEducationSchema;
 
   const result = deleteEducationSchema.safeParse(data);
@@ -102,7 +107,7 @@ export async function deleteEducation(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -116,7 +121,7 @@ export async function deleteEducation(
   if (!deletedEducation) {
     return {
       success: false,
-      error: "Failed to delete education.",
+      error: t("actions.deletionError"),
       data,
     };
   }
@@ -125,7 +130,7 @@ export async function deleteEducation(
 
   return {
     success: true,
-    message: "Education deleted successfully.",
+    message: t("actions.deletionSuccess"),
   };
 }
 
@@ -136,6 +141,8 @@ export async function updateEducation(
   const session = await getSession();
   if (!session) redirect("/");
 
+  const t = await getTranslations("educations");
+
   const data = Object.fromEntries(formData.entries()) as UpdateEducationSchema;
 
   const result = updateEducationSchema.safeParse(data);
@@ -143,7 +150,7 @@ export async function updateEducation(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -174,7 +181,7 @@ export async function updateEducation(
   if (!updatedEducation) {
     return {
       success: false,
-      error: "Failed to update education",
+      error: t("actions.updateError"),
       data: result.data,
     };
   }
@@ -183,6 +190,6 @@ export async function updateEducation(
 
   return {
     success: true,
-    message: "Education updated successfully.",
+    message: t("actions.updateSuccess"),
   };
 }

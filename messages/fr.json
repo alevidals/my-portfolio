@@ -168,5 +168,53 @@
       "updateError": "Échec de la mise à jour de l'expérience professionnelle",
       "updateSuccess": "Expérience professionnelle mise à jour avec succès"
     }
+  },
+  "educations": {
+    "title": "Formations",
+    "filterPlaceholder": "Filtrer les formations...",
+    "table": {
+      "institution": "Établissement",
+      "degree": "Diplôme",
+      "description": "Description",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
+      "actions": "Actions",
+      "noneFound": "Aucune formation trouvée.",
+      "present": "Actuel"
+    },
+    "addDialog": {
+      "title": "Ajouter une formation",
+      "description": "Ajoutez une nouvelle formation"
+    },
+    "editDialog": {
+      "title": "Modifier la formation",
+      "description": "Modifiez votre formation"
+    },
+    "form": {
+      "institution": "Établissement",
+      "degree": "Diplôme",
+      "description": "Description",
+      "startMonth": "Mois de début",
+      "startYear": "Année de début",
+      "endMonth": "Mois de fin",
+      "endYear": "Année de fin",
+      "submitAdd": "Ajouter une formation",
+      "submitEdit": "Modifier la formation"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteWarning": "Cette action est irréversible. Cela supprimera définitivement la formation"
+    },
+    "actions": {
+      "invalidInput": "Entrée non valide",
+      "creationError": "Échec de la création de la formation",
+      "creationSuccess": "Formation créée avec succès",
+      "deletionError": "Échec de la suppression de la formation",
+      "deletionSuccess": "Formation supprimée avec succès",
+      "updateError": "Échec de la mise à jour de la formation",
+      "updateSuccess": "Formation mise à jour avec succès"
+    }
   }
 }
