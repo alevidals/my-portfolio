@@ -216,5 +216,66 @@
       "updateError": "Fehler beim Aktualisieren der Ausbildung",
       "updateSuccess": "Ausbildung erfolgreich aktualisiert"
     }
+  },
+  "projects": {
+    "title": "Projekte",
+    "filterPlaceholder": "Projekte filtern...",
+    "table": {
+      "name": "Name",
+      "description": "Beschreibung",
+      "technologies": "Technologien",
+      "deploymentUrl": "Bereitstellungs-URL",
+      "repositoryUrl": "Repository-URL",
+      "actions": "Aktionen",
+      "noneFound": "Keine Projekte gefunden."
+    },
+    "addDialog": {
+      "title": "Projekt hinzufügen",
+      "description": "Fügen Sie ein neues Projekt hinzu"
+    },
+    "editDialog": {
+      "title": "Projekt bearbeiten",
+      "description": "Bearbeiten Sie Ihr Projekt"
+    },
+    "form": {
+      "name": "Projektname",
+      "description": "Beschreibung",
+      "technologies": "Technologien",
+      "technologiesHelperText": "Kommagetrennte Liste der Technologien",
+      "deploymentUrl": "Bereitstellungs-URL",
+      "repositoryUrl": "Repository-URL",
+      "submitAdd": "Projekt hinzufügen",
+      "submitEdit": "Projekt bearbeiten"
+    },
+    "dropdown": {
+      "label": "Aktionen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteWarning": "Diese Aktion kann nicht rückgängig gemacht werden. Dadurch wird das Projekt dauerhaft gelöscht."
+    },
+    "actions": {
+      "invalidInput": "Ungültige Eingabe",
+      "creationError": "Fehler beim Erstellen des Projekts",
+      "creationSuccess": "Projekt erfolgreich erstellt",
+      "deletionError": "Fehler beim Löschen des Projekts",
+      "deletionSuccess": "Projekt erfolgreich gelöscht",
+      "updateError": "Fehler beim Aktualisieren des Projekts",
+      "updateSuccess": "Projekt erfolgreich aktualisiert",
+      "importSuccess": "Projekte erfolgreich importiert"
+    },
+    "importDialog": {
+      "title": "Projekte importieren",
+      "description": "Wähle Repositories zum Importieren von deinem Github-Konto aus.",
+      "filterPlaceholder": "Projekte filtern...",
+      "buttons": {
+        "import": "{count} Repositories importieren",
+        "cancel": "Abbrechen"
+      },
+      "loading": "Lädt...",
+      "errors": {
+        "fetchFailed": "Projekte konnten nicht geladen werden"
+      },
+      "emptyResults": "Keine Ergebnisse gefunden."
+    }
   }
 }

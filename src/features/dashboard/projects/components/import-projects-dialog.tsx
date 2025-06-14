@@ -26,6 +26,7 @@ import { Input } from "@/shared/components/ui/input";
 import { ScrollArea } from "@/shared/components/ui/scroll-area";
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { IconBrandGithub, IconLoader2, IconX } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
@@ -45,6 +46,8 @@ async function fetchRepositories() {
 }
 
 export function ImportProjectsDialog({ className }: Props) {
+  const t = useTranslations("projects");
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<string>("");
@@ -59,7 +62,7 @@ export function ImportProjectsDialog({ className }: Props) {
         setIsOpen(false);
         setFilter("");
         setSelectedRepositories([]);
-        toast.success("Projects imported successfully");
+        toast.success(response.message);
 
         return null;
       }
@@ -107,13 +110,13 @@ export function ImportProjectsDialog({ className }: Props) {
         <DialogTrigger asChild>
           <Button onClick={() => setIsOpen(true)} className={className}>
             <IconBrandGithub />
-            <span>Import from Github</span>
+            <span>{t("importDialog.title")}</span>
           </Button>
         </DialogTrigger>
         <DialogContent className="p-0 [&>button]:hidden gap-0 h-3/4 w-fit grid-rows-[auto_1fr]">
           <DialogHeader className="border-b px-6 py-3">
             <DialogTitle className="flex items-center justify-between">
-              <span>Import projects</span>
+              <span>{t("importDialog.title")}</span>
               <DialogClose asChild>
                 <Button
                   size="icon"
@@ -124,8 +127,8 @@ export function ImportProjectsDialog({ className }: Props) {
                 </Button>
               </DialogClose>
             </DialogTitle>
-            <DialogDescription className="">
-              Choose repositories to import from your Github account.
+            <DialogDescription>
+              {t("importDialog.description")}
             </DialogDescription>
           </DialogHeader>
 
@@ -138,7 +141,7 @@ export function ImportProjectsDialog({ className }: Props) {
 
             {shouldShowError && (
               <p className="h-full text-red-500">
-                {error.message ?? "Failed to fetch projects"}
+                {error.message ?? t("importDialog.errors.fetchFailed")}
               </p>
             )}
 
@@ -146,12 +149,12 @@ export function ImportProjectsDialog({ className }: Props) {
               <>
                 <Input
                   className="h-10 mb-4 dark:bg-transparent"
-                  placeholder="Filter projects..."
+                  placeholder={t("importDialog.filterPlaceholder")}
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
                 />
                 {filteredRepositories.length === 0 ? (
-                  <p className="h-full">No results found.</p>
+                  <p className="h-full">{t("importDialog.emptyResults")}</p>
                 ) : (
                   <ScrollArea className="h-full overflow-hidden">
                     <ImportProjectsForm
@@ -169,7 +172,11 @@ export function ImportProjectsDialog({ className }: Props) {
                   icon={<IconBrandGithub />}
                   className="mt-4 flex items-center"
                 >
-                  <span>Import {selectedRepositories.length} repositories</span>
+                  <span>
+                    {t("importDialog.buttons.import", {
+                      count: selectedRepositories.length,
+                    })}
+                  </span>
                 </LoadingButton>
               </>
             )}
@@ -184,15 +191,15 @@ export function ImportProjectsDialog({ className }: Props) {
       <DrawerTrigger asChild>
         <Button onClick={() => setIsOpen(true)} className={className}>
           <IconBrandGithub />
-          <span>Import from Github</span>
+          <span>{t("importDialog.title")}</span>
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <ScrollArea className="overflow-y-auto">
           <DrawerHeader className="text-left">
-            <DrawerTitle>Import projects</DrawerTitle>
+            <DrawerTitle>{t("importDialog.title")}</DrawerTitle>
             <DrawerDescription>
-              Choose repositories to import from your Github account.
+              {t("importDialog.description")}
             </DrawerDescription>
           </DrawerHeader>
           <div className="px-4">
@@ -218,7 +225,7 @@ export function ImportProjectsDialog({ className }: Props) {
                     onChange={(e) => setFilter(e.target.value)}
                   />
                   {filteredRepositories.length === 0 ? (
-                    <p className="h-full">No results found.</p>
+                    <p className="h-full">{t("importDialog.emptyResults")}</p>
                   ) : (
                     <ScrollArea className="h-full overflow-hidden">
                       <ImportProjectsForm
@@ -237,7 +244,9 @@ export function ImportProjectsDialog({ className }: Props) {
                     className="mt-4 flex items-center"
                   >
                     <span>
-                      Import {selectedRepositories.length} repositories
+                      {t("importDialog.buttons.import", {
+                        count: selectedRepositories.length,
+                      })}
                     </span>
                   </LoadingButton>
                 </>
@@ -246,7 +255,9 @@ export function ImportProjectsDialog({ className }: Props) {
           </div>
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">
+                {t("importDialog.buttons.cancel")}
+              </Button>
             </DrawerClose>
           </DrawerFooter>
         </ScrollArea>

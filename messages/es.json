@@ -216,5 +216,66 @@
       "updateError": "Error al actualizar la formación",
       "updateSuccess": "Formación actualizada con éxito"
     }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "filterPlaceholder": "Filtrar proyectos...",
+    "table": {
+      "name": "Nombre",
+      "description": "Descripción",
+      "technologies": "Tecnologías",
+      "deploymentUrl": "URL de despliegue",
+      "repositoryUrl": "URL del repositorio",
+      "actions": "Acciones",
+      "noneFound": "No se encontraron proyectos."
+    },
+    "addDialog": {
+      "title": "Añadir proyecto",
+      "description": "Añade un nuevo proyecto"
+    },
+    "editDialog": {
+      "title": "Editar proyecto",
+      "description": "Edita tu proyecto"
+    },
+    "form": {
+      "name": "Nombre del proyecto",
+      "description": "Descripción",
+      "technologies": "Tecnologías",
+      "technologiesHelperText": "Lista de tecnologías separadas por comas",
+      "deploymentUrl": "URL de despliegue",
+      "repositoryUrl": "URL del repositorio",
+      "submitAdd": "Añadir proyecto",
+      "submitEdit": "Editar proyecto"
+    },
+    "dropdown": {
+      "label": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteWarning": "Esta acción no se puede deshacer. Esto eliminará permanentemente el proyecto."
+    },
+    "actions": {
+      "invalidInput": "Entrada no válida",
+      "creationError": "Error al crear el proyecto",
+      "creationSuccess": "Proyecto creado con éxito",
+      "deletionError": "Error al eliminar el proyecto",
+      "deletionSuccess": "Proyecto eliminado con éxito",
+      "updateError": "Error al actualizar el proyecto",
+      "updateSuccess": "Proyecto actualizado con éxito",
+      "importSuccess": "Proyectos importados con éxito"
+    },
+    "importDialog": {
+      "title": "Importar proyectos",
+      "description": "Elige repositorios para importar desde tu cuenta de Github.",
+      "filterPlaceholder": "Filtrar proyectos...",
+      "buttons": {
+        "import": "Importar {count} repositorios",
+        "cancel": "Cancelar"
+      },
+      "loading": "Cargando...",
+      "errors": {
+        "fetchFailed": "Error al cargar proyectos"
+      },
+      "emptyResults": "No se encontraron resultados."
+    }
   }
 }

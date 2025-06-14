@@ -17,6 +17,7 @@ import {
 } from "@/shared/components/ui/table";
 import type { getUserProjects } from "@/shared/lib/queries";
 import { IconExternalLink } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type Props = {
@@ -24,6 +25,8 @@ type Props = {
 };
 
 export function ProjectsTable({ projects }: Props) {
+  const t = useTranslations("projects");
+
   const [filter, setFilter] = useState("");
 
   const filteredProjects = projects.filter((project) => {
@@ -38,7 +41,7 @@ export function ProjectsTable({ projects }: Props) {
     <>
       <div className="flex items-center justify-between mb-4 gap-4">
         <Input
-          placeholder="Filter projects..."
+          placeholder={t("filterPlaceholder")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="h-10 dark:bg-transparent w-full md:w-96"
@@ -46,8 +49,8 @@ export function ProjectsTable({ projects }: Props) {
         <div className="flex items-center gap-2">
           <ImportProjectsDialog className="hidden md:flex" />
           <ResponsiveAddDialog
-            title="Add Project"
-            description="Add a new project"
+            title={t("addDialog.title")}
+            description={t("addDialog.description")}
             type="add"
           >
             {({ setIsOpen }) => <AddProjectForm setIsOpen={setIsOpen} />}
@@ -60,12 +63,12 @@ export function ProjectsTable({ projects }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Technologies</TableHead>
-                <TableHead>Deployment URL</TableHead>
-                <TableHead>Repository URL</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("table.name")}</TableHead>
+                <TableHead>{t("table.description")}</TableHead>
+                <TableHead>{t("table.technologies")}</TableHead>
+                <TableHead>{t("table.deploymentUrl")}</TableHead>
+                <TableHead>{t("table.repositoryUrl")}</TableHead>
+                <TableHead>{t("table.actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -130,7 +133,7 @@ export function ProjectsTable({ projects }: Props) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center">
-                    No projects found
+                    {t("table.noneFound")}
                   </TableCell>
                 </TableRow>
               )}

@@ -21,6 +21,7 @@ import type {
 } from "@/features/dashboard/projects/lib/types";
 import { getSession } from "@/shared/lib/auth";
 import type { ActionResponse } from "@/shared/lib/types";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -32,6 +33,8 @@ export async function insertProject(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("projects");
+
   const data = Object.fromEntries(formData.entries()) as InsertProjectSchema;
 
   const result = insertProjectSchema.safeParse(data);
@@ -39,7 +42,7 @@ export async function insertProject(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       errors: {
         name: result.error.formErrors.fieldErrors.name?.[0],
         description: result.error.formErrors.fieldErrors.description?.[0],
@@ -74,7 +77,7 @@ export async function insertProject(
   if (!project) {
     return {
       success: false,
-      error: "Failed to create project",
+      error: t("actions.creationError"),
       data: result.data,
     };
   }
@@ -83,7 +86,7 @@ export async function insertProject(
 
   return {
     success: true,
-    message: "Project created successfully",
+    message: t("actions.creationSuccess"),
   };
 }
 
@@ -95,6 +98,8 @@ export async function importProjects(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("projects");
+
   const data = JSON.parse(formData.get("repositories") as string);
 
   const result = importProjectsSchema.safeParse(data);
@@ -102,7 +107,7 @@ export async function importProjects(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data: result.data,
     };
   }
@@ -126,7 +131,7 @@ export async function importProjects(
 
   return {
     success: true,
-    message: "Projects imported successfully",
+    message: t("actions.importSuccess"),
   };
 }
 
@@ -138,6 +143,8 @@ export async function deleteProject(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("projects");
+
   const data = Object.fromEntries(formData.entries()) as DeleteProjectSchema;
 
   const result = deleteProjectSchema.safeParse(data);
@@ -145,7 +152,7 @@ export async function deleteProject(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -159,7 +166,7 @@ export async function deleteProject(
   if (!deletedProject) {
     return {
       success: false,
-      error: "Failed to delete project",
+      error: t("actions.deletionError"),
       data,
     };
   }
@@ -168,7 +175,7 @@ export async function deleteProject(
 
   return {
     success: true,
-    message: "Project deleted successfully",
+    message: t("actions.deletionSuccess"),
   };
 }
 
@@ -180,6 +187,8 @@ export async function updateProject(
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("projects");
+
   const data = Object.fromEntries(formData.entries()) as UpdateProjectSchema;
 
   const result = updateProjectSchema.safeParse(data);
@@ -187,7 +196,7 @@ export async function updateProject(
   if (!result.success) {
     return {
       success: false,
-      error: "Invalid input",
+      error: t("actions.invalidInput"),
       data,
     };
   }
@@ -220,7 +229,7 @@ export async function updateProject(
   if (!updatedProject) {
     return {
       success: false,
-      error: "Failed to delete project",
+      error: t("actions.updateError"),
       data,
     };
   }
@@ -229,6 +238,6 @@ export async function updateProject(
 
   return {
     success: true,
-    message: "Project deleted successfully",
+    message: t("actions.updateSuccess"),
   };
 }

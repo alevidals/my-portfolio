@@ -5,6 +5,7 @@ import {
 import { FormItem } from "@/shared/components/form-item";
 import { LoadingButton } from "@/shared/components/loading-button";
 import type { getUserProjects } from "@/shared/lib/queries";
+import { useTranslations } from "next-intl";
 import { type Dispatch, type SetStateAction, useActionState } from "react";
 import { toast } from "sonner";
 
@@ -14,6 +15,8 @@ type Props = {
 };
 
 export function AddProjectForm({ project, setIsOpen }: Props) {
+  const t = useTranslations("projects");
+
   const [state, formAction, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
       const action = project ? updateProject : insertProject;
@@ -33,7 +36,7 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
     null,
   );
 
-  const buttonText = project ? "Edit Project" : "Add Project";
+  const buttonText = project ? t("editDialog.title") : t("addDialog.title");
 
   return (
     <form className="grid gap-4" id="project-form" action={formAction}>
@@ -43,8 +46,8 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
         itemType="input"
         type="text"
         required
-        labelChildren="Project Name"
-        placeholder="Project Name"
+        labelChildren={t("form.name")}
+        placeholder={t("form.name")}
         defaultValue={state?.data?.name ?? project?.name}
         error={state?.errors?.name ?? ""}
       />
@@ -52,8 +55,8 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
         id="description"
         name="description"
         itemType="textarea"
-        labelChildren="Description"
-        placeholder="Project Description"
+        labelChildren={t("form.description")}
+        placeholder={t("form.description")}
         defaultValue={state?.data?.description ?? project?.description ?? ""}
         error={state?.errors?.description ?? ""}
       />
@@ -62,9 +65,9 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
         name="technologies"
         itemType="input"
         type="text"
-        labelChildren="Techonologies"
-        helperText="Comma separated list of techonologies"
-        placeholder="JavaScript,TypeScript,etc."
+        labelChildren={t("form.technologies")}
+        helperText={t("form.technologiesHelperText")}
+        placeholder="JavaScript, TypeScript, etc."
         defaultValue={
           state?.data?.technologies ?? project?.technologies.join(",")
         }
@@ -75,7 +78,7 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
         name="deploymentUrl"
         itemType="input"
         type="url"
-        labelChildren="Deployment URL"
+        labelChildren={t("form.deploymentUrl")}
         placeholder="https://your-project.com"
         defaultValue={
           state?.data?.deploymentUrl ?? project?.deploymentUrl ?? ""
@@ -87,7 +90,7 @@ export function AddProjectForm({ project, setIsOpen }: Props) {
         name="repositoryUrl"
         itemType="input"
         type="url"
-        labelChildren="Repository URL"
+        labelChildren={t("form.repositoryUrl")}
         placeholder="https://wwww.github.com/your-project"
         defaultValue={
           state?.data?.repositoryUrl ?? project?.repositoryUrl ?? ""

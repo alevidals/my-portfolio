@@ -2,6 +2,7 @@ import { ProjectsTable } from "@/features/dashboard/projects/components/projects
 import { getSession } from "@/shared/lib/auth";
 import { getUserProjects } from "@/shared/lib/queries";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -14,11 +15,13 @@ export default async function DashboardProjectsPage() {
 
   if (!session) redirect("/");
 
+  const t = await getTranslations("projects");
+
   const projects = await getUserProjects({ userId: session.user.id });
 
   return (
     <>
-      <h1 className="text-3xl mb-4">Projects</h1>
+      <h1 className="text-3xl mb-4">{t("title")}</h1>
       <ProjectsTable projects={projects} />
     </>
   );

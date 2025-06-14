@@ -216,5 +216,66 @@
       "updateError": "Échec de la mise à jour de la formation",
       "updateSuccess": "Formation mise à jour avec succès"
     }
+  },
+  "projects": {
+    "title": "Projets",
+    "filterPlaceholder": "Filtrer les projets...",
+    "table": {
+      "name": "Nom",
+      "description": "Description",
+      "technologies": "Technologies",
+      "deploymentUrl": "URL de déploiement",
+      "repositoryUrl": "URL du dépôt",
+      "actions": "Actions",
+      "noneFound": "Aucun projet trouvé."
+    },
+    "addDialog": {
+      "title": "Ajouter un projet",
+      "description": "Ajouter un nouveau projet"
+    },
+    "editDialog": {
+      "title": "Modifier le projet",
+      "description": "Modifiez votre projet"
+    },
+    "form": {
+      "name": "Nom du projet",
+      "description": "Description",
+      "technologies": "Technologies",
+      "technologiesHelperText": "Liste des technologies séparées par des virgules",
+      "deploymentUrl": "URL de déploiement",
+      "repositoryUrl": "URL du dépôt",
+      "submitAdd": "Ajouter le projet",
+      "submitEdit": "Modifier le projet"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteWarning": "Cette action est irréversible. Cela supprimera définitivement le projet."
+    },
+    "actions": {
+      "invalidInput": "Entrée non valide",
+      "creationError": "Erreur lors de la création du projet",
+      "creationSuccess": "Projet créé avec succès",
+      "deletionError": "Erreur lors de la suppression du projet",
+      "deletionSuccess": "Projet supprimé avec succès",
+      "updateError": "Erreur lors de la mise à jour du projet",
+      "updateSuccess": "Projet mis à jour avec succès",
+      "importSuccess": "Projets importés avec succès"
+    },
+    "importDialog": {
+      "title": "Importer des projets",
+      "description": "Choisissez les dépôts à importer depuis votre compte Github.",
+      "filterPlaceholder": "Filtrer les projets...",
+      "buttons": {
+        "import": "Importer {count} dépôts",
+        "cancel": "Annuler"
+      },
+      "loading": "Chargement...",
+      "errors": {
+        "fetchFailed": "Échec du chargement des projets"
+      },
+      "emptyResults": "Aucun résultat trouvé."
+    }
   }
 }

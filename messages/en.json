@@ -216,5 +216,66 @@
       "updateError": "Failed to update education",
       "updateSuccess": "Education updated successfully"
     }
+  },
+  "projects": {
+    "title": "Projects",
+    "filterPlaceholder": "Filter projects...",
+    "table": {
+      "name": "Name",
+      "description": "Description",
+      "technologies": "Technologies",
+      "deploymentUrl": "Deployment URL",
+      "repositoryUrl": "Repository URL",
+      "actions": "Actions",
+      "noneFound": "No projects found."
+    },
+    "addDialog": {
+      "title": "Add Project",
+      "description": "Add a new project"
+    },
+    "editDialog": {
+      "title": "Edit Project",
+      "description": "Edit your project"
+    },
+    "form": {
+      "name": "Project Name",
+      "description": "Description",
+      "technologies": "Technologies",
+      "technologiesHelperText": "Comma separated list of technologies",
+      "deploymentUrl": "Deployment URL",
+      "repositoryUrl": "Repository URL",
+      "submitAdd": "Add Project",
+      "submitEdit": "Edit Project"
+    },
+    "dropdown": {
+      "label": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteWarning": "This action cannot be undone. This will permanently delete the project."
+    },
+    "actions": {
+      "invalidInput": "Invalid input",
+      "creationError": "Error creating project",
+      "creationSuccess": "Project created successfully",
+      "deletionError": "Error deleting project",
+      "deletionSuccess": "Project deleted successfully",
+      "updateError": "Error updating project",
+      "updateSuccess": "Project updated successfully",
+      "importSuccess": "Projects imported successfully"
+    },
+    "importDialog": {
+      "title": "Import projects",
+      "description": "Choose repositories to import from your Github account.",
+      "filterPlaceholder": "Filter projects...",
+      "buttons": {
+        "import": "Import {count} repositories",
+        "cancel": "Cancel"
+      },
+      "loading": "Loading...",
+      "errors": {
+        "fetchFailed": "Failed to fetch projects"
+      },
+      "emptyResults": "No results found."
+    }
   }
 }

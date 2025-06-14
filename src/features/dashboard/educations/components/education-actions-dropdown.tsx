@@ -13,6 +13,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu";
 import type { getUserEducations } from "@/shared/lib/queries";
 import { IconDots } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type Props = {
@@ -20,6 +21,8 @@ type Props = {
 };
 
 export function EducationActionsDropdown({ education }: Props) {
+  const t = useTranslations("educations");
+
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
@@ -32,20 +35,22 @@ export function EducationActionsDropdown({ education }: Props) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-neutral-950">
-          <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-bold">
+            {t("dropdown.label")}
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsOpenEdit(true)}>
-            Edit
+            {t("dropdown.edit")}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsOpenDelete(true)}>
-            Delete
+            {t("dropdown.delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ResponsiveDeleteDialog
         isOpen={isOpenDelete}
         setIsOpen={setIsOpenDelete}
-        description="This action cannot be undone. This will permanently delete the education"
+        description={t("dropdown.deleteWarning")}
         itemId={education.id}
         itemName={`${education.institution} - ${education.degree}`}
         itemFormName="educationId"
@@ -53,8 +58,8 @@ export function EducationActionsDropdown({ education }: Props) {
       />
 
       <ResponsiveAddDialog
-        title="Edit Education"
-        description="Edit your education"
+        title={t("editDialog.title")}
+        description={t("editDialog.description")}
         type="update"
         externalIsOpen={isOpenEdit}
         externalSetIsOpen={setIsOpenEdit}
